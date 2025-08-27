@@ -1,0 +1,17 @@
+@mixin md-screen {
+    @media screen and (min-width: 767px) {
+        @content;
+    }
+}
+
+@mixin lg-screen {
+    @media screen and (min-width: 1023px) {
+        @content;
+    }
+}
+
+@mixin custom-screen($width) {
+    @media screen and (min-width: #{$width}px) {
+        @content;
+    }
+}
