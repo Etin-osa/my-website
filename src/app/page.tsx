@@ -1,10 +1,22 @@
 'use client'
 
-import { cubicBezier, easeOut, motion } from "motion/react";
+import { AnimatePresence, cubicBezier, easeOut, motion } from "motion/react";
+import { useState } from "react";
+import LoadingScreen from "@/components/LoadingScreen";
 import "./page.scss";
 
+const title = [
+    ["R", "E", "P", "S", "O", "L"],
+    ["N", "A", "R", "I", "A"]
+]
+const number = [["0", "0", "1"], ["0", "0", "2"]]
+const imagelist = [
+    "/images/repsol.png",
+    "/images/naria.png"
+]
+
 export default function Home() {
-    const title = ["R", "E", "P", "S", "O", "L"];
+    const [loading, setLoading] = useState(false)
 
     const list = {
         animate: {
@@ -47,48 +59,53 @@ export default function Home() {
 
     return (
         <div className="app">
-            <div className="app-text">
-                <div className="app-text__header">
-                    <div>
-                        <div>ETIN-OSA</div>
-                        <div>ENOGIOMWAN</div>
-                        <span>FRONTEND DEVELOPER</span>
-                    </div>
+            <AnimatePresence initial={false} mode="wait">
+                {loading ? <LoadingScreen setLoading={setLoading} /> : (
+                    <motion.div key="home" className="home">
+                        <div className="home-text">
+                            <div className="home-text__header">
+                                <div>
+                                    <div>ETIN-OSA</div>
+                                    <div>ENOGIOMWAN</div>
+                                    <span>FRONTEND DEVELOPER</span>
+                                </div>
 
-                    <div>
-                        <div>CONTACT</div>
-                    </div>
-                </div>
+                                <div>
+                                    <div>CONTACT</div>
+                                </div>
+                            </div>
 
-                <div className="app-text__body">
-                    {/* <motion.ul 
-                        className="each-body" 
-                        initial="initial" 
-                        animate="animate" 
-                        variants={list}
-                    >
-                        {title.map((letter, index) => 
-                            <motion.li key={index} custom={index} variants={item}>{letter}</motion.li>
-                        )}
-                    </motion.ul> */}
-                </div>
-            </div>
+                            <div className="home-text__body">
+                                {title.map((each, index) => (
+                                    <ul className="each-body" key={index}>
+                                        {each.map((letter, index) => (
+                                            <motion.li key={index} variants={item}>
+                                                {letter}
+                                            </motion.li>
+                                        ))}
+                                    </ul>
+                                ))}
+                            </div>
+                        </div>
 
-            <div className="app-image">
-                <div className="app-image__header">
-                    <button>
-                        <span>VISIT WEBSITE</span>
-                    </button>
-                </div>
+                        <div className="home-image">
+                            <div className="home-image__header">
+                                <div className="header-button">
+                                    <span>VISIT WEBSITE</span>
+                                </div>
+                            </div>
 
-                <div className="app-image__container">
-                    <div className="each-image" />
-                </div>
+                            <div className="home-image__container">
+                                <div className="each-image" />
+                            </div>
 
-                <div className="app-image__number">
-                    <div>001</div>
-                </div>
-            </div>
+                            <div className="home-image__number">
+                                <div>001</div>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
