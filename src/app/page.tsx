@@ -1,9 +1,10 @@
 'use client'
 
 import { AnimatePresence, cubicBezier, easeOut, motion } from "motion/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LoadingScreen from "@/components/LoadingScreen";
 import "./page.scss";
+import { useRouter } from "next/navigation";
 
 const title = [
     ["R", "E", "P", "S", "O", "L"],
@@ -16,6 +17,7 @@ const imagelist = [
 ]
 
 export default function Home() {
+    const router = useRouter()
     const [loading, setLoading] = useState(false)
 
     const list = {
@@ -57,6 +59,16 @@ export default function Home() {
         }
     }
 
+    useEffect(() => {
+        setLoading(true);
+
+        const timer = setTimeout(() => {
+            router.push('/home');
+        }, 10);
+
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <div className="app">
             <AnimatePresence initial={false} mode="wait">
@@ -76,15 +88,20 @@ export default function Home() {
                             </div>
 
                             <div className="home-text__body">
-                                {title.map((each, index) => (
-                                    <ul className="each-body" key={index}>
-                                        {each.map((letter, index) => (
-                                            <motion.li key={index} variants={item}>
-                                                {letter}
-                                            </motion.li>
-                                        ))}
-                                    </ul>
-                                ))}
+                                <div className="home-text__body__inner">
+                                    {title.map((each, index) => (
+                                        <motion.ul 
+                                            className="each-body" 
+                                            key={index}
+                                        >
+                                            {each.map((letter, index) => (
+                                                <motion.li key={index} variants={item}>
+                                                    {letter}
+                                                </motion.li>
+                                            ))}
+                                        </motion.ul>
+                                    ))}
+                                </div>
                             </div>
                         </div>
 
