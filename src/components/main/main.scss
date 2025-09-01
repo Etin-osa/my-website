@@ -30,9 +30,9 @@ section {
 }
 
 section img {
-    height: 70%;
+    height: 80%;
     opacity: 1;
-    max-width: 1000px;
+    max-width: 900px;
     cursor: none;
 
     @include mixin.custom-screen(671) {
