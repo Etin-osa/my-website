@@ -1,165 +1,65 @@
-@import "./mixin.scss";
+@use "./mixin.scss";
 
 .app {
-    background-color: #111111;
+    color: white;
     overflow: hidden;
+    height: 100vh;
+    background-color: #111111;
+}
+
+.home,
+nav ul,
+footer ul {
+    display: flex;
+    justify-content: space-between;
 }
 
 .home {
-    height: 100vh;
-    width: 100vw;
     flex-direction: column;
-    color: white;
-    display: flex;
+    height: 100%;
+    height: 100%;
+    padding: .5rem;
+    font-family: "Inter", sans-serif;
 }
 
-// text section
-.home-text {
-    flex: 1.3;
-    display: flex;
-    flex-direction: column;
-    
-    &__header {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        padding: .5rem;
-    }
+.title {
+    opacity: 0;
+    text-align: center;
 
-    // Font-manila
-    &__body {
-        &__inner {
-            display: flex;
-            height: 100%;
-        }
-
-        ul.each-body {
-            display: flex;
-            list-style: none;
-            padding: 0 .5rem;
-            justify-content: center;
-            min-width: 100%;
-            flex: 1;
-
-            li {
-                font-family: "Manila", sans-serif;
-                font-size: 170px;
-                transform: scale(1.3, 2.5);
-                transform-origin: top center;
-            }
-        }
+    @include mixin.custom-screen(500) {
+        opacity: 1;
     }
 }
 
-// Image section
-.home-image {
-    flex: 1;
-    position: relative;
+/* Footer */
+footer ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 
-    &__header {
-        position: absolute;
-        bottom: 5;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 2; 
-
-        .header-button {
-            border-radius: 100%;
-            border: 2px solid #e9554f;
-            width: 200px;
-            padding: 1.7rem 0;
-            font-weight: bold;
-            background-color: #e0e0e0;
-            text-align: center;
-            
-            span {
-                font-size: 16px;
-                color: #e9554f;
-            }
-        }
+    .call-me {
+        opacity: 0;
     }
 
-    &__number {
-        position: relative;
-        text-align: right;
-        padding: 1rem .3rem;
-        width: 100%;
-        // max-width: 400px;
-        margin: 0 auto;
-
-        > div {
-            font-family: "Manila", sans-serif;
-            font-size: 80px;
-            color: #e0e20c;
-        }
-    }
-
-    &__container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
+    .counter {
         display: flex;
-        justify-content: center;
         align-items: center;
+        gap: 1rem;
+        font-size: 2rem;
 
-        .each-image {
-            height: 100%;
-            width: 100%;
-            background: 
-                linear-gradient(to right, rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), 
-                url("/images/repsol.png") center/cover;
+        &-line {
+            width: 60vw;
+            height: 2px;
+            max-width: 900px;
+            background-color: white;
         }
     }
-}
-
-
-// ------ width 1023 --------
-@include lg-screen {
-    .home {
+    
+    @include mixin.md-screen {
         flex-direction: row;
 
-        &-text,
-        &-image {
-            flex: 1
+        .call-me {
+            opacity: 1;
         }
-    }
-
-    .home-text {
-        &__body {
-            flex: 1;
-            position: relative;
-
-            &__inner {
-                position: absolute;
-                height: 50vw;
-                width: 100vh;
-                border: 3px solid red
-            }
-        }
-
-        ul.each-body {
-            flex-wrap: wrap;
-
-            li {
-                transform: scale(1.0);
-                max-height: fit-content;
-            }
-        }
-    }
-    
-    .home-image__header {
-        position: relative;
-        padding: .5rem;
-        display: flex;
-        justify-content: flex-end;
-    }
-    
-    .home-image__number {
-        position: absolute;
-        bottom: 15px;
-        right: 15px;
-        padding: 0;
     }
 }

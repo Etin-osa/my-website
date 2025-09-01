@@ -3,9 +3,11 @@ import { useMotionValue, motion, useTransform, cubicBezier, easeInOut } from "mo
 import React, { useEffect } from "react";
 
 const textStyle = {
-    fontSize: "150px",
+    fontSize: "200px",
     color: "#E1E1E1",
-    fontFamily: '"Manila", sans-serif'
+    fontFamily: '"Inter", sans-serif',
+    fontOpticalScaling: 'auto',
+    fontWeight: 700,
 }
 
 export default function LoadingScreen({ setLoading }: { 
@@ -17,7 +19,7 @@ export default function LoadingScreen({ setLoading }: {
     useEffect(() => {
         let interval: any = null
     
-        const controls = animate(count, 100, { duration: 5, ease: cubicBezier(0,.26,.05,.98) })
+        const controls = animate(count, 100, { duration: 0.1, ease: cubicBezier(0,.26,.05,.98) })
 
         controls.finished.then(() => {
             interval = setTimeout(() => {
@@ -36,7 +38,7 @@ export default function LoadingScreen({ setLoading }: {
             key="box"
             initial={{ opacity: 1, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 200, transition: { duration: 1.5, ease: easeInOut } }}
+            exit={{ opacity: 0, transition: { duration: .1, ease: easeInOut } }}
             style={{ 
                 display: "flex", 
                 alignItems: "center", 
@@ -52,7 +54,6 @@ export default function LoadingScreen({ setLoading }: {
             >
                 {rounded}
             </motion.pre>
-            <span style={textStyle}>%</span>
         </motion.div>
     );
 }

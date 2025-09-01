@@ -1,25 +1,64 @@
 'use client'
 
-import { AnimatePresence, cubicBezier, easeOut, motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useState, useEffect } from "react";
 import LoadingScreen from "@/components/LoadingScreen";
-import "./page.scss";
 import { useRouter } from "next/navigation";
-
-const title = [
-    ["R", "E", "P", "S", "O", "L"],
-    ["N", "A", "R", "I", "A"]
-]
-const number = [["0", "0", "1"], ["0", "0", "2"]]
-const imagelist = [
-    "/images/repsol.png",
-    "/images/naria.png"
-]
+import MainSection from "@/components/main/MainSection";
+import "./page.scss";
 
 export default function Home() {
     const router = useRouter()
     const [loading, setLoading] = useState(false)
+    const [currentNumber, setCurrentNumber] = useState(0)
 
+    useEffect(() => {
+        setLoading(true);
+    }, []);
+
+    return (
+        <div className="app">
+            <AnimatePresence initial={false} mode="wait">
+                {loading ? <LoadingScreen setLoading={setLoading} /> : (
+                    <motion.div key="home" className="home">
+                        <nav className="nav">
+                            <ul>
+                                <li>
+                                    <p>ETINOSA</p>
+                                    <p>ENOGIOMWAN</p>
+                                </li>
+                                <li className="title">
+                                    <p>FRONTEND DEVELOPER</p>
+                                    <p>REACT | REACT NATIVE | NEXT</p>
+                                </li>
+                                <li><p>CONTACT</p></li>
+                            </ul>
+                        </nav>
+
+                        {/* body */}
+                        <MainSection />
+
+                        {/* footer */}
+                        <footer>
+                            <ul>
+                                <li className="call-me"><p>YOU CAN CALL ME ETIN</p></li>
+                                <li className="counter">
+                                    <p>0{currentNumber}</p>
+                                    <div className="counter-line"></div>
+                                    <p>02</p>
+                                </li>
+                                <li>©2025 COPYRIGHT</li>
+                            </ul>
+                        </footer>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
+    );
+}
+
+/**
+ * 
     const list = {
         animate: {
             transition: {
@@ -59,78 +98,52 @@ export default function Home() {
         }
     }
 
-    useEffect(() => {
-        setLoading(true);
+    <motion.div key="home" className="home">
+    <div className="home-text">
+        <div className="home-text__header">
+            <div>
+                <div>ETIN-OSA</div>
+                <div>ENOGIOMWAN</div>
+                <span>FRONTEND DEVELOPER</span>
+            </div>
 
-        const timer = setTimeout(() => {
-            router.push('/home');
-        }, 10);
-
-        return () => clearTimeout(timer);
-    }, []);
-
-    return (
-        <div className="app">
-            <AnimatePresence initial={false} mode="wait">
-                {loading ? <LoadingScreen setLoading={setLoading} /> : (
-                    <motion.div key="home" className="home">
-                        <div className="home-text">
-                            <div className="home-text__header">
-                                <div>
-                                    <div>ETIN-OSA</div>
-                                    <div>ENOGIOMWAN</div>
-                                    <span>FRONTEND DEVELOPER</span>
-                                </div>
-
-                                <div>
-                                    <div>CONTACT</div>
-                                </div>
-                            </div>
-
-                            <div className="home-text__body">
-                                <div className="home-text__body__inner">
-                                    {title.map((each, index) => (
-                                        <motion.ul 
-                                            className="each-body" 
-                                            key={index}
-                                        >
-                                            {each.map((letter, index) => (
-                                                <motion.li key={index} variants={item}>
-                                                    {letter}
-                                                </motion.li>
-                                            ))}
-                                        </motion.ul>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="home-image">
-                            <div className="home-image__header">
-                                <div className="header-button">
-                                    <span>VISIT WEBSITE</span>
-                                </div>
-                            </div>
-
-                            <div className="home-image__container">
-                                <div className="each-image" />
-                            </div>
-
-                            <div className="home-image__number">
-                                <div>001</div>
-                            </div>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            <div>
+                <div>CONTACT</div>
+            </div>
         </div>
-    );
-}
 
+        <div className="home-text__body">
+            <div className="home-text__body__inner">
+                {title.map((each, index) => (
+                    <motion.ul 
+                        className="each-body" 
+                        key={index}
+                    >
+                        {each.map((letter, index) => (
+                            <motion.li key={index} variants={item}>
+                                {letter}
+                            </motion.li>
+                        ))}
+                    </motion.ul>
+                ))}
+            </div>
+        </div>
+    </div>
 
-// Animation Description
-// The animation is staggered from left to right.
-// Although the first element starts the movement they all stop moving at the same time.
-// The opacity ends before the movement completes.
+    <div className="home-image">
+        <div className="home-image__header">
+            <div className="header-button">
+                <span>VISIT WEBSITE</span>
+            </div>
+        </div>
 
-// When the next slides in.. the other text is sliding out but not completely so there is an overlap between the coming and going.
+        <div className="home-image__container">
+            <div className="each-image" />
+        </div>
+
+        <div className="home-image__number">
+            <div>001</div>
+        </div>
+    </div>
+</motion.div>
+ */
