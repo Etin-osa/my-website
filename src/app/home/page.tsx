@@ -1,12 +1,16 @@
 'use client';
 
-import React, { Ref, RefObject, useEffect, useRef, useState } from "react";
+import React, { RefObject, useEffect, useMemo, useRef, useState } from "react";
 import './home.scss'
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { PerspectiveCamera } from "@react-three/drei";
-import { TextureLoader, Vector2, DoubleSide, Mesh, ShaderMaterial, Vector3 } from "three";
+import { TextureLoader, Vector2, DoubleSide, Mesh, Vector3 } from "three";
 
 const carousel = [
+    {
+        title: "",
+        src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR42mMAAQAABQABoIJXOQAAAABJRU5ErkJggg=="
+    },
     {
         title: "MUSE",
         src: "https://images.unsplash.com/photo-1508229273697-58d781b8012b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -92,6 +96,7 @@ export default function Homepage() {
 
         window.addEventListener('resize', handleResize);
         handleResize();
+        setPosition(1)
 
         return () => {
             window.removeEventListener('resize', handleResize);
@@ -119,6 +124,11 @@ export default function Homepage() {
                                         } else {
                                             mouseX = mouseX * 1400 - 700
                                         }
+                                        
+                                        if (valuesRef.current.target === Infinity || valuesRef.current.actual === Infinity) {
+                                            valuesRef.current.target = 0
+                                            valuesRef.current.actual = 0
+                                        }
 
                                         valuesRef.current.target += Math.floor(mouseX)
                                         valuesRef.current.actual = lerp(valuesRef.current.actual, valuesRef.current.target, ease)
@@ -134,7 +144,7 @@ export default function Homepage() {
                     <div 
                         className="btn btn-left" 
                         onClick={() => {
-                            if (position === 0) return;
+                            if (position === 1) return;
                             setPosition(position - 1);
                         }}
                     >
@@ -145,7 +155,7 @@ export default function Homepage() {
                     <div 
                         className="btn btn-right" 
                         onClick={() => {
-                            if (position === 2) return;
+                            if (position === 3) return;
                             setPosition(position + 1);
                         }}
                     >
@@ -187,7 +197,14 @@ const Planes = ({ imageRefs, windowSize, valuesRef, distortImage }: {
     distortImage: () => void
 }) => {
     const meshRefs = useRef<(Mesh | null)[]>([null, null, null])
-    const shaderRefs = useRef<(ShaderMaterial | null)[]>([null, null, null])
+    const uniformList = useMemo(() => imageRefs.current.map((img) => ({
+        uTexture: {
+            value: new TextureLoader().load(img ? img.src : "")
+        },
+        uOffset: {
+            value: new Vector2(0.0, 0.0)
+        }
+    })), [])
 
     const calculatePosition = (img: HTMLImageElement) => {
         const { width, height, top, left } = img.getBoundingClientRect();
@@ -207,7 +224,7 @@ const Planes = ({ imageRefs, windowSize, valuesRef, distortImage }: {
 
     useFrame(() => {
         imageRefs.current.forEach((img, index) => {
-            if (img === null || meshRefs.current[index] === null || shaderRefs.current[index] === null) {
+            if (img === null || meshRefs.current[index] === null) {
                 return
             }
 
@@ -221,13 +238,14 @@ const Planes = ({ imageRefs, windowSize, valuesRef, distortImage }: {
 
             meshRefs.current[index].position.set(offset.x, offset.y, 0)
             meshRefs.current[index].scale.set(width, height, 1)
-            shaderRefs.current[index].uniforms.uOffset.value.set(
+
+            uniformList[index].uOffset.value = new Vector2(
                 -(valuesRef.current.target - valuesRef.current.actual) * 0.0003, offset.y * 0.0
             )
         })
     })
 
-    return imageRefs.current.map((img, index) => (
+    return imageRefs.current.map((img, index) => index > 0 && (
         <mesh 
             key={index}
             ref={el => { meshRefs.current[index] = el }}
@@ -236,19 +254,11 @@ const Planes = ({ imageRefs, windowSize, valuesRef, distortImage }: {
         >
             <planeGeometry args={[1, 1, 100, 100]} />
             <shaderMaterial
-                ref={el => { shaderRefs.current[index] = el }}
                 vertexShader={vertexShader}
                 fragmentShader={fragmentShader}
                 transparent={true}
                 side={DoubleSide}
-                uniforms={{
-                    uTexture: {
-                        value: new TextureLoader().load(img ? img.src : "")
-                    },
-                    uOffset: {
-                        value: new Vector2(0.0, 0.0)
-                    }
-                }}
+                uniforms={uniformList[index]}
             />
         </mesh>
     ))
