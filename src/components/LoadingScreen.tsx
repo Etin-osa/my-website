@@ -19,7 +19,7 @@ export default function LoadingScreen({ setLoading }: {
     useEffect(() => {
         let interval: any = null
     
-        const controls = animate(count, 100, { duration: 0.1, ease: cubicBezier(0,.26,.05,.98) })
+        const controls = animate(count, 100, { duration: 0.01, ease: cubicBezier(0,.26,.05,.98) })
 
         controls.finished.then(() => {
             interval = setTimeout(() => {

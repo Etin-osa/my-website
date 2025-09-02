@@ -1,4 +1,5 @@
 @use '../../app/mixin.scss';
+@import url('https://fonts.googleapis.com/css2?family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 main {
     position: relative;
@@ -21,7 +22,7 @@ main {
 
 section {
     position: relative;
-    min-width: 100%;
+    min-width: calc(100vw - 1.5rem);
     height: 100%;
     display: flex;
     align-items: center;
@@ -31,13 +32,11 @@ section {
 
 section img {
     height: 80%;
-    opacity: 1;
+    width: 100%;
+    opacity: 0;
     max-width: 900px;
     cursor: none;
-
-    @include mixin.custom-screen(671) {
-        opacity: 0;
-    }
+    object-fit: cover;
 }
 
 
@@ -53,14 +52,13 @@ section img.leave {
 section div {
     position: absolute;
     top: 47%;
-    overflow: hidden;
     pointer-events: none;
+    overflow: hidden;
 }
 
 section div h1 {
-    font-size: 340px;
-    font-weight: 900;
-    line-height: .75;
+    font-size: 250px;
+    font-family: "Inter", sans-serif;
     animation-timing-function: ease;
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
@@ -83,13 +81,46 @@ img.complete {
 
 .arrows {
     position: absolute;
-    top: 40%;
-    left: 80%;
-    cursor: pointer;
+    bottom: 0%;
     z-index: 4;
+    border: 1px solid rgba(255, 255, 255, 0.575);
+    border-radius: 100vh;
+    width: 70px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &.arrow-right {
-        left: 85%;
+        right: 2%;
+        transform: translateY(-50%) rotate(45deg);
+    }
+
+    &.arrow-left {
+        left: 2%;
+        transform: translateY(-50%) rotate(-135deg);
+    }
+
+    @include mixin.lg-screen {
+        top: 50%;
+
+        &.arrow-right {
+            right: 10%;
+        }
+
+        &.arrow-left {
+            left: 10%;
+        }
+    }
+
+    @include mixin.custom-screen(1300) {
+        &.arrow-right {
+            right: 15%;
+        }
+
+        &.arrow-left {
+            left: 15%;
+        }
     }
 }
 

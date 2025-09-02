@@ -2,6 +2,8 @@ import React, { RefObject, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three"
 import { Canvas, useFrame } from "@react-three/fiber";
 import { PerspectiveCamera } from "@react-three/drei";
+import { AnimatePresence, motion } from "motion/react";
+import Image from "next/image";
 import './main.scss'
 
 const carousel = [
@@ -10,11 +12,11 @@ const carousel = [
         src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR42mMAAQAABQABoIJXOQAAAABJRU5ErkJggg=="
     },
     {
-        title: "MUSE",
+        title: "REPSOL",
         src: "https://images.unsplash.com/photo-1508229273697-58d781b8012b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
-        title: "HUGO",
+        title: "NARIA",
         src: "https://images.unsplash.com/photo-1475870434835-a633fd526088?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
@@ -26,6 +28,7 @@ const carousel = [
 const vertexShader = `
     uniform sampler2D uTexture;
     uniform vec2 uOffset;
+    uniform float uTime;
     varying vec2 vUv;
 
     #define M_PI 3.1415926535897932384626433832795
@@ -39,6 +42,8 @@ const vertexShader = `
     void main() {
         vUv = uv;
         vec3 newPosition = deformationCurve(position, uv, uOffset);
+        float animationSpeed = newPosition.x + (uTime * 0.2);
+        newPosition.y += sin(animationSpeed * 8.0) * 0.02;
         gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
     }
 `
@@ -59,7 +64,11 @@ const fragmentShader = `
     }
 `
 
-export default function MainSection() {
+export default function MainSection({ setCurrentNumber, setInImage, setInLink }: { 
+    setCurrentNumber: React.Dispatch<React.SetStateAction<number>> 
+    setInImage: React.Dispatch<React.SetStateAction<boolean>> 
+    setInLink: React.Dispatch<React.SetStateAction<boolean>> 
+}) {
     const carouselRef = useRef<HTMLDivElement>(null);
     const sectionRef = useRef<HTMLTableSectionElement | null>(null)
     const imageRefs = useRef<(HTMLImageElement | null)[]>([null, null, null]);
@@ -136,6 +145,8 @@ export default function MainSection() {
                                     valuesRef.current.target += Math.floor(mouseX)
                                     valuesRef.current.actual = lerp(valuesRef.current.actual, valuesRef.current.target, ease)
                                 }}
+                                onMouseEnter={() => setInImage(true)}
+                                onMouseLeave={() => setInImage(false)}
                             />
                             <div><h1 className={index === position ? "enter" : "leave"}>{item.title}</h1></div>
                         </section>
@@ -143,24 +154,53 @@ export default function MainSection() {
                 </div>
             </div>
 
-            <div 
-                className="arrows arrow-left"
-                onClick={() => {
-                    if (position === 1) return;
-                    setPosition(position - 1);
-                }}
-            >
-                Left
-            </div>
-            <div 
-                className="arrows arrow-right"
-                onClick={() => {
-                    if (position === 3) return;
-                    setPosition(position + 1);
-                }}
-            >
-                Right
-            </div>
+            <AnimatePresence>
+                {position > 1 &&
+                    <motion.div 
+                        key="left"
+                        className="arrows arrow-left"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1, transition: { duration: 4.0 }  }}
+                        exit={{ opacity: 0, transition: { duration: 1.0 } }}
+                        onClick={() => {
+                            if (position === 1) return;
+                            const newPosition = position - 1
+                            setPosition(newPosition);
+                            setCurrentNumber(newPosition)
+                            setInLink(false)
+                        }}
+                        onMouseEnter={() => setInLink(true)}
+                        onMouseLeave={() => setInLink(false)}
+                    >
+                        <Image 
+                            src={"/images/arrow.svg"} 
+                            width={20} 
+                            height={20} alt=""
+                        />
+                    </motion.div>
+                }
+
+                {position < 3 &&
+                    <motion.div
+                        key="right"
+                        className="arrows arrow-right"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1, transition: { duration: 4.0 }  }}
+                        exit={{ opacity: 0, transition: { duration: 1.0 },  }} 
+                        onClick={() => {
+                            if (position === 3) return;
+                            const newPosition = position + 1
+                            setPosition(newPosition);
+                            setCurrentNumber(newPosition)
+                            setInLink(false)
+                        }}
+                        onMouseEnter={() => setInLink(true)}
+                        onMouseLeave={() => setInLink(false)}
+                    >
+                        <Image src={"/images/arrow.svg"} width={20} height={20} alt="" />
+                    </motion.div>
+                }
+            </AnimatePresence>
 
             <div className="canvas" style={{ position: 'absolute', top: '0', left: '0', height: '100%', width: '100%' }}>
                 <Canvas>
@@ -200,11 +240,14 @@ const Plane = ({ imageRef, windowSize, distortImage, valuesRef }: {
         },
         uOffset: {
             value: new THREE.Vector2(0.0, 0.0)
+        },
+        uTime: {
+            value: 0
         }
     }), [])
     const { width, height, top, left } = imageRef.getBoundingClientRect();
     
-    useFrame(() => {
+    useFrame(({ clock }) => {
         if (ref.current === null) {
             return
         }
@@ -224,6 +267,7 @@ const Plane = ({ imageRef, windowSize, distortImage, valuesRef }: {
         uniforms.uOffset.value = new THREE.Vector2(
             -(valuesRef.current.target - valuesRef.current.actual) * 0.0003, offset.y * 0.0
         )
+        uniforms.uTime.value = clock.getElapsedTime()
     })
 
     return (

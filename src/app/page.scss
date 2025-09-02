@@ -5,6 +5,7 @@
     overflow: hidden;
     height: 100vh;
     background-color: #111111;
+    cursor: none;
 }
 
 .home,
@@ -12,6 +13,39 @@ nav ul,
 footer ul {
     display: flex;
     justify-content: space-between;
+    z-index: 2;
+    position: relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    cursor: none;
+}
+
+.nav-link {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+
+    div {
+        width: 100px;
+        height: 2px;
+        border-radius: 100px;
+        background: white;
+        opacity: 0;
+    }
+
+    @include mixin.md-screen {
+        flex-direction: row;
+        height: 100%;
+        align-items: center;
+        gap: 20px;
+
+        div {
+            opacity: 1;
+        }
+    }
 }
 
 .home {
@@ -29,6 +63,24 @@ footer ul {
     @include mixin.custom-screen(500) {
         opacity: 1;
     }
+}
+
+.circle {
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(226, 226, 226);
+    border-radius: 100vh;
+    transition: all .2s linear;
+}
+
+.circle.link {
+    width: 80px;
+    height: 80px;
+    border: 1px solid white;
+    background-color: transparent;
 }
 
 /* Footer */
@@ -57,6 +109,7 @@ footer ul {
     
     @include mixin.md-screen {
         flex-direction: row;
+        align-items: flex-end;
 
         .call-me {
             opacity: 1;
