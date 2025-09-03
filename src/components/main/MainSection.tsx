@@ -64,10 +64,10 @@ const fragmentShader = `
     }
 `
 
-export default function MainSection({ setCurrentNumber, setInImage, setInLink }: { 
-    setCurrentNumber: React.Dispatch<React.SetStateAction<number>> 
-    setInImage: React.Dispatch<React.SetStateAction<boolean>> 
-    setInLink: React.Dispatch<React.SetStateAction<boolean>> 
+export default function MainSection({ setCurrentNumber, handleMouseLinkInteractions, mouseRef }: { 
+    setCurrentNumber: React.Dispatch<React.SetStateAction<number>>
+    mouseRef: RefObject<HTMLDivElement | null> 
+    handleMouseLinkInteractions: (enterorleave: "enter" | "leave") => void
 }) {
     const carouselRef = useRef<HTMLDivElement>(null);
     const sectionRef = useRef<HTMLTableSectionElement | null>(null)
@@ -122,7 +122,7 @@ export default function MainSection({ setCurrentNumber, setInImage, setInLink }:
                             key={index}
                             ref={sectionRef}
                         >
-                            <img 
+                            <motion.img 
                                 ref={el => { imageRefs.current[index] = el }}
                                 src={item.src} 
                                 className={index === position ? "enter" : "leave"} alt="" 
@@ -144,9 +144,18 @@ export default function MainSection({ setCurrentNumber, setInImage, setInLink }:
 
                                     valuesRef.current.target += Math.floor(mouseX)
                                     valuesRef.current.actual = lerp(valuesRef.current.actual, valuesRef.current.target, ease)
+
+                                    if (!mouseRef.current) return;
+                                    mouseRef.current.style.backgroundColor = 'transparent'
+                                    mouseRef.current.style.backgroundColor = 'transparent'
+                                    mouseRef.current.style.width = '150px'
+                                    mouseRef.current.style.height = '150px',
+                                    mouseRef.current.style.border = '1px solid #FFF'
+                                    mouseRef.current.style.zIndex = '2',
+                                    mouseRef.current.style.pointerEvents = 'none'
+                                    mouseRef.current.innerHTML = `<span>VISIT WEBSITE</span>`
                                 }}
-                                onMouseEnter={() => setInImage(true)}
-                                onMouseLeave={() => setInImage(false)}
+                                onMouseLeave={() => handleMouseLinkInteractions("leave")}
                             />
                             <div><h1 className={index === position ? "enter" : "leave"}>{item.title}</h1></div>
                         </section>
@@ -167,10 +176,9 @@ export default function MainSection({ setCurrentNumber, setInImage, setInLink }:
                             const newPosition = position - 1
                             setPosition(newPosition);
                             setCurrentNumber(newPosition)
-                            setInLink(false)
                         }}
-                        onMouseEnter={() => setInLink(true)}
-                        onMouseLeave={() => setInLink(false)}
+                        onMouseMove={() => handleMouseLinkInteractions("enter")}
+                        onMouseLeave={() => handleMouseLinkInteractions("leave")}
                     >
                         <Image 
                             src={"/images/arrow.svg"} 
@@ -192,10 +200,9 @@ export default function MainSection({ setCurrentNumber, setInImage, setInLink }:
                             const newPosition = position + 1
                             setPosition(newPosition);
                             setCurrentNumber(newPosition)
-                            setInLink(false)
                         }}
-                        onMouseEnter={() => setInLink(true)}
-                        onMouseLeave={() => setInLink(false)}
+                        onMouseMove={() => handleMouseLinkInteractions("enter")}
+                        onMouseLeave={() => handleMouseLinkInteractions("leave")}
                     >
                         <Image src={"/images/arrow.svg"} width={20} height={20} alt="" />
                     </motion.div>

@@ -1,61 +1,76 @@
 'use client'
 
-import { AnimatePresence, motion } from "motion/react";
-import { useState, useRef, useEffect } from "react";
+import { AnimatePresence, motion, useMotionValue, useSpring } from "motion/react";
+import { useState, useEffect, useRef } from "react";
 import LoadingScreen from "@/components/LoadingScreen";
 import MainSection from "@/components/main/MainSection";
 import "./page.scss";
 
 export default function Home() {
     const mouseRef = useRef<HTMLDivElement | null>(null)
+    const mouseX = useMotionValue(0)
+    const mouseY = useMotionValue(0)
+    const mouseOpacity = useMotionValue(1)
     const [loading, setLoading] = useState(true)
     const [currentNumber, setCurrentNumber] = useState(1)
-    const [inImage, setInImage] = useState(false)
-    const [inLink, setInLink] = useState(false)
 
-    const handleMousemove = (e: any) => requestAnimationFrame(() => {
-        if (!mouseRef.current) {
-            return;
+    const springX = useSpring(mouseX, {
+        stiffness: 250,
+        damping: 30,
+        mass: 0.5,
+    });
+    const springY = useSpring(mouseY, {
+        stiffness: 250,
+        damping: 30,
+        mass: 0.5,
+    });
+
+    const handleMousemove = (e: any) => {
+        if (window.innerWidth > 1366 && mouseRef.current) {
+            mouseX.set(e.clientX - 10)
+            mouseY.set(e.clientY - 10)
+            mouseRef.current.style.opacity = '1'
         }
+    }
 
-        if (window.innerWidth > 1365) {
-            if (inImage) {
-                mouseRef.current.style.opacity = '0'
-            } else {
-                mouseRef.current.style.opacity = '1'
-            }
-            mouseRef.current.style.transform = `scale(1) translate(${e.clientX - 10}px, ${e.clientY - 10}px)`
+    const handleMouseLinkInteractions = (enterorleave: "enter" | "leave") => {
+        if (!mouseRef.current) return;
+
+        if (enterorleave === "leave") {
+            mouseRef.current.style.backgroundColor = '#fff'
+            mouseRef.current.style.width = '20px'
+            mouseRef.current.style.height = '20px',
+            mouseRef.current.style.border = 'none'
+            mouseRef.current.style.zIndex = '0'
+            mouseRef.current.innerHTML = ``
+        } else {
+            mouseRef.current.style.backgroundColor = 'transparent'
+            mouseRef.current.style.width = '80px'
+            mouseRef.current.style.height = '80px',
+            mouseRef.current.style.border = '1px solid #FFF'
+            mouseRef.current.style.zIndex = '0'
         }
-    })
-
-    const handleMouseleave = () => {
-        if (!mouseRef.current) {
-            return;
-        }
-
-        mouseRef.current.style.opacity = '0'
     }
 
     useEffect(() => {
-        if (mouseRef.current) {
-            if (inLink && !mouseRef.current.classList.contains("link")) {
-                mouseRef.current.classList.add("link")
-            } else if (!inLink && mouseRef.current.classList.contains("link")) {
-                mouseRef.current.classList.remove("link")
-            }
+        window.addEventListener('mousemove', handleMousemove)
+        
+        return () => {
+            window.removeEventListener('mousemove', handleMousemove)
         }
-    }, [inLink])
+    }, [])
 
     return (
-        <div 
-            className="app"
-            onMouseMove={handleMousemove}
-            onMouseLeave={handleMouseleave}
-        >
-            <AnimatePresence initial={false} mode="wait">
+        <div className="app">
+            <AnimatePresence>
                 {loading ? <LoadingScreen setLoading={setLoading} /> : (
                     <motion.div key="home" className="home">
-                        <motion.nav className="nav">
+                        <motion.nav 
+                            initial={{ opacity: 0}}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 2 }}
+                            className="nav"
+                        >
                             <ul>
                                 <li>
                                     <p>ETINOSA</p>
@@ -67,16 +82,14 @@ export default function Home() {
                                 <li className="nav-link">
                                     <a 
                                         href="https://www.linkedin.com/in/etin-osa02/" target="blank"
-                                        onMouseEnter={() => {
-                                            console.log("kdj")
-                                            setInLink(true)}}
-                                        onMouseLeave={() => setInLink(false)}
+                                        onMouseMove={() => handleMouseLinkInteractions("enter")}
+                                        onMouseLeave={() => handleMouseLinkInteractions("leave")}
                                     >LINKEDIN</a>
                                     <div />
                                     <a 
                                         href="https://github.com/Etin-osa" target="blank"
-                                        onMouseEnter={() => setInLink(true)}
-                                        onMouseLeave={() => setInLink(false)}
+                                        onMouseMove={() => handleMouseLinkInteractions("enter")}
+                                        onMouseLeave={() => handleMouseLinkInteractions("leave")}
                                     >GITHUB</a>
                                 </li>
                             </ul>
@@ -84,11 +97,15 @@ export default function Home() {
 
                         <MainSection 
                             setCurrentNumber={setCurrentNumber} 
-                            setInImage={setInImage}
-                            setInLink={setInLink}
+                            mouseRef={mouseRef}
+                            handleMouseLinkInteractions={handleMouseLinkInteractions}
                         />
 
-                        <motion.footer>
+                        <motion.footer
+                            initial={{ opacity: 0}}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 2 }}
+                        >
                             <ul>
                                 <li className="call-me"><p>Call me ETIN</p></li>
                                 <li className="counter">
@@ -101,9 +118,18 @@ export default function Home() {
                         </motion.footer>
                     </motion.div>
                 )}
-            </AnimatePresence>
 
-            {!loading && <div ref={mouseRef} className="circle"></div>}
+                {!loading &&
+                    <motion.div 
+                        key={"mouse"} 
+                        ref={mouseRef}
+                        className="circle"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        style={{ x: springX, y: springY }}
+                    ></motion.div>
+                }
+            </AnimatePresence>
         </div>
     );
 }
