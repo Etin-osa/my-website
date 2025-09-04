@@ -10,7 +10,6 @@ export default function Home() {
     const mouseRef = useRef<HTMLDivElement | null>(null)
     const mouseX = useMotionValue(0)
     const mouseY = useMotionValue(0)
-    const mouseOpacity = useMotionValue(1)
     const [loading, setLoading] = useState(true)
     const [currentNumber, setCurrentNumber] = useState(1)
 
@@ -26,29 +25,29 @@ export default function Home() {
     });
 
     const handleMousemove = (e: any) => {
-        if (window.innerWidth > 1366 && mouseRef.current) {
-            mouseX.set(e.clientX - 10)
-            mouseY.set(e.clientY - 10)
+        if (window.innerWidth > 1000 && mouseRef.current) {
+            mouseX.set(e.clientX + 10)
+            mouseY.set(e.clientY + 10)
             mouseRef.current.style.opacity = '1'
         }
     }
 
     const handleMouseLinkInteractions = (enterorleave: "enter" | "leave") => {
-        if (!mouseRef.current) return;
-
-        if (enterorleave === "leave") {
-            mouseRef.current.style.backgroundColor = '#fff'
-            mouseRef.current.style.width = '20px'
-            mouseRef.current.style.height = '20px',
-            mouseRef.current.style.border = 'none'
-            mouseRef.current.style.zIndex = '0'
-            mouseRef.current.innerHTML = ``
-        } else {
-            mouseRef.current.style.backgroundColor = 'transparent'
-            mouseRef.current.style.width = '80px'
-            mouseRef.current.style.height = '80px',
-            mouseRef.current.style.border = '1px solid #FFF'
-            mouseRef.current.style.zIndex = '0'
+        if (window.innerWidth > 1000 && mouseRef.current) {
+            if (enterorleave === "leave") {
+                mouseRef.current.style.backgroundColor = '#fff'
+                mouseRef.current.style.width = '20px'
+                mouseRef.current.style.height = '20px',
+                mouseRef.current.style.border = 'none'
+                mouseRef.current.style.zIndex = '0'
+                mouseRef.current.innerHTML = ``
+            } else {
+                mouseRef.current.style.backgroundColor = 'transparent'
+                mouseRef.current.style.width = '80px'
+                mouseRef.current.style.height = '80px',
+                mouseRef.current.style.border = '1px solid #FFF'
+                mouseRef.current.style.zIndex = '0'
+            }
         }
     }
 
@@ -111,9 +110,9 @@ export default function Home() {
                                 <li className="counter">
                                     <p>0{currentNumber}</p>
                                     <div className="counter-line"></div>
-                                    <p>03</p>
+                                    <p>02</p>
                                 </li>
-                                <li>©2025 COPYRIGHT</li>
+                                <li><p>©2025 COPYRIGHT</p></li>
                             </ul>
                         </motion.footer>
                     </motion.div>

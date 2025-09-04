@@ -1,5 +1,4 @@
 @use '../../app/mixin.scss';
-@import url('https://fonts.googleapis.com/css2?family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 main {
     position: relative;
@@ -53,18 +52,28 @@ section img.leave {
 
 section div {
     position: absolute;
-    top: 47%;
+    top: 57%;
     pointer-events: none;
     overflow: hidden;
 }
 
 section div h1 {
-    font-size: 250px;
-    font-family: "Inter", sans-serif;
+    font-size: 22vw;
+    font-family: "Charm", cursive;
+    font-weight: 800;
+    font-style: normal;
     animation-timing-function: ease;
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
     letter-spacing: 15px;
+    color: #6d7aff;
+    background-image: linear-gradient(to right, #6d7aff, #3741ad);
+    background-clip: text;
+    color: transparent;
+
+    @include mixin.lg-screen {
+        font-size: 205px;
+    }
 }
 
 section div h1.enter {
@@ -81,9 +90,30 @@ img.complete {
     transform: scale(1);
 }
 
+main .go-to {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: auto;
+    padding-bottom: .1rem;
+    border-bottom: 1px solid white;
+    letter-spacing: 1;
+    z-index: 2;
+
+    span {
+        color: white;
+        text-decoration: none;
+    }
+
+    @include mixin.custom-screen(1000) {
+        display: none;
+    }
+}
+
 .arrows {
     position: absolute;
-    bottom: 0%;
+    bottom: 5px;
     z-index: 4;
     border: 1px solid rgba(255, 255, 255, 0.575);
     border-radius: 100vh;
@@ -95,17 +125,29 @@ img.complete {
 
     &.arrow-right {
         right: 2%;
-        transform: translateY(-50%) rotate(45deg);
+        transform: rotate(45deg);
     }
 
     &.arrow-left {
         left: 2%;
-        transform: translateY(-50%) rotate(-135deg);
+        transform: rotate(-135deg);
     }
 
     @include mixin.lg-screen {
         top: 50%;
 
+        &.arrow-right {
+            right: 5%;
+            transform: translate(-50%) rotate(45deg);
+        }
+        
+        &.arrow-left {
+            left: 5%;
+            transform: translate(-50%) rotate(-135deg);
+        }
+    }
+
+    @include mixin.custom-screen(1300) {
         &.arrow-right {
             right: 10%;
         }
@@ -115,7 +157,7 @@ img.complete {
         }
     }
 
-    @include mixin.custom-screen(1300) {
+    @include mixin.custom-screen(1500) {
         &.arrow-right {
             right: 15%;
         }

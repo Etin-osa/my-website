@@ -2,14 +2,6 @@ import { animate } from "motion";
 import { useMotionValue, motion, useTransform, cubicBezier, easeInOut } from "motion/react";
 import React, { useEffect } from "react";
 
-const textStyle = {
-    fontSize: "200px",
-    color: "#E1E1E1",
-    fontFamily: '"Inter", sans-serif',
-    fontOpticalScaling: 'auto',
-    fontWeight: 700,
-}
-
 export default function LoadingScreen({ setLoading }: { 
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }) {
@@ -19,7 +11,7 @@ export default function LoadingScreen({ setLoading }: {
     useEffect(() => {
         let interval: any = null
     
-        const controls = animate(count, 100, { duration: 1, ease: cubicBezier(0,.26,.05,.98) })
+        const controls = animate(count, 100, { duration: 5, ease: cubicBezier(0,.26,.05,.98) })
 
         controls.finished.then(() => {
             interval = setTimeout(() => {
@@ -48,10 +40,7 @@ export default function LoadingScreen({ setLoading }: {
                 backgroundColor: "#111111"
             }}
         >
-            <motion.pre 
-                className="loading-text"
-                style={textStyle}
-            >
+            <motion.pre className="loading-text">
                 {rounded}
             </motion.pre>
         </motion.div>

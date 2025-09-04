@@ -12,17 +12,13 @@ const carousel = [
         src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR42mMAAQAABQABoIJXOQAAAABJRU5ErkJggg=="
     },
     {
-        title: "REPSOL",
-        src: "https://images.unsplash.com/photo-1508229273697-58d781b8012b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    },
-    {
         title: "NARIA",
-        src: "https://images.unsplash.com/photo-1475870434835-a633fd526088?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        src: "/images/naria.png"
     },
     {
-        title: "MORE",
-        src: "https://images.unsplash.com/photo-1504022462188-88f023db97bf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    }
+        title: "REPSOL",
+        src: "/images/repsol.png"
+    },
 ]
 
 const vertexShader = `
@@ -91,6 +87,49 @@ export default function MainSection({ setCurrentNumber, handleMouseLinkInteracti
         valuesRef.current.actual = lerp(valuesRef.current.actual, valuesRef.current.target, ease)
     }
 
+    const handleImageMouseEvent = (clientX: number) => {
+        let mouseX = (clientX / windowSize.width)
+
+        if (windowSize.width > 1600) {
+            mouseX = mouseX * 3000 - 1500
+        } else if  (windowSize.width > 1300) {
+            mouseX = mouseX * 1700 - 850
+        } else {
+            mouseX = mouseX * 1400 - 700
+        }
+        
+        if (valuesRef.current.target === Infinity || valuesRef.current.actual === Infinity) {
+            valuesRef.current.target = 0
+            valuesRef.current.actual = 0
+        }
+
+        valuesRef.current.target += Math.floor(mouseX)
+        valuesRef.current.actual = lerp(valuesRef.current.actual, valuesRef.current.target, ease)
+
+        if (mouseRef.current && windowSize.width > 1000) {
+            mouseRef.current.style.backgroundColor = 'transparent'
+            mouseRef.current.style.width = '150px'
+            mouseRef.current.style.height = '150px',
+            mouseRef.current.style.border = 'none',
+            mouseRef.current.style.zIndex = '2',
+            mouseRef.current.style.pointerEvents = 'none'
+            mouseRef.current.innerHTML = `<span>VISIT WEBSITE</span>`
+        }
+    }
+
+    const goToWebsite = () => {        
+        if (position === 1) {
+            window.open("https://bdabarcelona.naria.digital/#/", "blank")
+        }
+
+        if (position === 2) {
+            window.open(
+                "https://www.repsol.es/particulares/buscador/#q=repsol&t=particulares&numberOfResults=12",
+                "blank"
+            )
+        }
+    }
+
     useEffect(() => {
         if (carouselRef.current && sectionRef.current) {
             carouselRef.current.style.transform = `
@@ -122,46 +161,22 @@ export default function MainSection({ setCurrentNumber, handleMouseLinkInteracti
                             key={index}
                             ref={sectionRef}
                         >
-                            <motion.img 
+                            <motion.img
                                 ref={el => { imageRefs.current[index] = el }}
                                 src={item.src} 
                                 className={index === position ? "enter" : "leave"} alt="" 
-                                onMouseMove={(e) => {
-                                    let mouseX = (e.clientX / windowSize.width)
-
-                                    if (windowSize.width > 1600) {
-                                        mouseX = mouseX * 3000 - 1500
-                                    } else if  (windowSize.width > 1300) {
-                                        mouseX = mouseX * 1700 - 850
-                                    } else {
-                                        mouseX = mouseX * 1400 - 700
-                                    }
-                                    
-                                    if (valuesRef.current.target === Infinity || valuesRef.current.actual === Infinity) {
-                                        valuesRef.current.target = 0
-                                        valuesRef.current.actual = 0
-                                    }
-
-                                    valuesRef.current.target += Math.floor(mouseX)
-                                    valuesRef.current.actual = lerp(valuesRef.current.actual, valuesRef.current.target, ease)
-
-                                    if (!mouseRef.current) return;
-                                    mouseRef.current.style.backgroundColor = 'transparent'
-                                    mouseRef.current.style.backgroundColor = 'transparent'
-                                    mouseRef.current.style.width = '150px'
-                                    mouseRef.current.style.height = '150px',
-                                    mouseRef.current.style.border = '1px solid #FFF'
-                                    mouseRef.current.style.zIndex = '2',
-                                    mouseRef.current.style.pointerEvents = 'none'
-                                    mouseRef.current.innerHTML = `<span>VISIT WEBSITE</span>`
-                                }}
+                                onMouseMove={(e) => handleImageMouseEvent(e.clientX)}
+                                onTouchMove={(e) => handleImageMouseEvent(e.touches[0].clientX)}
                                 onMouseLeave={() => handleMouseLinkInteractions("leave")}
+                                onClick={goToWebsite}
                             />
                             <div><h1 className={index === position ? "enter" : "leave"}>{item.title}</h1></div>
                         </section>
                     ))}
                 </div>
             </div>
+
+            <div className="go-to" onClick={goToWebsite}><span>VISIT WEBSITE</span></div>
 
             <AnimatePresence>
                 {position > 1 &&
@@ -188,7 +203,7 @@ export default function MainSection({ setCurrentNumber, handleMouseLinkInteracti
                     </motion.div>
                 }
 
-                {position < 3 &&
+                {position < 2 &&
                     <motion.div
                         key="right"
                         className="arrows arrow-right"
@@ -196,7 +211,7 @@ export default function MainSection({ setCurrentNumber, handleMouseLinkInteracti
                         animate={{ opacity: 1, transition: { duration: 4.0 }  }}
                         exit={{ opacity: 0, transition: { duration: 1.0 },  }} 
                         onClick={() => {
-                            if (position === 3) return;
+                            if (position === 2) return;
                             const newPosition = position + 1
                             setPosition(newPosition);
                             setCurrentNumber(newPosition)

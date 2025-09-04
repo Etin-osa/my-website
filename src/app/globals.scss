@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@use './mixin.scss';
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Noto+Sans+JP:wght@100..900&display=swap');
 
 * {
     margin: 0;
@@ -8,10 +8,18 @@
     font-family: "Geist", sans-serif;
 }
 
-body {
-    overflow: hidden;
-}
-
 ul, li {
     list-style: none;
+}
+
+.loading-text {
+    font-size: 100px;
+    color: #EEEEEE;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 600;
+    letter-spacing: 5;
+
+    @include mixin.md-screen {
+        font-size: 170px;
+    }
 }
