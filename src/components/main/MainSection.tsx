@@ -12,12 +12,12 @@ const carousel = [
         src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR42mMAAQAABQABoIJXOQAAAABJRU5ErkJggg=="
     },
     {
-        title: "NARIA",
-        src: "/images/naria.png"
-    },
-    {
         title: "REPSOL",
         src: "/images/repsol.png"
+    },
+    {
+        title: "NARIA",
+        src: "/images/naria.png"
     },
 ]
 
@@ -303,13 +303,13 @@ const Plane = ({ imageRef, windowSize, distortImage, valuesRef }: {
             scale={[width, height, 1]}
         >
             <planeGeometry args={[1, 1, 100, 100]} />
-                <shaderMaterial
-                    vertexShader={vertexShader}
-                    fragmentShader={fragmentShader}
-                    transparent={true}
-                    side={THREE.DoubleSide}
-                    uniforms={uniforms}
-                />
+            <shaderMaterial
+                vertexShader={vertexShader}
+                fragmentShader={fragmentShader}
+                transparent={true}
+                side={THREE.DoubleSide}
+                uniforms={uniforms}
+            />
         </mesh>
     )
 }

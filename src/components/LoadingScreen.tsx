@@ -9,7 +9,7 @@ export default function LoadingScreen({ setLoading }: {
     const rounded = useTransform(() => Math.round(count.get()))
 
     useEffect(() => {
-        let interval: any = null
+        let interval: ReturnType<typeof setTimeout> | null = null
     
         const controls = animate(count, 100, { duration: 5, ease: cubicBezier(0,.26,.05,.98) })
 
@@ -21,7 +21,9 @@ export default function LoadingScreen({ setLoading }: {
 
         return () => {
             controls.stop()
-            clearTimeout(interval)
+            if (interval !== null) {
+                clearTimeout(interval)
+            }
         }
     }, [])
 

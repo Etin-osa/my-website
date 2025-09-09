@@ -24,7 +24,7 @@ export default function Home() {
         mass: 0.5,
     });
 
-    const handleMousemove = (e: any) => {
+    const handleMousemove = (e: MouseEvent) => {
         if (window.innerWidth > 1000 && mouseRef.current) {
             mouseX.set(e.clientX + 10)
             mouseY.set(e.clientY + 10)
