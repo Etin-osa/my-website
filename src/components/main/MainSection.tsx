@@ -119,14 +119,14 @@ export default function MainSection({ setCurrentNumber, handleMouseLinkInteracti
 
     const goToWebsite = () => {        
         if (position === 1) {
-            window.open("https://bdabarcelona.naria.digital/#/", "blank")
-        }
-
-        if (position === 2) {
             window.open(
                 "https://www.repsol.es/particulares/buscador/#q=repsol&t=particulares&numberOfResults=12",
                 "blank"
             )
+        }
+        
+        if (position === 2) {
+            window.open("https://bdabarcelona.naria.digital/#/", "blank")
         }
     }
 
