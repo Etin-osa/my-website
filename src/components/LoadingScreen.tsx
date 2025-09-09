@@ -11,7 +11,7 @@ export default function LoadingScreen({ setLoading }: {
     useEffect(() => {
         let interval: ReturnType<typeof setTimeout> | null = null
     
-        const controls = animate(count, 100, { duration: 5, ease: cubicBezier(0,.26,.05,.98) })
+        const controls = animate(count, 100, { duration: 3, ease: cubicBezier(0,.26,.05,.98) })
 
         controls.finished.then(() => {
             interval = setTimeout(() => {
