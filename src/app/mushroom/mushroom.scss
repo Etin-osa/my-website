@@ -1,0 +1,126 @@
+@use '../mixin.scss';
+
+.app {
+    position: relative;
+}
+
+nav {
+    position: fixed;
+    width: 100%;
+    padding: 2rem;
+
+    ul, li, li > div {
+        display: flex;
+    }
+    
+    ul {
+        width: 100%;
+        justify-content: space-between;
+
+        .nav-text {
+            display: none;
+        }
+
+        .nav-link {
+            gap: 1.5rem;
+        }
+    }
+}
+
+.absolute-icon {
+    position: absolute;
+    opacity: 0;
+}
+
+
+
+/* Home page */
+main section {
+    height: 100vh;
+    width: 100%;
+    // border: 1px solid red;
+}
+
+.home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 50px;
+
+    &-body {
+        display: flex;
+        padding: 1rem;
+        padding-left: 1.5rem;
+        gap: 1.5rem;
+
+        > p {
+            font-size: 1.3rem;
+            font-weight: bold;
+            position: relative;
+            
+            span {
+                position: absolute;
+                top: 4px;
+                left: -8px;
+                font-size: .7rem;
+            }
+        }
+
+        &__paragraph p {
+            margin-bottom: 3rem;
+        }
+    }
+}
+
+// Perspective
+.perspective {
+    height: 16vw;
+    perspective: 200px;
+
+    &-child {
+        height: 16vw;
+        transform-style: preserve-3d;
+        transform: translateZ(-8vw);
+
+        &:hover {
+            animation: spinCube 1s infinite ease-in-out;
+        }
+        
+        h1 {
+            font-size: 19.3vw;
+            height: 16vw;
+            line-height: 15vw;
+        }
+
+        .bottom {
+            background: white;
+            transform: rotateX(-90deg) translateZ(-8vw);
+        }
+
+        .top {
+            background: white;
+            transform: translateZ(8vw);
+        }
+    }
+}
+
+// Button
+.preorder-button {
+    padding: .6rem 1rem;
+    border: 2px solid #111111;
+    display: flex;
+    align-items: center;
+    width: 150px;
+    justify-content: space-between;
+}
+
+/* Footer */
+footer {
+    width: 50%;
+    overflow: hidden;
+}
+
+@keyframes spinCube {
+    0% { transform: translateZ(-8vw) rotateX(  0deg); }
+    100% { transform: translateZ(-8vw) rotateX(90deg); }
+}

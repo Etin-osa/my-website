@@ -1,7 +1,7 @@
 import React, { RefObject, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three"
 import { Canvas, useFrame } from "@react-three/fiber";
-import { PerspectiveCamera } from "@react-three/drei";
+import { PerspectiveCamera, Preload } from "@react-three/drei";
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import './main.scss'
@@ -243,6 +243,7 @@ export default function MainSection({ setCurrentNumber, handleMouseLinkInteracti
                             valuesRef={valuesRef}
                         />
                     )}
+                    <Preload all />
                 </Canvas>
             </div>
         </main>
