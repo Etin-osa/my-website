@@ -1,8 +1,11 @@
 @use './mixin.scss' as mixin;
 
 main.nav {
+    position: fixed;
+    width: 100%;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-
+    z-index: 5;
+    background-color: white;
 }
 
 nav {
@@ -143,6 +146,10 @@ nav {
 
 .mobile-menu {
     padding: 1.7rem 1rem .7rem 1rem;
+
+    @include mixin.lg-screen {
+        padding: 1.7rem 24px .7rem 24px;
+    }
     
     .nav-list {
         display: flex;
@@ -156,8 +163,13 @@ nav {
             a {
                 text-decoration: none;
                 color: inherit;
-                font-size: 2rem;
-                font-weight: 500;
+                font-size: 36px;
+                font-weight: 600;
+                font-family: var(--font-inter-display);
+
+                @include mixin.md-screen {
+                    font-size: 42px;
+                }
             }
         }
     }

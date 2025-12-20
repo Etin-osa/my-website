@@ -2,12 +2,55 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cactus+Classical+Serif&display=swap');
 
+@font-face {
+    font-family: 'Inter Display';
+    src: url('/fonts/InterDisplay-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter Display';
+    src: url('/fonts/InterDisplay-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter Display';
+    src: url('/fonts/InterDisplay-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter Display';
+    src: url('/fonts/InterDisplay-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter Display';
+    src: url('/fonts/InterDisplay-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter Display';
+    src: url('/fonts/InterDisplay-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
 :root {
     --gray-bg: rgb(242, 242, 242);
     --gray-text: rgb(105, 105, 105);
     --gray-light: rgb(136, 136, 136);
     --font-cactus: 'Cactus Classical Serif', serif;
     --font-inter: "Inter", sans-serif;
+    --font-inter-display: 'Inter Display', sans-serif;
     --black-bg: rgb(15, 15, 15);
 }
 
@@ -20,6 +63,27 @@
 
 ul, li {
     list-style: none;
+}
+
+.ios-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--black-bg);
+    color: var(--gray-bg);
+    border: none;
+    padding: 12px 18px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    width: fit-content;
+    gap: .5rem;
+
+    &:hover {
+        transform: scale(1.02);
+    }
 }
 
 .loading-text {
