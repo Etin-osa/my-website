@@ -1,0 +1,173 @@
+@use './mixin.scss' as mixin;
+
+main.nav {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 1rem;
+    max-width: 1600px;
+    margin: 0 auto;
+
+    @include mixin.lg-screen {
+        padding: 12px 24px;
+    }
+
+    .nav-title {
+        font-family: var(--font-cactus);
+        font-size: 2rem;
+        line-height: .7;
+        transform: translateY(-1);
+        
+        @include mixin.lg-screen {
+            font-size: 2.3rem;
+            transform: translateY(-3);
+        }
+    }
+
+    .nav-left {
+        display: flex;
+        align-items: center;
+        gap: .7rem;
+
+        .nav-time {
+            padding: .3rem .8rem;
+            background-color: var(--gray-bg);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: .3rem;
+            
+            span {
+                color: var(--gray-text);
+            }
+        }
+    }
+
+    .nav-right {
+        display: flex;
+        align-items: center;
+
+        .nav-list {
+            display: none;
+            list-style: none;
+            gap: 1rem;
+            margin: 0;
+            padding: 0;
+
+            .nav-item {
+                a {
+                    text-decoration: none;
+                    color: inherit;
+                    font-weight: 500;
+                }
+
+                &.contact {
+                    background-color: var(--gray-bg);
+                    padding: .4rem 1rem;
+                    border-radius: 5rem;
+                }
+            }
+
+            @include mixin.custom-screen(1200) {
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        .nav-icon {
+            display: block;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+
+            button {
+                background: none;
+                border: none;
+                cursor: pointer;
+            }
+
+            @include mixin.custom-screen(1200) {
+                display: none;
+            }
+        }
+    }    
+}
+
+.nav-availability {
+    background: var(--gray-bg);
+    padding: .3rem;
+    border-radius: 4px;
+    display: none;
+    width: 260px;
+
+    @include mixin.custom-screen(809) {
+        display: block;
+    }
+
+    &__inner {
+        display: flex;
+        overflow: hidden;
+        width: 100%;
+        mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 3%, rgb(0, 0, 0) 22.5%, rgb(0, 0, 0) 77.5%, rgba(0, 0, 0, 0) 97%);
+
+        div {
+            white-space: nowrap;
+            padding-right: 0.5rem;
+            animation: loop 12s linear infinite;
+
+            span:nth-child(2) {
+                color: var(--gray-text);
+            }
+
+            span:nth-child(1) {
+                font-weight: 500;
+            }
+        }
+    }
+
+    &.mobile-availability {
+        display: flex;
+        width: 100%;
+        margin-top: 1rem;
+
+        @include mixin.custom-screen(809) {
+            display: none;
+        }
+    }
+}
+
+.mobile-menu {
+    padding: 1.7rem 1rem .7rem 1rem;
+    
+    .nav-list {
+        display: flex;
+        flex-direction: column;
+        gap: .8rem;
+        list-style: none;
+        padding: 0;
+        padding-bottom: .5rem;
+        
+        .nav-item {
+            a {
+                text-decoration: none;
+                color: inherit;
+                font-size: 2rem;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+@keyframes loop {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}

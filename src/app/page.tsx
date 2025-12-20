@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useMotionValue, useSpring } from "motion/react
 import { useState, useEffect, useRef } from "react";
 import LoadingScreen from "@/components/LoadingScreen";
 import MainSection from "@/components/main/MainSection";
-import "./page.scss";
+import "@/styles/page.scss";
 
 export default function Home() {
     const mouseRef = useRef<HTMLDivElement | null>(null)
