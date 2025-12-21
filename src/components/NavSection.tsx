@@ -1,10 +1,12 @@
-import { useTransitionRouter } from "next-view-transitions";
+'use client';
+
 import React, { useState, useEffect } from "react";
 import { MdOutlineAccessTime } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { TfiClose } from "react-icons/tfi";
 import { AnimatePresence, motion } from "motion/react";
 import '@/styles/nav.scss'
+import useViewTransition from "@/hooks/useViewTransition";
 
 interface NavAvailabilityProps {
     count: number;
@@ -12,7 +14,7 @@ interface NavAvailabilityProps {
 }
 
 export default function NavSection() {
-    const router = useTransitionRouter() 
+    const { routeTo } = useViewTransition()
     const [time, setTime] = useState<Date | null>(null);
     const [is24Hour, setIs24Hour] = useState(true);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,37 +36,14 @@ export default function NavSection() {
         });
     }; 
 
-    function slideInOut() {
-        document.documentElement.animate(
-            [
-                { transform: 'translateY(0vh)' },
-                { transform: 'translateY(-100vh)' },
-            ],
-            {
-                duration: 700,
-                easing: 'cubic-bezier(.07,.51,.18,.91)',
-                pseudoElement: '::view-transition-old(root)',
-            }
-        )
-
-        document.documentElement.animate(
-            [
-                { transform: 'translateY(100vh)' },
-                { transform: 'translateY(0vh)' },
-            ],
-            {
-                duration: 700,
-                easing: 'cubic-bezier(.07,.51,.18,.91)',
-                pseudoElement: '::view-transition-new(root)',
-            }
-        )
-    }
-
     return (
         <main className="nav">
             <nav>
                 <section className="nav-left">
-                    <div className="nav-title">ETIN</div>
+                    <div className="nav-title"><a href="/new" onClick={(e) => {
+                        e.preventDefault()
+                        routeTo("/new")
+                    }}>ETIN</a></div>
                     <NavAvailability count={2} />
                     <div 
                         className="nav-time" 
@@ -78,13 +57,16 @@ export default function NavSection() {
                 <section className="nav-right">
                     <ul className="nav-list">
                         <li className="nav-item">
-                            <a href="">About</a></li>
-                        <li className="nav-item">
-                            <a href="">Projects</a></li>
+                            <a href="/new">About</a></li>
                         <li className="nav-item">
                             <a href="">Services</a></li>
+                        <li className="nav-item">
+                            <a href="">Skills</a></li>
                         <li className="nav-item contact">
-                            <a href="">Contact</a></li>
+                            <a href="" onClick={(e) => {
+                                e.preventDefault()
+                                routeTo("/contact")
+                            }}>Contact</a></li>
                     </ul>
 
                     <div className="nav-icon">

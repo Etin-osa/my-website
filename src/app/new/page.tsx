@@ -11,6 +11,7 @@ import { TbBrandReactNative } from "react-icons/tb";
 
 import '@/styles/new.scss';
 import FooterSection from "@/components/FooterSection";
+import useViewTransition from "@/hooks/useViewTransition";
 
 const skills1 = [
     { name: "React", icon: <FaReact /> },
@@ -40,6 +41,7 @@ const skills2 = [
 
 
 export default function Homepage() {
+    const { routeTo } = useViewTransition()
     const gridRef = useRef<HTMLDivElement>(null);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
     const [isHovered, setIsHovered] = useState(-1);
@@ -106,6 +108,7 @@ export default function Homepage() {
                                 className="project-image-placeholder" 
                                 onMouseEnter={() => setIsHovered(ind)}
                                 onMouseLeave={() => setIsHovered(-1)}
+                                onClick={() => routeTo('/project')}
                             >
                                 {/* Image goes here */}
                             </div>
@@ -151,7 +154,7 @@ export default function Homepage() {
                 </div>
             </section>
 
-            <section className="about-section">
+            <section id="about" className="about-section">
                 <div className="about-header">
                     <span className="gray-text">[01]</span> Who am i
                 </div>

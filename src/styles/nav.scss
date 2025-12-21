@@ -20,11 +20,13 @@ nav {
         padding: 12px 24px;
     }
 
-    .nav-title {
+    .nav-title a {
         font-family: var(--font-cactus);
         font-size: 2rem;
         line-height: .7;
         transform: translateY(-1);
+        text-decoration: none;
+        color: var(--black-bg);
         
         @include mixin.lg-screen {
             font-size: 2.3rem;
@@ -73,6 +75,10 @@ nav {
                     background-color: var(--gray-bg);
                     padding: .4rem 1rem;
                     border-radius: 5rem;
+
+                    &:hover {
+                        background-color: var(--gray-text-light);
+                    }
                 }
             }
 
