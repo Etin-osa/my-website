@@ -3,7 +3,7 @@
 main.nav {
     position: fixed;
     width: 100%;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    @include mixin.border-light;
     z-index: 5;
     background-color: white;
 }

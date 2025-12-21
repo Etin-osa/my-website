@@ -1,0 +1,201 @@
+@use './mixin.scss' as mixin;
+
+.footer-section {
+    padding: 8px;
+    background-color: #fff;
+
+    .footer-bg {
+        background-color: #000;
+        color: #fff;
+        border-radius: 12px;
+        padding: 6rem 0 0 0;
+        
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .footer-cta {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 0 1rem 4.5rem 1rem;
+            @include mixin.border-light;
+            border-color: rgba(255, 255, 255, 0.15); // Override for visibility on black bg
+
+            @include mixin.custom-screen(1200) {
+                padding-bottom: 6rem;
+            }
+
+            .footer-images {
+                display: flex;
+                align-items: center;
+                
+                .footer-img-wrapper {
+                    position: relative;
+                    
+                    &:nth-child(2) {
+                        margin-left: -15px;
+                    }
+
+                    .footer-img {
+                        border-radius: 12px;
+                        border: 2px solid #fff;
+                        filter: grayscale(100%);
+                        object-fit: cover;
+                        width: 50px;
+                        height: 50px;
+                    }
+
+                    &:nth-child(1) {
+                        transform: rotate(4deg);
+                    }
+
+                    &:nth-child(2) {
+                        transform: rotate(-4deg);
+                    }
+                }
+            }
+
+            .footer-title {
+                font-size: 2.5rem;
+                line-height: 1.1;
+                font-family: var(--font-inter-display);
+                font-weight: 500;
+                letter-spacing: -1px;
+                max-width: 320px;
+
+                // @include mixin.md-screen {
+                //     font-size: 3.5rem;
+                // }
+
+                // @include mixin.lg-screen {
+                //     font-size: 4.5rem;
+                //     letter-spacing: -2px;
+                // }
+            }
+
+            .footer-btn-wrapper {
+                .footer-btn {
+                    background-color: #fff;
+                    color: #000;
+                    border: none;
+                    
+                    &:hover {
+                        background-color: rgba(255, 255, 255, 0.9);
+                    }
+                }
+            }
+        }
+
+        .footer-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 4rem 1rem 0 1rem;
+            font-family: var(--font-inter);
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+
+            @include mixin.lg-screen {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+            }
+
+            .footer-social {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                flex-wrap: wrap;
+                color: #fff;
+                font-size: 1.125rem;
+
+                .icon-box {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 32px;
+                    height: 32px;
+                    background-color: rgba(255, 255, 255, 0.1);
+                    border-radius: 8px;
+                    color: #fff;
+                    font-size: 0.9rem;
+                    cursor: pointer;
+                    transition: background-color 0.2s;
+
+                    &:hover {
+                        background-color: rgba(255, 255, 255, 0.2);
+                    }
+                }
+            }
+
+            .footer-credits {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+
+                @include mixin.lg-screen {
+                    text-align: right;
+                    align-items: flex-end;
+                    flex-direction: row;
+                    gap: 4rem;
+                }
+
+                a {
+                    color: #fff;
+                    text-decoration: none;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+                    font-size: 1.125rem;
+
+                    &:hover {
+                        border-bottom-color: #fff;
+                    }
+                }
+            }
+        }
+
+        .footer-big-text {
+            overflow: hidden;
+            height: 400px;
+            position: relative;
+
+            @include mixin.lg-screen {
+                height: 500px;
+            }
+
+            div {
+                position: absolute;
+                left: 50%;
+                width: max-content;
+                bottom: 0;
+                transform: translateX(-50%);
+
+                h1 {
+                    font-size: 27vw;
+                    font-family: var(--font-inter);
+                    font-weight: 600;
+                    color: rgba(255, 255, 255, 0.336);
+                    transform: translateY(25%);
+    
+                    @include mixin.custom-screen(1200) {
+                        font-size: 28rem;
+                    }
+                }
+            }
+
+            // line-height: 0.8;
+            // margin-top: 4rem;
+            // transform: translateY(40%);
+            // white-space: nowrap;
+            // color: #fff;
+            // pointer-events: none;
+            // user-select: none;
+            
+            // @include mixin.lg-screen {
+            //     font-size: 16vw;
+            //     margin-top: 2rem;
+            // }
+        }
+    }
+}
