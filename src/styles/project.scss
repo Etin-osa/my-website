@@ -297,7 +297,6 @@
                 display: flex;
                 flex-direction: column;
                 gap: 1rem;
-                cursor: pointer;
 
                 @include mixin.lg-screen {
                     padding: 2rem
@@ -323,12 +322,6 @@
                     
                     .grid-img {
                         object-fit: contain;
-                    }
-                }
-
-                &:hover {
-                    .image-wrapper {
-                        transform: scale(1.05);
                     }
                 }
             }
