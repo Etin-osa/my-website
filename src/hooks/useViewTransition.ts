@@ -32,7 +32,14 @@ export default function useViewTransition() {
     }
 
     return { 
-        routeTo: (url: string) => transitionRouter.push(url, { onTransitionReady: slideInOut }),
+        routeTo: (url: string, query?: Record<string, string | number>) => {
+            if (query) {
+                const params = new URLSearchParams();
+                Object.entries(query).forEach(([key, value]) => params.append(key, String(value)));
+                url = `${url}?${params.toString()}`;
+            }
+            transitionRouter.push(url, { onTransitionReady: slideInOut });
+        },
         prefetch: (url: string) => router.prefetch(url)
     };
 }

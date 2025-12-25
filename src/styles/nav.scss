@@ -19,10 +19,8 @@ nav {
     @include mixin.lg-screen {
         padding: 12px 24px;
     }
+    @include mixin.no-padding-fullscreen;
 
-    @include mixin.custom-screen(1610) {
-        padding: 12px 0;
-    }
 
     .nav-title div {
         font-family: var(--font-cactus);

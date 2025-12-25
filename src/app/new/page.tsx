@@ -58,21 +58,25 @@ const projects = [
     {
         id: 1,
         name: "Repsol.ES",
+        key: 'es',
         year: "2024",
     },
     {
         id: 2,
         name: "Repsol.Com",
+        key: 'com',
         year: "2025",
     },
     {
         id: 3,
         name: "Lubricantes",
+        key: 'lubricantes',
         year: "2025",
     },
     {
         id: 4,
         name: "Repsol.PT",
+        key: 'pt',
         year: "2025",
     }
 ];
@@ -128,7 +132,7 @@ export default function Homepage() {
                         <div 
                             className="project-text-item" 
                             key={item.id}
-                            onClick={() => routeTo('/project')}
+                            onClick={() => routeTo('/project', { id: item.key })}
                         >
                             <span className="project-year">{item.year}</span>
                             <h2 className="project-title">{item.name}</h2>

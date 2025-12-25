@@ -20,3 +20,10 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
+@mixin no-padding-fullscreen {
+    @include custom-screen(1610) {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+

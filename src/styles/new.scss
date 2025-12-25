@@ -13,6 +13,8 @@
         max-width: 1600px;
     }
 
+    @include mixin.no-padding-fullscreen;
+
     .hero-content {
         display: flex;
         flex-direction: column;
@@ -180,12 +182,14 @@
 
 .projects-section {
     padding: 4rem 1rem;
-    
+    @include mixin.border-light;
+
     @include mixin.custom-screen(1200) {
         padding: 4rem 24px;
         max-width: 1600px;
         margin: 0 auto;
     }
+    @include mixin.no-padding-fullscreen;
 
     .projects-header {
         display: flex;
@@ -199,11 +203,19 @@
             font-weight: 500;
             font-family: var(--font-inter-display);
             letter-spacing: -0.5;
+
+            @include mixin.custom-screen(810) {
+                font-size: 2rem;
+            }
         }
 
         span:nth-child(2) {
             font-size: 1.125rem;
             color: var(--gray-text);
+
+            @include mixin.custom-screen(810) {
+                font-size: 1.25rem;
+            }
         }
     }
 
@@ -238,7 +250,7 @@
             }
 
             .project-title {
-                font-size: clamp(4.5rem, 14vw, 13rem);
+                font-size: clamp(4.8rem, 14vw, 13rem);
                 font-family: var(--font-inter-display);
                 font-weight: 700;
                 letter-spacing: -0.07em;
@@ -289,16 +301,18 @@
 }
 
 .about-section {
-    padding: 0 1rem 4rem 1rem;
+    padding: 4rem 1rem 4rem 1rem;
     max-width: 1600px;
     margin: 0 auto;
     @include mixin.border-light;
 
     @include mixin.custom-screen(1200) {
-        padding: 0 2rem 8rem 24px;
+        padding: 4rem 2rem 8rem 24px;
         display: flex;
         justify-content: space-between;
     }
+
+    @include mixin.no-padding-fullscreen;
 
     .about-header {
         font-size: 1.125rem;
@@ -400,6 +414,8 @@
         justify-content: space-between;
         gap: 4rem;
     }
+
+    @include mixin.no-padding-fullscreen;
 
     .services-header {
         font-size: 1.125rem;
@@ -525,6 +541,8 @@
         justify-content: space-between;
         gap: 4rem;
     }
+
+    @include mixin.no-padding-fullscreen;
 
     .skills-header {
         font-size: 1.125rem;
