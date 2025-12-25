@@ -8,6 +8,70 @@ import { BsBoxArrowUpRight } from "react-icons/bs";
 
 import '@/styles/project.scss';
 import useViewTransition from "@/hooks/useViewTransition";
+import Image from "next/image";
+
+// Repsol com
+// const images = [
+//     '/images/repsol_com_laptop.png',
+//     '/images/repsol_com_tablet.png',
+//     '/images/repsol_com_mobile.png',
+// ]
+
+// const gridImages = [
+//     { src: '/images/repsol_com_old_card.png', label: 'Old Card' },
+//     { src: '/images/repsol_com_new_card.png', label: 'New Card' },
+//     { src: '/images/repsol_com_old_mobile.png', label: 'Old Mobile 404' },
+//     { src: '/images/repsol_com_new_mobile.png', label: 'New Mobile 404' },
+// ]
+
+// --------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------
+
+// Lubricantes Repsol Project
+// const images = [
+//     '/images/repsol_lubricantes_laptop.png',
+//     '/images/repsol_lubricantes_tablet.png',
+//     '/images/repsol_lubricantes_mobile.png',
+// ]
+
+// const gridImages = [
+//     { src: '/images/repsol_lubricantes_old_screen.png', label: 'Old Screen' },
+//     { src: '/images/repsol_lubricantes_new_screen.png', label: 'New Screen' },
+//     { src: '/images/repsol_lubricantes_old_card.png', label: 'Old Card' },
+//     { src: '/images/repsol_lubricantes_new_card.png', label: 'New Card' },
+// ]
+
+// --------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------
+// Repsol es Project
+// const images = [
+//     '/images/repsol_es_laptop.png',
+//     '/images/repsol_es_tablet.png',
+//     '/images/repsol_es_mobile.png',
+// ]
+
+// const gridImages = [
+//     { src: '/images/repsol_es_old_tienda.png', label: 'Old Store' },
+//     { src: '/images/repsol_es_new_tienda.png', label: 'New Store' },
+//     { src: '/images/repsol_es_search.png', label: 'Screen with Suggestion' },
+//     { src: '/images/repsol_es_404.png', label: '404 Page' },
+// ]
+
+// --------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------
+// Repsol pt Project
+const images = [
+    '/images/repsol_pt_laptop.png',
+    '/images/repsol_pt_tablet.png',
+    '/images/repsol_pt_mobile.png',
+]
+
+const gridImages = [
+    { src: '/images/repsol_pt_old_screen.png', label: 'Old Screen' },
+    { src: '/images/repsol_pt_new_screen.png', label: 'New Screen' },
+    { src: '/images/repsol_pt_old_404.png', label: 'Old 404 Page' },
+    { src: '/images/repsol_pt_new_404.png', label: 'New 404 Page' },
+]
 
 export default function page() {
     const { routeTo } = useViewTransition()
@@ -53,7 +117,35 @@ export default function page() {
             </section>
 
             <section className="project-content-section">
-                <div className="full-width-image"></div>
+                <div className="full-width-image">
+                    <div className="image-wrapper small">
+                        <Image 
+                            src={images[2]} 
+                            alt="Project screenshot small" 
+                            width={400} 
+                            height={800}
+                            className="project-img"
+                        />
+                    </div>
+                    <div className="image-wrapper medium">
+                        <Image 
+                            src={images[1]} 
+                            alt="Project screenshot medium" 
+                            width={800} 
+                            height={1200}
+                            className="project-img"
+                        />
+                    </div>
+                    <div className="image-wrapper large">
+                        <Image 
+                            src={images[0]} 
+                            alt="Project screenshot large" 
+                            width={1600} 
+                            height={1200}
+                            className="project-img"
+                        />
+                    </div>
+                </div>
 
                 <div className="text-section">
                     <h2 className="text-title">Problem</h2>
@@ -64,8 +156,18 @@ export default function page() {
 
                 <div className="image-grid-section">
                     <div className="image-grid">
-                        {[1, 2, 3, 4].map((item) => (
-                            <div className="grid-image-item" key={item}></div>
+                        {gridImages.map((item, index) => (
+                            <div className="grid-image-item" key={index}>
+                                <div className="image-label">{item.label}</div>
+                                <div className="image-wrapper">
+                                    <Image 
+                                        src={item.src} 
+                                        alt={item.label}
+                                        fill
+                                        className="grid-img"
+                                    />
+                                </div>
+                            </div>
                         ))}
                     </div>
                 </div>

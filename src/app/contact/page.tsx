@@ -2,7 +2,6 @@
 
 import FooterSection from "@/components/FooterSection";
 import NavSection from "@/components/NavSection";
-import { useTransitionRouter } from "next-view-transitions";
 import React from "react";
 
 import '@/styles/contact.scss';

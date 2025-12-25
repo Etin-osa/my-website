@@ -1,3 +1,5 @@
+"use client";
+
 import useViewTransition from '@/hooks/useViewTransition';
 import React from 'react';
 import { IoArrowForwardCircleOutline } from "react-icons/io5";
@@ -11,8 +13,20 @@ interface IosButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export default function IosButton({ text, icon, className = '', children, ...props }: IosButtonProps) {
     const { routeTo } = useViewTransition()
+
     return (
-        <button onClick={() => routeTo("/contact")} className={`ios-button ${className}`} {...props} >
+        <button 
+            className={`ios-button ${className}`} 
+            {...props} 
+            type='button' 
+            onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+
+                console.log("Button clicked!!!!!!!!!")
+                routeTo("/contact")
+            }}
+        >
             {children ? children : (
                 <>
                     <span>{text}</span>

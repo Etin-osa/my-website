@@ -20,13 +20,18 @@ nav {
         padding: 12px 24px;
     }
 
-    .nav-title a {
+    @include mixin.custom-screen(1610) {
+        padding: 12px 0;
+    }
+
+    .nav-title div {
         font-family: var(--font-cactus);
         font-size: 2rem;
         line-height: .7;
         transform: translateY(-1);
-        text-decoration: none;
         color: var(--black-bg);
+        cursor: pointer;
+        user-select: none;
         
         @include mixin.lg-screen {
             font-size: 2.3rem;
@@ -65,19 +70,26 @@ nav {
             padding: 0;
 
             .nav-item {
-                a {
+                button {
                     text-decoration: none;
                     color: inherit;
                     font-weight: 500;
-                }
+                    border: none;
+                    background: transparent;
+                    outline: none;
+                    cursor: pointer;
+                    font-family: var(--font-inter);
+                    font-size: 15px;
+                    display: inline-block;
 
-                &.contact {
-                    background-color: var(--gray-bg);
-                    padding: .4rem 1rem;
-                    border-radius: 5rem;
-
-                    &:hover {
-                        background-color: var(--gray-text-light);
+                    &.contact {
+                        background-color: var(--gray-bg);
+                        padding: .4rem 1rem;
+                        border-radius: 5rem;
+    
+                        &:hover {
+                            background-color: var(--gray-text-light);
+                        }
                     }
                 }
             }
@@ -166,12 +178,15 @@ nav {
         padding-bottom: .5rem;
         
         .nav-item {
-            a {
+            button {
                 text-decoration: none;
                 color: inherit;
                 font-size: 36px;
                 font-weight: 600;
                 font-family: var(--font-inter-display);
+                background-color: transparent;
+                border: none;
+                outline: none;
 
                 @include mixin.md-screen {
                     font-size: 42px;

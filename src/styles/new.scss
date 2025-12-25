@@ -191,7 +191,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 1.5rem;
+        margin-bottom: 4rem;
         padding-bottom: 1rem;
 
         span:first-child {
@@ -207,66 +207,81 @@
         }
     }
 
-    .projects-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        padding-bottom: 6rem;
-        @include mixin.border-light;
-
-        @include mixin.custom-screen(800) {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        @include mixin.custom-screen(1560) {
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        .project-hover-btn {
-            background-color: rgba(15, 15, 15, .8); 
-            border-radius: 12px;
-        }
-    }
-
-    .project-item {
+    .projects-list {
         display: flex;
         flex-direction: column;
+        width: 100%;
+        align-items: center;
         gap: 1rem;
+        padding-bottom: 6rem;
 
-        .project-image-placeholder {
-            width: 100%;
-            aspect-ratio: 4/3.49;
-            background-color: var(--gray-text);
-            border-radius: 8px;
+        .project-text-item {
+            cursor: pointer;
             position: relative;
-            // overflow: hidden;
+            width: fit-content;
+            
+            .project-year {
+                position: absolute;
+                left: 0px;
+                top: 50%;
+                font-size: 1.25rem;
+                color: var(--gray-text);
+                font-family: var(--font-inter);
+                opacity: 0;
+                transform: translate(0px, -50%);
+                transition: all 0.4s ease;
+                display: none;
+
+                @include mixin.md-screen {
+                    display: flex;
+                }
+            }
+
+            .project-title {
+                font-size: clamp(4.5rem, 14vw, 13rem);
+                font-family: var(--font-inter-display);
+                font-weight: 700;
+                letter-spacing: -0.07em;
+                line-height: 1.1;
+                color: #000;
+                transition: all 0.4s ease;
+                white-space: nowrap;
+                text-align: center;
+            }
+
+            .project-arrow {
+                position: absolute;
+                right: 0px;
+                top: 50%;
+                transform: translate(0px, -50%);
+                opacity: 0;
+                transition: all 0.4s ease;
+                display: none;
+                color: var(--gray-text);
+
+                &-icon {
+                    font-size: 4rem;
+                }
+
+                @include mixin.md-screen {
+                    display: flex;
+                }
+            }
 
             &:hover {
-                cursor: pointer;
-            }
-        }
+                .project-year {
+                    opacity: 1;
+                    left: -100px;
+                }
 
-        .project-info {
-            display: flex;
-            justify-content: space-between;
-            // align-items: center;
-
-            .project-name {
-                font-weight: 500;
-                font-size: 1.125rem;
-                letter-spacing: -0.5px;
-            }
-
-            .project-meta {
-                font-size: 1rem;
-                display: flex;
-                flex-direction: column;
-                align-items: flex-end;
-                text-align: right;
-                gap: 0.6rem;
-                
-                span:nth-child(2) {
+                .project-title {
                     color: var(--gray-text);
+                    letter-spacing: -0.01em;
+                }
+
+                .project-arrow {
+                    opacity: 1;
+                    right: -100px;
                 }
             }
         }

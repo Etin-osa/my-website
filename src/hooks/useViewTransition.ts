@@ -1,7 +1,9 @@
 import { useTransitionRouter } from "next-view-transitions";
+import { useRouter } from "next/navigation";
 
 export default function useViewTransition() {
-    const router = useTransitionRouter() 
+    const transitionRouter = useTransitionRouter() 
+    const router = useRouter()
 
     function slideInOut() {
         document.documentElement.animate(
@@ -30,6 +32,7 @@ export default function useViewTransition() {
     }
 
     return { 
-        routeTo: (url: string) => router.push(url, { onTransitionReady: slideInOut }),
+        routeTo: (url: string) => transitionRouter.push(url, { onTransitionReady: slideInOut }),
+        prefetch: (url: string) => router.prefetch(url)
     };
 }

@@ -5,6 +5,7 @@ import { MdOutlineAccessTime } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { TfiClose } from "react-icons/tfi";
 import { AnimatePresence, motion } from "motion/react";
+
 import '@/styles/nav.scss'
 import useViewTransition from "@/hooks/useViewTransition";
 
@@ -14,22 +15,12 @@ interface NavAvailabilityProps {
 }
 
 export default function NavSection() {
-    const { routeTo } = useViewTransition()
-    const [time, setTime] = useState<Date | null>(null);
+    const { routeTo, prefetch } = useViewTransition()
     const [is24Hour, setIs24Hour] = useState(true);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    useEffect(() => {
-        setTime(new Date());
-        const interval = setInterval(() => {
-            setTime(new Date());
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, []);
-
-    const formatTime = (date: Date) => {
-        return date.toLocaleTimeString('en-US', {
+    const formatTime = () => {
+        return new Date().toLocaleTimeString('en-US', {
             hour12: !is24Hour,
             hour: is24Hour ? '2-digit' : 'numeric',
             minute: '2-digit'
@@ -40,33 +31,37 @@ export default function NavSection() {
         <main className="nav">
             <nav>
                 <section className="nav-left">
-                    <div className="nav-title"><a href="/new" onClick={(e) => {
-                        e.preventDefault()
-                        routeTo("/new")
-                    }}>ETIN</a></div>
+                    <div className="nav-title">
+                        <div onClick={(e) => {routeTo("/new")}}>ETIN</div>
+                    </div>
                     <NavAvailability count={2} />
                     <div 
                         className="nav-time" 
                         onClick={() => setIs24Hour(!is24Hour)}
                         style={{ cursor: 'pointer' }}
                     >
-                        <span>{time ? formatTime(time) : ''}</span>
+                        <span>{formatTime()}</span>
                         <MdOutlineAccessTime color="rgb(105, 105, 105)" />
                     </div>
                 </section>
                 <section className="nav-right">
                     <ul className="nav-list">
                         <li className="nav-item">
-                            <a href="/new">About</a></li>
+                            <button>About</button>
+                        </li>
                         <li className="nav-item">
-                            <a href="">Services</a></li>
+                            <button>Services</button>
+                        </li>
                         <li className="nav-item">
-                            <a href="">Skills</a></li>
-                        <li className="nav-item contact">
-                            <a href="" onClick={(e) => {
-                                e.preventDefault()
-                                routeTo("/contact")
-                            }}>Contact</a></li>
+                            <button>Skills</button>
+                        </li>
+                        <li className="nav-item">
+                            <button 
+                                className="contact" 
+                                onMouseEnter={() => prefetch("/contact")} 
+                                onClick={() => { routeTo("/contact") }}
+                            >Contact</button>
+                        </li>
                     </ul>
 
                     <div className="nav-icon">
@@ -76,31 +71,26 @@ export default function NavSection() {
                     </div>
                 </section>
             </nav>
-            <AnimatePresence>
-                {isMenuOpen && (
-                    <motion.div
-                        initial={{ height: 0 }}
-                        animate={{ height: "auto" }}
-                        exit={{ height: 0 }}
-                        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                        style={{ overflow: "hidden" }}
-                    >
-                        <div className="mobile-menu">
-                            <ul className="nav-list">
-                                <li className="nav-item">
-                                    <a href="">About</a></li>
-                                <li className="nav-item">
-                                    <a href="">Projects</a></li>
-                                <li className="nav-item">
-                                    <a href="">Services</a></li>
-                                <li className="nav-item">
-                                    <a href="">Contact</a></li>
-                            </ul>
-                            <NavAvailability count={7} className="mobile-availability" />
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            <motion.div
+                initial={{ height: 0 }}
+                animate={{ height: isMenuOpen ?  "auto" : 0 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                style={{ overflow: "hidden" }}
+            >
+                <div className="mobile-menu">
+                    <ul className="nav-list">
+                        <li className="nav-item">
+                            <button>About</button></li>
+                        <li className="nav-item">
+                            <button>Projects</button></li>
+                        <li className="nav-item">
+                            <button>Services</button></li>
+                        <li className="nav-item">
+                            <button>Contact</button></li>
+                    </ul>
+                    <NavAvailability count={7} className="mobile-availability" />
+                </div>
+            </motion.div>
         </main>
     )
 }

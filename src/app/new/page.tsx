@@ -1,12 +1,27 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import NavSection from "@/components/NavSection";
 import IosButton from "@/components/IosButton";
 import { motion } from "motion/react";
 import { FaReact, FaHtml5, FaCss3Alt, FaSass, FaGitAlt, FaGithub } from "react-icons/fa";
-import { SiRedux, SiTypescript, SiJavascript, SiTailwindcss, SiNextdotjs, SiFigma, SiFramer, SiFirebase, SiGreensock, SiMui, SiSupabase, SiShadcnui, SiExpo } from "react-icons/si";
+import { BsArrowUpRightCircle } from "react-icons/bs";
+import { 
+    SiRedux, 
+    SiTypescript, 
+    SiJavascript, 
+    SiTailwindcss, 
+    SiNextdotjs, 
+    SiFigma, 
+    SiFramer, 
+    SiFirebase, 
+    SiGreensock, 
+    SiMui, 
+    SiSupabase, 
+    SiShadcnui, 
+    SiExpo 
+} from "react-icons/si";
 import { TbBrandReactNative } from "react-icons/tb";
 
 import '@/styles/new.scss';
@@ -39,23 +54,34 @@ const skills2 = [
     { name: "Expo", icon: <SiExpo /> },
 ];
 
+const projects = [
+    {
+        id: 1,
+        name: "Repsol.ES",
+        year: "2024",
+    },
+    {
+        id: 2,
+        name: "Repsol.Com",
+        year: "2025",
+    },
+    {
+        id: 3,
+        name: "Lubricantes",
+        year: "2025",
+    },
+    {
+        id: 4,
+        name: "Repsol.PT",
+        year: "2025",
+    }
+];
+
 
 export default function Homepage() {
     const { routeTo } = useViewTransition()
-    const gridRef = useRef<HTMLDivElement>(null);
-    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-    const [isHovered, setIsHovered] = useState(-1);
     const [showTopLabel, setShowTopLabel] = useState(-1);
     const [showBottomLabel, setShowBottomLabel] = useState(-1);
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!gridRef.current) return;
-        const rect = gridRef.current.getBoundingClientRect();
-        const clientX = e.clientX - rect.left;
-        const clientY = e.clientY - rect.top;
-        
-        setMousePos({ x: clientX, y: clientY });
-    };
 
     return (
         <main>
@@ -96,61 +122,21 @@ export default function Homepage() {
                     <span>Selected projects</span>
                     <span>&apos;23 - Present</span>
                 </div>
-                <div 
-                    className="projects-grid"
-                    ref={gridRef}
-                    onMouseMove={handleMouseMove}
-                    style={{ position: 'relative' }}
-                >
-                    {[1, 2, 3, 4].map((item, ind) => (
-                        <div className="project-item" key={item}>
-                            <div 
-                                className="project-image-placeholder" 
-                                onMouseEnter={() => setIsHovered(ind)}
-                                onMouseLeave={() => setIsHovered(-1)}
-                                onClick={() => routeTo('/project')}
-                            >
-                                {/* Image goes here */}
-                            </div>
-                            <div className="project-info">
-                                <span className="project-name">Project Name {item}</span>
-                                <div className="project-meta">
-                                    <span>2024</span>
-                                    <span>Web Development</span>
-                                </div>
+                
+                <div className="projects-list">
+                    {projects.map((item) => (
+                        <div 
+                            className="project-text-item" 
+                            key={item.id}
+                            onClick={() => routeTo('/project')}
+                        >
+                            <span className="project-year">{item.year}</span>
+                            <h2 className="project-title">{item.name}</h2>
+                            <div className="project-arrow">
+                                <BsArrowUpRightCircle className="project-arrow-icon" />
                             </div>
                         </div>
                     ))}
-                    
-                    <motion.div
-                        style={{
-                            position: 'absolute',
-                            left: 0,
-                            top: 0,
-                            pointerEvents: 'none',
-                            translateX: "-50%",
-                            translateY: "30px",
-                            zIndex: 10,
-                        }}
-                        initial={{ x: 0, y: 0, scale: 0, opacity: 0 }}
-                        animate={{
-                            x: mousePos.x,
-                            y: mousePos.y,
-                            scale: isHovered !== -1 ? 1 : 0,
-                            opacity: isHovered !== -1 ? 1 : 0,
-                        }}
-                        transition={{
-                            type: "tween",
-                            ease: "circOut",
-                            duration: 0.3,
-                            opacity: { duration: 0.1 }
-                        }}
-                    >
-                        <IosButton 
-                            text="Explore" 
-                            className="project-hover-btn"
-                        />
-                    </motion.div>
                 </div>
             </section>
 
