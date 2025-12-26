@@ -69,6 +69,23 @@ ul, li {
     list-style: none;
 }
 
+hr {
+    background-color: rgba(0, 0, 0, 0.08);
+    height: 1px;
+    font-size: 0;
+    border: 0;
+    margin: 0 16px;
+
+    @include mixin.lg-screen{
+        margin: 0 1.5rem;
+    }
+
+    @include mixin.custom-screen(1610) {
+        max-width: 1560px;
+        margin: 0 auto;
+    }
+}
+
 .ios-button {
     display: inline-flex;
     align-items: center;
@@ -79,7 +96,6 @@ ul, li {
     padding: 12px 18px;
     border-radius: 50px;
     font-size: 1rem;
-    font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
     opacity: 1;

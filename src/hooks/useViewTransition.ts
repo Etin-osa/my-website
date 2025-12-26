@@ -1,9 +1,10 @@
 import { useTransitionRouter } from "next-view-transitions";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function useViewTransition() {
     const transitionRouter = useTransitionRouter() 
     const router = useRouter()
+    const pathname = usePathname()
 
     function slideInOut() {
         document.documentElement.animate(
@@ -33,6 +34,11 @@ export default function useViewTransition() {
 
     return { 
         routeTo: (url: string, query?: Record<string, string | number>) => {
+
+            if (url === pathname) {
+                return;
+            }
+
             if (query) {
                 const params = new URLSearchParams();
                 Object.entries(query).forEach(([key, value]) => params.append(key, String(value)));

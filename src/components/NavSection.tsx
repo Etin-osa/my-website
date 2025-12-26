@@ -1,17 +1,19 @@
 'use client';
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { MdOutlineAccessTime } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { TfiClose } from "react-icons/tfi";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 
 import '@/styles/nav.scss'
 import useViewTransition from "@/hooks/useViewTransition";
+import ScrollToTopOnNavigate from "./ScrollToTopOnNavigate";
 
 interface NavAvailabilityProps {
     count: number;
     className?: string;
+    delay?: number;
 }
 
 export default function NavSection() {
@@ -29,22 +31,36 @@ export default function NavSection() {
 
     return (
         <main className="nav">
+            <ScrollToTopOnNavigate />
             <nav>
                 <section className="nav-left">
-                    <div className="nav-title">
+                    <motion.div 
+                        className="nav-title"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}
+                    >
                         <div onClick={(e) => {routeTo("/new")}}>ETIN</div>
-                    </div>
-                    <NavAvailability count={2} />
-                    <div 
+                    </motion.div>
+                    <NavAvailability count={2} delay={0.2} />
+                    <motion.div 
                         className="nav-time" 
                         onClick={() => setIs24Hour(!is24Hour)}
                         style={{ cursor: 'pointer' }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5, delay: 0.4 }}
                     >
                         <span>{formatTime()}</span>
                         <MdOutlineAccessTime color="rgb(105, 105, 105)" />
-                    </div>
+                    </motion.div>
                 </section>
-                <section className="nav-right">
+                <motion.section 
+                    className="nav-right"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1 }}
+                >
                     <ul className="nav-list">
                         <li className="nav-item">
                             <button>About</button>
@@ -69,7 +85,7 @@ export default function NavSection() {
                             {isMenuOpen ? <TfiClose size={24} style={{ transform: 'translate(-3px)'}} /> : <RxHamburgerMenu size={26} />}
                         </button>
                     </div>
-                </section>
+                </motion.section>
             </nav>
             <motion.div
                 initial={{ height: 0 }}
@@ -82,9 +98,9 @@ export default function NavSection() {
                         <li className="nav-item">
                             <button>About</button></li>
                         <li className="nav-item">
-                            <button>Projects</button></li>
-                        <li className="nav-item">
                             <button>Services</button></li>
+                        <li className="nav-item">
+                            <button>Skills</button></li>
                         <li className="nav-item">
                             <button>Contact</button></li>
                     </ul>
@@ -95,11 +111,16 @@ export default function NavSection() {
     )
 }
 
-const NavAvailability = ({ count, className = "" }: NavAvailabilityProps) => {
+const NavAvailability = ({ count, className = "", delay = 0 }: NavAvailabilityProps) => {
     const currentMonth = new Date().toLocaleString('en-US', { month: 'long' });
 
     return (
-        <div className={`nav-availability ${className}`}>
+        <motion.div 
+            className={`nav-availability ${className}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay }}
+        >
             <div className="nav-availability__inner">
                 {Array.from({ length: count }).map((_, index) => (
                     <div key={index}>
@@ -108,6 +129,6 @@ const NavAvailability = ({ count, className = "" }: NavAvailabilityProps) => {
                     </div>
                 ))}
             </div>
-        </div>
+        </motion.div>
     );
 };

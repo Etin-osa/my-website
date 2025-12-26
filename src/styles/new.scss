@@ -1,16 +1,16 @@
 @use './mixin.scss' as mixin;
 
 .hero-section {
-    padding: 8rem 1rem 0 1rem;
+    padding: 7.5rem 1rem 3.5rem 1rem;
 
     @include mixin.lg-screen {
-        padding: 10rem 24px 0 24px;
+        padding: 8.375rem 1.5rem 3.5rem 1.5rem;
     }
     
     @include mixin.custom-screen(1200) {
-        padding: 8rem 2rem 0 24px;
         margin: 0 auto;
-        max-width: 1600px;
+        max-width: 1560px;
+        padding-bottom: 8.75rem;
     }
 
     @include mixin.no-padding-fullscreen;
@@ -19,13 +19,10 @@
         display: flex;
         flex-direction: column;
         gap: 80px;
-        padding-bottom: 56px;
-        @include mixin.border-light;
         margin: 0 auto;
 
         @include mixin.custom-screen(1200) {
             flex-direction: row;
-            padding-bottom: 140px;
             justify-content: space-between;
             gap: 0px;
         }
@@ -34,13 +31,13 @@
     .hero-main {
         display: flex;
         flex-direction: column;
-        gap: 24px;
+        gap: 1.5rem;
     }
 
     .hero-title {
         font-size: 2.7rem;
-        line-height: .95;
-        letter-spacing: -2;
+        line-height: .91;
+        letter-spacing: -.17rem;
         color: var(--primary);
         font-family: var(--font-inter-display);
         font-weight: 500;
@@ -52,10 +49,11 @@
 
         @include mixin.lg-screen {
             font-size: 3.5rem;
+            line-height: .95;
         }
 
         @include mixin.custom-screen(1200) {
-            letter-spacing: -3.1;
+            letter-spacing: -.25rem;
             font-size: 4.25rem;
             width: 720px;
         }
@@ -74,11 +72,14 @@
             margin: 0 0.5rem;
             vertical-align: middle;
             height: 45px;
+
+            @include mixin.md-screen {
+                margin: 0 0.75rem;
+            }
             
             .hero-img-wrapper {
                 position: relative;
                 display: inline-block;
-                transition: transform 0.3s ease;
                 font-family: var(--font-inter);
                 letter-spacing: 0;
                 
@@ -92,13 +93,7 @@
                     z-index: 3;
                 }
                 
-                &:hover {
-                    transform: rotate(0);
-
-                    .hero-img {
-                        transform: scale(1.1);
-                    }
-
+                &:hover { 
                     .tooltip {
                         opacity: 1;
                         transform: translate(-50%, -10px) scale(1);
@@ -109,9 +104,8 @@
                     border-radius: 12px;
                     object-fit: cover;
                     border: 2px solid white;
-                    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
                     filter: grayscale(100%);
-                    transition: transform 0.3s ease;
                     display: block;
                     cursor: pointer;
 
@@ -120,7 +114,7 @@
                         height: 50px;
                     }
 
-                    @include mixin.lg-screen {
+                    @include mixin.custom-screen(1200) {
                         width: 60px;
                         height: 60px;
                     }
@@ -181,14 +175,14 @@
 }
 
 .projects-section {
-    padding: 4rem 1rem;
-    @include mixin.border-light;
+    padding: 3.5rem 1rem;
+    max-width: 1560px;
+    margin: 0 auto;
 
-    @include mixin.custom-screen(1200) {
-        padding: 4rem 24px;
-        max-width: 1600px;
-        margin: 0 auto;
+    @include mixin.lg-screen {
+        padding: 3.5rem 1.5rem 6rem 1.5rem;
     }
+
     @include mixin.no-padding-fullscreen;
 
     .projects-header {
@@ -225,7 +219,6 @@
         width: 100%;
         align-items: center;
         gap: 1rem;
-        padding-bottom: 6rem;
 
         .project-text-item {
             cursor: pointer;
@@ -255,10 +248,15 @@
                 font-weight: 700;
                 letter-spacing: -0.07em;
                 line-height: 1.1;
-                color: #000;
+                color: var(--black-bg);
                 transition: all 0.4s ease;
                 white-space: nowrap;
                 text-align: center;
+                transform: translateX(-3px);
+
+                @include mixin.md-screen {
+                    transform: translateX(0);    
+                }
             }
 
             .project-arrow {
@@ -301,13 +299,16 @@
 }
 
 .about-section {
-    padding: 4rem 1rem 4rem 1rem;
-    max-width: 1600px;
+    padding: 3.5rem 1rem 6.25rem 1rem;
+    max-width: 1560px;
     margin: 0 auto;
-    @include mixin.border-light;
+
+    @include mixin.lg-screen {
+        padding: 3.5rem 1.5rem 6.25rem 1.5rem;
+    }
 
     @include mixin.custom-screen(1200) {
-        padding: 4rem 2rem 8rem 24px;
+        padding: 4rem 2rem 8rem 1.5rem;
         display: flex;
         justify-content: space-between;
     }
@@ -330,7 +331,7 @@
         line-height: 1.1;
         font-family: var(--font-inter-display);
         font-weight: 500;
-        margin-bottom: 4rem;
+        margin-bottom: 3rem;
         letter-spacing: -1.5px;
         max-width: 720px;
 
@@ -349,9 +350,9 @@
     }
 
     .quote-container {
-        background-color: #000;
+        background-color: var(--black-bg);
         color: #fff;
-        padding: 24px;
+        padding: 1.5rem;
         border-radius: 18px;
         display: flex;
         flex-direction: column;
@@ -400,16 +401,15 @@
 }
 
 .services-section {
-    padding: 4rem 1rem;
+    padding: 4rem 1rem 5rem 1rem;
     
     @include mixin.lg-screen {
-        padding: 4rem 24px;
+        padding: 4rem 1.5rem 5rem 1.5rem;
     }
 
     @include mixin.custom-screen(1200) {
-        padding: 4rem 2rem 4rem 24px;
         margin: 0 auto;
-        max-width: 1600px;
+        max-width: 1560px;
         display: flex;
         justify-content: space-between;
         gap: 4rem;
@@ -496,16 +496,15 @@
             }
 
             .service-icon {
+                line-height: .6;
+
                 .icon-box {
-                    width: 40px;
-                    height: 40px;
-                    background-color: #f0f0f0;
-                    border-radius: 8px;
+                    font-size: 2rem;
                 }
             }
 
             .service-title {
-                font-size: 1.14rem;
+                font-size: 1.125rem;
                 font-weight: 500;
                 font-family: var(--font-inter-display);
             }
@@ -519,24 +518,24 @@
             font-size: 1rem;
             
             @include mixin.md-screen {
-                text-align: right;
-                align-items: flex-end;
+                align-items: flex-start;
+                width: 200px;
             }
         }
     }
 }
 
 .skills-section {
-    padding: 4rem 1rem 10rem 1rem;
+    padding: 0 1rem 10rem 1rem;
     
     @include mixin.lg-screen {
-        padding: 6rem 24px 10rem 24px;
+        padding: 2rem 1.5rem 10rem 1.5rem;
     }
 
     @include mixin.custom-screen(1200) {
-        padding: 2rem 24px 10rem 24px;
+        padding: 2rem 1.5rem 10rem 1.5rem;
         margin: 0 auto;
-        max-width: 1600px;
+        max-width: 1560px;
         display: flex;
         justify-content: space-between;
         gap: 4rem;

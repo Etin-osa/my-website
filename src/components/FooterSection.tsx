@@ -5,10 +5,14 @@ import { FaTwitter, FaLinkedinIn } from "react-icons/fa";
 import MagneticDotsBackground from "./MagneticDotsBackground";
 
 import "@/styles/footer.scss";
+import MotionView from "./MotionView";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export default function FooterSection() {
+    const isDesktop = useMediaQuery("(min-width: 768px)");
+
     return (
-        <footer className="footer-section">
+        <MotionView isDesktop={isDesktop} htmlTag="footer" normal htmlProps={{ className: "footer-section" }}>
             <div className="footer-bg">
                 <div className="footer-content">
                     <div className="footer-cta">
@@ -64,6 +68,6 @@ export default function FooterSection() {
                     </div>
                 </div>
             </div>
-        </footer>
+        </MotionView>
     );
 }

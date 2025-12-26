@@ -10,6 +10,8 @@ import { useSearchParams } from "next/navigation";
 import '@/styles/project.scss';
 import useViewTransition from "@/hooks/useViewTransition";
 import Image from "next/image";
+import MotionView from "@/components/MotionView";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const images: Record<string, { main: string[]; grids: { src: string; label: string }[]; visit: string }> = {
     es: {
@@ -73,6 +75,7 @@ const images: Record<string, { main: string[]; grids: { src: string; label: stri
 export default function page() {
     const { routeTo } = useViewTransition()
     const searchParams = useSearchParams()
+    const isDesktop = useMediaQuery("(min-width: 768px)");
 
     return (
         <main>
@@ -81,40 +84,73 @@ export default function page() {
             <section className="project-details-section">
                 <div className="project-header-content">
                     <div className="header-left">
-                        <button className="back-button" onClick={() => routeTo('/new')}>
-                            <span className="icon-box"><RiArrowGoBackFill /></span>
-                            <span>Back</span>
-                        </button>
-                        <h1 className="project-title">VaultPay Mobile Wallet — UX/UI Design for a Beginner-Friendly and Secure Bitcoin Wallet</h1>
+                        <MotionView 
+                            htmlTag="div" 
+                            isDesktop={isDesktop} 
+                            htmlProps={{ className: "back-button-wrapper" }}
+                        >
+                            <button className="back-button" onClick={() => routeTo('/new')}>
+                                <span className="icon-box"><RiArrowGoBackFill /></span>
+                                <span>Back</span>
+                            </button>
+                        </MotionView>
+                        <MotionView
+                            isDesktop={isDesktop}
+                            htmlTag="div"
+                            htmlProps={{ className: "project-title-wrapper" }}
+                            delay={0.1}
+                        >
+                            <h1 className="project-title">VaultPay Mobile Wallet — UX/UI Design for a Beginner-Friendly and Secure Bitcoin Wallet</h1>
+                        </MotionView>
                     </div>
                     
                     <div className="header-right">
-                        <p className="project-description">
+                        <MotionView 
+                            htmlTag="p" 
+                            isDesktop={isDesktop}
+                            htmlProps={{ className: "project-description" }}
+                            delay={0.2}
+                        >
                             With the rise of cryptocurrency, VaultPay set out to create a secure, user-friendly bitcoin wallet for everyday users. The project aimed to bridge the gap between tech-savvy crypto enthusiasts and first-time users.
-                        </p>
+                        </MotionView>
                         
                         <div className="project-meta">
-                            <div className="meta-item"> 
+                            <MotionView 
+                                htmlTag="div" 
+                                isDesktop={isDesktop}
+                                htmlProps={{ className: "meta-item" }}
+                                delay={0.23}
+                            > 
                                 <span className="meta-label">Year</span>
                                 <span className="meta-value">2024</span>
-                            </div>
-                            <div className="meta-item">
+                            </MotionView>
+                            <MotionView 
+                                htmlTag="div" 
+                                isDesktop={isDesktop}
+                                htmlProps={{ className: "meta-item" }}
+                                delay={0.26}
+                            >
                                 <span className="meta-label">Client</span>
                                 <span className="meta-value">Repsol</span>
-                            </div>
-                            <div className="meta-item">
+                            </MotionView>
+                            <MotionView 
+                                htmlTag="div" 
+                                isDesktop={isDesktop}
+                                htmlProps={{ className: "meta-item" }}
+                                delay={0.29}
+                            >
                                 <span className="meta-label">Website</span>
                                 <a className="meta-value link" href={images[searchParams.get('id') ?? ''].visit} target="_blank" rel="noopener noreferrer">
                                     <span>Visit live site </span>
                                     <BsBoxArrowUpRight />
                                 </a>
-                            </div>
+                            </MotionView>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section className="project-content-section">
+            <MotionView htmlTag="section" normal isDesktop={isDesktop} htmlProps={{ className: "project-content-section" }}>
                 <div className="full-width-image">
                     <div className="image-wrapper small">
                         <Image 
@@ -176,7 +212,7 @@ export default function page() {
                         The result is a clean, intuitive wallet that guides users through every step. By removing technical jargon and focusing on clear actions, we increased user confidence and adoption rates significantly.
                     </p>
                 </div>
-            </section>
+            </MotionView>
 
             <FooterSection />
         </main>

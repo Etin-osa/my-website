@@ -29,11 +29,11 @@ export default function MagneticDotsBackground() {
         let mouse = { x: -1000, y: -1000 }; // Start off-screen
         
         // Configuration
-        const spacing = 17; // Space between dots
+        const spacing = 15; // Space between dots
         const radius = 200; // Interaction radius
-        const pullStrength = 0.2; // How strongly the mouse pulls the dots (0-1)
+        const pullStrength = 0.12; // How strongly the mouse pulls the dots (0-1)
         const dotSize = 1.5;
-        const baseColor = 'rgba(255, 255, 255, 0.15)';
+        const baseColor = 'rgba(255, 255, 255, 0.06)';
 
         // Dot Class to manage individual dot state
         class Dot {
@@ -74,7 +74,7 @@ export default function MagneticDotsBackground() {
                     targetY = this.originY + Math.sin(angle) * pull;
 
                     // Let's use opacity interpolation for a nice glow.
-                    const opacity = 0.15 + (0.65 * factor); // 0.15 to 0.8
+                    const opacity = 0.06 + (0.65 * factor); // 0.1 to 0.75
                     this.color = `rgba(255, 255, 255, ${opacity})`;
                 } else {
                     this.color = baseColor;

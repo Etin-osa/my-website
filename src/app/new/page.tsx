@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import NavSection from "@/components/NavSection";
 import IosButton from "@/components/IosButton";
-import { motion } from "motion/react";
 import { FaReact, FaHtml5, FaCss3Alt, FaSass, FaGitAlt, FaGithub } from "react-icons/fa";
-import { BsArrowUpRightCircle } from "react-icons/bs";
+import { BsArrowUpRightCircle, BsMenuApp } from "react-icons/bs";
 import { 
     SiRedux, 
     SiTypescript, 
@@ -23,10 +22,17 @@ import {
     SiExpo 
 } from "react-icons/si";
 import { TbBrandReactNative } from "react-icons/tb";
+import { CgSmartphoneChip } from "react-icons/cg";
+import { IoPhonePortraitOutline } from "react-icons/io5";
+import { LuCodeXml } from "react-icons/lu";
 
 import '@/styles/new.scss';
 import FooterSection from "@/components/FooterSection";
 import useViewTransition from "@/hooks/useViewTransition";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import MotionView from "@/components/MotionView";
+import { motion } from "framer-motion";
+import ScrollToTopOnNavigate from "@/components/ScrollToTopOnNavigate";
 
 const skills1 = [
     { name: "React", icon: <FaReact /> },
@@ -84,8 +90,9 @@ const projects = [
 
 export default function Homepage() {
     const { routeTo } = useViewTransition()
-    const [showTopLabel, setShowTopLabel] = useState(-1);
-    const [showBottomLabel, setShowBottomLabel] = useState(-1);
+    const [showTopLabel, setShowTopLabel] = useState(-1)
+    const [showBottomLabel, setShowBottomLabel] = useState(-1)
+    const isDesktop = useMediaQuery("(min-width: 768px)");
 
     return (
         <main>
@@ -94,68 +101,140 @@ export default function Homepage() {
             <section className="hero-section">
                 <div className="hero-content">
                     <div className="hero-main">
-                        <div className="hero-title">
+                        <MotionView 
+                            isDesktop={isDesktop} 
+                            htmlTag="div" 
+                            htmlProps={{className: "hero-title"}} 
+                        >
                             <span className="gray-text">Hey. </span>
                             We
                             <span className="hero-images">
-                                <span className="hero-img-wrapper">
+                                <motion.span 
+                                    className="hero-img-wrapper"
+                                    initial={{ scale: 1.1, x: -20, opacity: 0, rotate: 4 }} 
+                                    animate={{ scale: 1, x: 0, opacity: 1, rotate: 4 }} 
+                                    transition={{ type: "spring", stiffness: 100, damping: 20, mass: 1, delay: 0.05 }}
+                                    whileHover={{ rotate: 0, scale: 1.06, transition: { duration: 0.2, ease: "easeInOut" } }} 
+                                >
                                     <Image src="/images/speaker_blue.jpg" alt="profile 1" width={45} height={45} className="hero-img" />
                                     <span className="tooltip">Etin <span className="line"></span><span className="gray">Software Developer </span></span>
-                                </span>
-                                <span className="hero-img-wrapper">
+                                </motion.span>
+                                <motion.span
+                                    className="hero-img-wrapper"
+                                    initial={{ scale: 1.1, x: -20, opacity: 0, rotate: -4 }} 
+                                    animate={{ scale: 1, x: 0, opacity: 1, rotate: -4 }} 
+                                    transition={{ type: "spring", stiffness: 100, damping: 20, mass: 1, delay: 0 }}
+                                    whileHover={{ rotate: 0, scale: 1.06, transition: { duration: 0.2, ease: "easeInOut" } }}
+                                >
                                     <Image src="/images/speaker_orange.jpg" alt="profile 2" width={45} height={45} className="hero-img" />
                                     <span className="tooltip">Etin <span className="line"></span><span className="gray">AI Automation</span></span>
-                                </span>
+                                </motion.span>
                             </span>
                             design meaningful experiences that connect people and ideas worldwide.
-                        </div>
+                        </MotionView>
                         
-                        <IosButton text="Get in touch" />
+                        <MotionView 
+                            htmlTag="div" 
+                            isDesktop={isDesktop}
+                            delay={0.1}
+                        >
+                            <IosButton text="Get in touch" />
+                        </MotionView>
                     </div>
                     
                     <div className="hero-footer">
-                        <p className="hero-description">
+                        <MotionView 
+                            htmlTag="p" 
+                            isDesktop={isDesktop} 
+                            htmlProps={{className: "hero-description"}}
+                            delay={0.2}
+                        >
                             We work closely with clients to design and develop digital experiences that not only look stunning but also deliver measurable results.
-                        </p>
+                        </MotionView>
                     </div>
                 </div>
             </section>
 
+            <MotionView 
+                htmlTag="hr" 
+                isDesktop={isDesktop} 
+                delay={0.2}
+                viewport={{ once: true, amount: 0.3 }}
+            />
+
             <section className="projects-section">
-                <div className="projects-header">
+                <MotionView 
+                    htmlTag="div" 
+                    isDesktop={isDesktop} 
+                    htmlProps={{ className: "projects-header" }} 
+                    delay={0.4}
+                    viewport={{ once: true, amount: 0.1 }}
+                >
                     <span>Selected projects</span>
                     <span>&apos;23 - Present</span>
-                </div>
+                </MotionView>
                 
                 <div className="projects-list">
                     {projects.map((item) => (
-                        <div 
-                            className="project-text-item" 
-                            key={item.id}
-                            onClick={() => routeTo('/project', { id: item.key })}
+                        <MotionView 
+                            htmlTag="div" 
+                            isDesktop={isDesktop} 
+                            key={item.id} 
+                            htmlProps={{ 
+                                className: "project-text-item", 
+                                onClick: () => routeTo('/project', { id: item.key })
+                            }} 
+                            motionProps={{
+                                initial: { opacity: 0, y: 80 }, 
+                                whileInView: { opacity: 1, y: 0 }, 
+                                transition: { type: "spring", stiffness: 80, damping: 30, mass: 1 }, 
+                                viewport: { once: true, amount: 0.4 }
+                            }}
                         >
                             <span className="project-year">{item.year}</span>
                             <h2 className="project-title">{item.name}</h2>
                             <div className="project-arrow">
                                 <BsArrowUpRightCircle className="project-arrow-icon" />
                             </div>
-                        </div>
+                        </MotionView>
                     ))}
                 </div>
             </section>
 
+            <MotionView htmlTag="hr" isDesktop={isDesktop} normal />
+
             <section id="about" className="about-section">
-                <div className="about-header">
+                <MotionView htmlTag="div" isDesktop={isDesktop} normal htmlProps={{ className: "about-header" }}>
                     <span className="gray-text">[01]</span> Who am i
-                </div>
+                </MotionView>
 
                 <div className="about-info">
-                    <div className="about-description">
+                    <MotionView 
+                        htmlTag="div" 
+                        isDesktop={isDesktop} 
+                        htmlProps={{className: "about-description"}} 
+                        motionProps={{
+                            initial: { opacity: 0, y: 80 }, 
+                            whileInView: { opacity: 1, y: 0 }, 
+                            transition: { type: "spring", stiffness: 80, damping: 30, mass: 1 }, 
+                            viewport: { once: true, amount: 0.1 }
+                        }}
+                    >
                         <span className="gray-text">We’re a small team of designers passionate about creating user-focused digital solutions. </span>
                         Whether it’s a bold website or a detailed app interface, we’re here to make your ideas shine.
-                    </div>
+                    </MotionView>
 
-                    <div className="quote-container">
+                    <MotionView 
+                        htmlTag="div" 
+                        isDesktop={isDesktop} 
+                        htmlProps={{className: "quote-container"}} 
+                        motionProps={{
+                            initial: { opacity: 0, y: 80 }, 
+                            whileInView: { opacity: 1, y: 0 }, 
+                            transition: { type: "spring", stiffness: 80, damping: 30, mass: 1 }, 
+                            viewport: { once: true, amount: 0.1 }
+                        }}
+                    >
                         <div className="quote-text">
                             "Design is about solving problems with creativity. At our studio, we craft user-focused digital experiences. Leading this talented team is a privilege — and we’re passionate about meaningful design. "
                         </div>
@@ -166,25 +245,47 @@ export default function Homepage() {
                                 <span className="author-title">Co-founder, Apple</span>
                             </div>
                         </div>
-                    </div>
+                    </MotionView>
                 </div>
             </section>
 
+            <MotionView htmlTag="hr" isDesktop={isDesktop} normal />
+
             <section className="services-section">
-                <div className="services-header">
+                <MotionView htmlTag="div" isDesktop={isDesktop} normal htmlProps={{ className: "services-header" }}>
                     <span className="gray-text">[02]</span> Services
-                </div>
+                </MotionView>
 
                 <div className="services-info">
-                    <div className="services-description">
+                    <MotionView 
+                        htmlTag="div" 
+                        isDesktop={isDesktop} 
+                        htmlProps={{className: "services-description"}} 
+                        motionProps={{
+                            initial: { opacity: 0, y: 80 }, 
+                            whileInView: { opacity: 1, y: 0 }, 
+                            transition: { type: "spring", stiffness: 80, damping: 30, mass: 1 }, 
+                            viewport: { once: true, amount: 0.1 }
+                        }}
+                    >
                         <span className="gray-text">Every service we offer is tailored to meet your unique goals,</span> ensuring a seamless blend of creativity and functionality.
-                    </div>
+                    </MotionView>
 
                     <div className="services-list">
-                        <div className="service-item">
+                        <MotionView 
+                            htmlTag="div" 
+                            isDesktop={isDesktop} 
+                            htmlProps={{ className: "service-item" }} 
+                            motionProps={{
+                                initial: { opacity: 0, y: 80 },
+                                whileInView: { opacity: 1, y: 0 },
+                                transition: { type: "spring", stiffness: 80, damping: 30, mass: 1 },
+                                viewport: { once: true, amount: 0.1 }
+                            }}
+                        >
                             <div className="service-left">
                                 <div className="service-icon">
-                                    <div className="icon-box"></div>
+                                    <BsMenuApp className="icon-box" />
                                 </div>
                                 <div className="service-title">Web Development</div>
                             </div>
@@ -195,12 +296,22 @@ export default function Homepage() {
                                 <span>Framer Development</span>
                                 <span>Animation</span>
                             </div>
-                        </div>
+                        </MotionView>
 
-                        <div className="service-item">
+                        <MotionView 
+                            htmlTag="div" 
+                            isDesktop={isDesktop} 
+                            htmlProps={{className: "service-item"}} 
+                            motionProps={{
+                                initial: { opacity: 0, y: 80 }, 
+                                whileInView: { opacity: 1, y: 0 }, 
+                                transition: { type: "spring", stiffness: 80, damping: 30, mass: 1 }, 
+                                viewport: { once: true, amount: 0.1 }
+                            }}
+                        >
                             <div className="service-left">
                                 <div className="service-icon">
-                                    <div className="icon-box"></div>
+                                    <IoPhonePortraitOutline className="icon-box" />
                                 </div>
                                 <div className="service-title">App Development</div>
                             </div>
@@ -210,12 +321,22 @@ export default function Homepage() {
                                 <span>Hybrid Apps</span>
                                 <span>PWA</span>
                             </div>
-                        </div>
+                        </MotionView>
 
-                        <div className="service-item">
+                        <MotionView 
+                            htmlTag="div" 
+                            isDesktop={isDesktop} 
+                            htmlProps={{className: "service-item"}} 
+                            motionProps={{
+                                initial: { opacity: 0, y: 80 }, 
+                                whileInView: { opacity: 1, y: 0 }, 
+                                transition: { type: "spring", stiffness: 80, damping: 30, mass: 1 }, 
+                                viewport: { once: true, amount: 0.1 }
+                            }}
+                        >
                             <div className="service-left">
                                 <div className="service-icon">
-                                    <div className="icon-box"></div>
+                                    <LuCodeXml className="icon-box" />
                                 </div>
                                 <div className="service-title">CTO as a Service</div>
                             </div>
@@ -225,12 +346,21 @@ export default function Homepage() {
                                 <span>Architecture</span>
                                 <span>Scalability</span>
                             </div>
-                        </div>
+                        </MotionView>
 
-                        <div className="service-item">
+                        <MotionView 
+                            htmlTag="div" isDesktop={isDesktop} 
+                            htmlProps={{className: "service-item"}} 
+                            motionProps={{
+                                initial: { opacity: 0, y: 80 }, 
+                                whileInView: { opacity: 1, y: 0 }, 
+                                transition: { type: "spring", stiffness: 80, damping: 30, mass: 1 }, 
+                                viewport: { once: true, amount: 0.1 }
+                            }}
+                        >
                             <div className="service-left">
                                 <div className="service-icon">
-                                    <div className="icon-box"></div>
+                                    <CgSmartphoneChip className="icon-box" />
                                 </div>
                                 <div className="service-title">AI Automations</div>
                             </div>
@@ -240,22 +370,32 @@ export default function Homepage() {
                                 <span>Data Processing</span>
                                 <span>Custom AI Solutions</span>
                             </div>
-                        </div>
+                        </MotionView>
                     </div>
                 </div>
             </section>
 
             <section className="skills-section">
-                <div className="skills-header">
+                <MotionView normal htmlTag="div" isDesktop={isDesktop} htmlProps={{ className: "skills-header" }}>
                     <span className="gray-text">[03]</span> Skills
-                </div>
+                </MotionView>
 
                 <div className="skills-info">
-                    <div className="skills-description">
+                    <MotionView 
+                        htmlTag="div" 
+                        isDesktop={isDesktop} 
+                        htmlProps={{className: "skills-description"}} 
+                        motionProps={{
+                            initial: { opacity: 0, y: 80 }, 
+                            whileInView: { opacity: 1, y: 0 }, 
+                            transition: { type: "spring", stiffness: 80, damping: 30, mass: 1 }, 
+                            viewport: { once: true, amount: 0.1 }
+                        }}
+                    >
                         <span className="gray-text">Every service we offer is tailored to meet your unique goals,</span> ensuring a seamless blend of creativity and functionality.
-                    </div>
+                    </MotionView>
 
-                    <div className="skills-scroller" data-direction="left">
+                    <MotionView isDesktop={isDesktop} normal htmlTag="div" htmlProps={{ className: "skills-scroller", 'data-direction': 'left' }}>
                         <div 
                             className="scroller-inner"
                             style={{
@@ -264,14 +404,9 @@ export default function Homepage() {
                         >
                             {[...skills1, ...skills1].map((skill, index) => (
                                 <div className="skill-item" key={`row1-${index}`}>
-                                    <motion.div 
-                                        className="skill-tooltip"
-                                        animate={{
-                                            transform: showTopLabel === index ? 'translateY(0px) scale(1)' : 'translateY(55px) scale(0)',
-                                        }}
-                                    >
+                                    <div className="skill-tooltip">
                                         <span className="skill-name">{skill.name}</span>
-                                    </motion.div>
+                                    </div>
                                     <div 
                                         className="skill-icon"
                                         onClick={() => setShowTopLabel(showTopLabel === -1 ? index : -1)}
@@ -286,9 +421,9 @@ export default function Homepage() {
                                 </div>
                             ))}
                         </div>  
-                    </div>
+                    </MotionView>
                     
-                    <div className="skills-scroller" data-direction="right">
+                    <MotionView isDesktop={isDesktop} normal htmlTag="div" htmlProps={{ className: "skills-scroller", 'data-direction': 'right' }}>
                         <div 
                             className="scroller-inner"
                             style={{
@@ -297,14 +432,9 @@ export default function Homepage() {
                         >
                             {[...skills2, ...skills2].map((skill, index) => (
                                 <div className="skill-item" key={`row2-${index}`}>
-                                    <motion.div 
-                                        className="skill-tooltip"
-                                        animate={{
-                                            transform: showBottomLabel === index ? 'translateY(0px) scale(1)' : 'translateY(55px) scale(0)',
-                                        }}
-                                    >
+                                    <div className="skill-tooltip">
                                         <span className="skill-name">{skill.name}</span>
-                                    </motion.div>
+                                    </div>
                                     <div 
                                         className="skill-icon" 
                                         onClick={() => setShowBottomLabel(showBottomLabel === -1 ? index : -1)}
@@ -319,7 +449,7 @@ export default function Homepage() {
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </MotionView>
                 </div>
             </section>
 

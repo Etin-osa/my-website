@@ -5,7 +5,7 @@
     background-color: #fff;
 
     .footer-bg {
-        background-color: #000;
+        background-color: var(--black-bg);
         color: #fff;
         border-radius: 12px;
 
@@ -14,11 +14,15 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            padding: 4.5rem 1rem 4.5rem 1rem;
+            padding: 4.5rem 1rem;
             @include mixin.border-light;
             border-color: rgba(255, 255, 255, 0.15);
             position: relative;
             overflow: hidden;
+
+            @include mixin.lg-screen {
+                padding: 4.5rem 1.5rem;
+            }
 
             @include mixin.custom-screen(1200) {
                 padding-bottom: 6rem;
@@ -26,11 +30,11 @@
 
             .footer-cta-cover {
                 width: 100%;
-                max-width: 1600px;
+                max-width: 1560px;
                 pointer-events: none;
                 
                 > div, > h2 {
-                    padding : 1rem 0;
+                    padding : .7rem 0;
                 }
             }
 
@@ -95,7 +99,7 @@
             .footer-btn-wrapper {
                 .footer-btn {
                     background-color: #fff;
-                    color: #000;
+                    color: var(--black-bg);
                     border: none;
                     
                     &:hover {
@@ -106,14 +110,14 @@
         }
 
         .footer-bottom-container {
-            max-width: 1600px;
+            max-width: 1560px;
             margin: 0 auto;
         }
 
         .footer-bottom {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 1.5rem;
             padding: 4rem 1rem 0 1rem;
             font-family: var(--font-inter);
             font-size: 1rem;
@@ -123,28 +127,36 @@
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: flex-end;
+                padding: 4rem 1.5rem 0 1.5rem;
             }
+
+            @include mixin.no-padding-fullscreen;
 
             .footer-social {
                 display: flex;
                 align-items: center;
                 gap: 8px;
                 flex-wrap: wrap;
-                color: #fff;
                 font-size: 1.125rem;
+                color: #d6d6d6;
 
                 .icon-box {
                     display: inline-flex;
                     align-items: center;
                     justify-content: center;
-                    width: 32px;
-                    height: 32px;
+                    width: 30px;
+                    height: 30px;
                     background-color: rgba(255, 255, 255, 0.1);
                     border-radius: 8px;
-                    color: #fff;
                     font-size: 0.9rem;
                     cursor: pointer;
                     transition: background-color 0.2s;
+
+                    @include mixin.md-screen {
+                        width: 34px;
+                        height: 34px;
+                        font-size: 1.1rem;
+                    }
 
                     &:hover {
                         background-color: rgba(255, 255, 255, 0.2);
@@ -155,7 +167,9 @@
             .footer-credits {
                 display: flex;
                 flex-direction: column;
-                gap: 0.5rem;
+                gap: 1.5rem;
+                color: var(--gray-text);
+                font-size: 1.125rem;
 
                 @include mixin.lg-screen {
                     text-align: right;

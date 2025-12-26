@@ -4,11 +4,11 @@
     padding: 7.5rem 1rem 4rem 1rem;
     
     @include mixin.lg-screen {
-        padding: 8.5rem 24px 4rem 24px;
+        padding: 8.5rem 1.5rem 4rem 1.5rem;
     }
 
     @include mixin.custom-screen(1200) {
-        max-width: 1600px;
+        max-width: 1560px;
         margin: 0 auto;
     }
 
@@ -36,7 +36,7 @@
                 border-radius: 6px;
                 width: fit-content;
                 text-decoration: none;
-                color: #000;
+                color: var(--black-bg);
                 font-weight: 500;
                 font-size: 1rem;
                 transition: background-color 0.2s;
@@ -122,7 +122,7 @@
                     }
 
                     .meta-value {
-                        color: #000;
+                        color: var(--black-bg);
                         font-size: 1.15rem;
                         font-weight: 500;
                         font-family: var(--font-inter);
@@ -155,7 +155,7 @@
     .full-width-image {
         width: 100%;
         background-color: var(--image-bg);
-        max-width: 1600px;
+        max-width: 1560px;
         margin: 0 auto;
         display: flex;
         align-items: center;
@@ -223,12 +223,12 @@
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
-        max-width: 1600px;
+        max-width: 1560px;
         margin: 0 auto;
         width: 100%;
 
         @include mixin.lg-screen {
-            padding: 0 24px;
+            padding: 0 1.5rem;
         }
 
         @include mixin.custom-screen(810) {
@@ -265,12 +265,12 @@
 
     .image-grid-section {
         padding: 0 16px;
-        max-width: 1600px;
+        max-width: 1560px;
         margin: 0 auto;
         width: 100%;
 
         @include mixin.lg-screen {
-            padding: 0 24px;
+            padding: 0 1.5rem;
         }
 
         @include mixin.custom-screen(1500) {
@@ -307,7 +307,7 @@
                     padding: 10px 20px;
                     border-radius: 100px;
                     font-size: 1.125rem;
-                    color: #000;
+                    color: var(--black-bg);
                     font-family: var(--font-inter);
                     width: fit-content;
                 }
