@@ -33,6 +33,7 @@ import useViewTransition from "@/hooks/useViewTransition";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import MotionView from "@/components/MotionView";
 import { useLenis } from "lenis/react";
+import { content, Language } from "@/data/content";
 
 const skills1 = [
     { name: "React", icon: <FaReact /> },
@@ -90,7 +91,7 @@ const projects = [
 export default function Homepage() {
     const { routeTo } = useViewTransition()
     const isDesktop = useMediaQuery("(min-width: 768px)")
-    const [langKey, setLangKey] = useState('EN');
+    const [langKey, setLangKey] = useState<Language>('EN');
     const lenis = useLenis();
 
     useEffect(() => {
@@ -125,8 +126,8 @@ export default function Homepage() {
                             htmlProps={{ className: "hero-title" }} 
                             delay={0.2}
                         >
-                            <span className="gray-text">Hey. </span>
-                            I
+                            <span className="gray-text">{content[langKey].home.hero.greeting}</span>
+                            {content[langKey].home.hero.intro1}
                             <span className="hero-images">
                                 <motion.span 
                                     className="hero-img-wrapper"
@@ -136,7 +137,7 @@ export default function Homepage() {
                                     whileHover={{ rotate: 0, scale: 1.06, transition: { duration: 0.2, ease: "easeInOut" } }} 
                                 >
                                     <Image src="/images/speaker_blue.jpg" alt="profile 1" width={45} height={45} className="hero-img" />
-                                    <span className="tooltip">Software <span className="line"></span><span className="gray"> Developer</span></span>
+                                    <span className="tooltip">{content[langKey].home.hero.tooltip1}<span className="line"></span><span className="gray">{content[langKey].home.hero.tooltip1Span}</span></span>
                                 </motion.span>
                                 <motion.span
                                     className="hero-img-wrapper"
@@ -146,10 +147,10 @@ export default function Homepage() {
                                     whileHover={{ rotate: 0, scale: 1.06, transition: { duration: 0.2, ease: "easeInOut" } }}
                                 >
                                     <Image src="/images/speaker_orange.jpg" alt="profile 2" width={45} height={45} className="hero-img" />
-                                    <span className="tooltip">Passion <span className="line"></span><span className="gray"> Curiosity</span></span>
+                                    <span className="tooltip">{content[langKey].home.hero.tooltip2}<span className="line"></span><span className="gray">{content[langKey].home.hero.tooltip2Span}</span></span>
                                 </motion.span>
                             </span>
-                            partner with founders and teams to build software products that bring ambitious ideas to life.
+                            {content[langKey].home.hero.intro2}
                         </MotionView>
                         
                         <MotionView 
@@ -157,7 +158,7 @@ export default function Homepage() {
                             isDesktop={isDesktop}
                             delay={0.3}
                         >
-                            <IosButton text="Get in touch" />
+                            <IosButton text={content[langKey].home.hero.cta} />
                         </MotionView>
                     </div>
                     
@@ -168,7 +169,7 @@ export default function Homepage() {
                             htmlProps={{className: "hero-description"}}
                             delay={0.3}
                         >
-                            Working closely with you to develop products that are both exceptionally built and designed to drive real business results.
+                            {content[langKey].home.hero.description}
                         </MotionView>
                     </div>
                 </div>
@@ -189,8 +190,8 @@ export default function Homepage() {
                     delay={0.6}
                     viewport={{ once: true, amount: 0.1 }}
                 >
-                    <span>Selected projects</span>
-                    <span>&apos;23 - Present</span>
+                    <span>{content[langKey].home.projects.header}</span>
+                    <span>{content[langKey].home.projects.year}</span>
                 </MotionView>
                 
                 <div className="projects-list">
@@ -219,7 +220,7 @@ export default function Homepage() {
 
             <section id="about" className="about-section">
                 <MotionView htmlTag="div" isDesktop={isDesktop} normal htmlProps={{ className: "about-header" }}>
-                    <span className="gray-text">[01]</span> Who am i
+                    <span className="gray-text">[01]</span> {content[langKey].home.about.header}
                 </MotionView>
 
                 <div className="about-info">
@@ -229,8 +230,8 @@ export default function Homepage() {
                         htmlProps={{className: "about-description"}} 
                         viewport={{ once: true, amount: 0.1 }}
                     >
-                        <span className="gray-text">A freelance developer who has built digital experiences for some of Europe's biggest companies. </span>
-                        For the past 3+ years, I worked as a software developer at Atrace, a Barcelona-based startup.
+                        <span className="gray-text">{content[langKey].home.about.description1}</span>
+                        {content[langKey].home.about.description2}
                     </MotionView>
 
                     <MotionView 
@@ -243,13 +244,13 @@ export default function Homepage() {
                             <Image src="/images/noise.jpg" alt="Noise" fill />
                         </div>
                         <div className="quote-text">
-                            "Throughout our collaboration, Etinosa has demonstrated a high level of technical expertise in React and React Native, providing robust and efficient solutions in both web environments and mobile applications. He has actively participated in the design and implementation of modern, intuitive, and well-structured interfaces, always meeting deadlines and with a clear focus on code quality and user experience."
+                            {content[langKey].home.about.quote}
                         </div>
                         <div className="quote-author">
                             <Image src="/images/speaker_blue.jpg" alt="Author" width={56} height={56} className="author-img" />
                             <div className="author-info">
                                 <div className="author-name">Sergio García Martínez</div>
-                                <span className="author-title">Co-founder and CTO, Atrace</span>
+                                <span className="author-title">{content[langKey].home.about.authorRole}</span>
                             </div>
                         </div>
                     </MotionView>
@@ -260,7 +261,7 @@ export default function Homepage() {
 
             <section className="services-section" id="services">
                 <MotionView htmlTag="div" isDesktop={isDesktop} normal htmlProps={{ className: "services-header" }}>
-                    <span className="gray-text">[02]</span> Services
+                    <span className="gray-text">[02]</span> {content[langKey].home.services.header}
                 </MotionView>
 
                 <div className="services-info">
@@ -270,7 +271,7 @@ export default function Homepage() {
                         htmlProps={{className: "services-description"}} 
                         viewport={{ once: true, amount: 0.1 }}
                     >
-                        <span className="gray-text">The services I offer are tailored to meet your unique goals,</span> ensuring clean code and robust functionality.
+                        <span className="gray-text">{content[langKey].home.services.description1}</span> {content[langKey].home.services.description2}
                     </MotionView>
 
                     <div className="services-list">
@@ -284,14 +285,10 @@ export default function Homepage() {
                                 <div className="service-icon">
                                     <BsMenuApp className="icon-box" />
                                 </div>
-                                <div className="service-title">Web Development</div>
+                                <div className="service-title">{content[langKey].home.services.webDev.title}</div>
                             </div>
                             <div className="service-right">
-                                <span>Web Applications</span>
-                                <span>Responsive Design</span>
-                                <span>Single Page Applications</span>
-                                <span>API Integration</span>
-                                <span>Smooth Animation</span>
+                                {content[langKey].home.services.webDev.items.map((item, i) => <span key={i}>{item}</span>)}
                             </div>
                         </MotionView>
 
@@ -305,13 +302,10 @@ export default function Homepage() {
                                 <div className="service-icon">
                                     <IoPhonePortraitOutline className="icon-box" />
                                 </div>
-                                <div className="service-title">App Development</div>
+                                <div className="service-title">{content[langKey].home.services.appDev.title}</div>
                             </div>
                             <div className="service-right">
-                                <span>iOS & Android</span>
-                                <span>React Native</span>
-                                <span>Mobile UI Components</span>
-                                <span>Push Notifications</span>
+                                {content[langKey].home.services.appDev.items.map((item, i) => <span key={i}>{item}</span>)}
                             </div>
                         </MotionView>
 
@@ -324,13 +318,10 @@ export default function Homepage() {
                                 <div className="service-icon">
                                     <CgSmartphoneChip className="icon-box" />
                                 </div>
-                                <div className="service-title">Backend Development</div>
+                                <div className="service-title">{content[langKey].home.services.backendDev.title}</div>
                             </div>
                             <div className="service-right">
-                                <span>Supabase</span>
-                                <span>Firebase</span>
-                                <span>PostgresSQL</span>
-                                <span>Node.js</span>
+                                {content[langKey].home.services.backendDev.items.map((item, i) => <span key={i}>{item}</span>)}
                             </div>
                         </MotionView>
                         
@@ -344,13 +335,10 @@ export default function Homepage() {
                                 <div className="service-icon">
                                     <LuCodeXml className="icon-box" />
                                 </div>
-                                <div className="service-title">CTO as a Service</div>
+                                <div className="service-title">{content[langKey].home.services.cto.title}</div>
                             </div>
                             <div className="service-right">
-                                <span>Technical Strategy</span>
-                                <span>Team Leadership</span>
-                                <span>Architecture</span>
-                                <span>Scalability</span>
+                                {content[langKey].home.services.cto.items.map((item, i) => <span key={i}>{item}</span>)}
                             </div>
                         </MotionView>
                     </div>
@@ -359,7 +347,7 @@ export default function Homepage() {
 
             <section className="skills-section" id="skills">
                 <MotionView normal htmlTag="div" isDesktop={isDesktop} htmlProps={{ className: "skills-header" }}>
-                    <span className="gray-text">[03]</span> Skills
+                    <span className="gray-text">[03]</span> {content[langKey].home.skills.header}
                 </MotionView>
 
                 <div className="skills-info">
@@ -369,7 +357,7 @@ export default function Homepage() {
                         htmlProps={{ className: "skills-description" }} 
                         viewport={{ once: true, amount: 0.1 }}
                     >
-                        <span className="gray-text">Years of expertise across the tools and technologies that bring great products to life</span> and a commitment to constantly evolving.
+                        <span className="gray-text">{content[langKey].home.skills.description1}</span> {content[langKey].home.skills.description2}
                     </MotionView>
 
                     <MotionView 
@@ -435,7 +423,7 @@ export default function Homepage() {
                 </div>
             </section>
 
-            <FooterSection />
+            <FooterSection langKey={langKey} />
         </main>
     );
 }

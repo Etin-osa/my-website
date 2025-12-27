@@ -13,12 +13,13 @@ import Image from "next/image";
 import MotionView from "@/components/MotionView";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { ReactLenis } from 'lenis/react';
+import { content, Language } from "@/data/content";
 
 interface ImageGridItem {
     main: string[]
-    grids: { src: string; label: string }[]
+    grids: { src: string }[]
     visit: string
-    title: string
+    title: { [key in Language]: string }
 }
 
 const images: Record<string, ImageGridItem> = {
@@ -29,13 +30,16 @@ const images: Record<string, ImageGridItem> = {
             '/images/repsol_es_mobile.png',
         ],
         grids: [
-            { src: '/images/repsol_es_old_tienda.png', label: 'Old Store' },
-            { src: '/images/repsol_es_new_tienda.png', label: 'New Store' },
-            { src: '/images/repsol_es_search.png', label: 'Screen with Suggestion' },
-            { src: '/images/repsol_es_404.png', label: 'No Results Page' },
+            { src: '/images/repsol_es_old_tienda.png' },
+            { src: '/images/repsol_es_new_tienda.png' },
+            { src: '/images/repsol_es_search.png' },
+            { src: '/images/repsol_es_404.png' },
         ],
         visit: 'https://www.repsol.es/particulares/buscador/#q=repsol&t=particulares&numberOfResults=12',
-        title: 'Repsol Search ES — Implementation of a New Search Experience for Repsol’s Spanish Website'
+        title: {
+            EN: 'Repsol Search ES — Implementation of a New Search Experience for Repsol’s Spanish Website',
+            ES: 'Búsqueda Repsol ES — Implementación de una nueva experiencia de búsqueda para el sitio web español de Repsol'
+        }
     },
     com: {
         main: [
@@ -44,13 +48,16 @@ const images: Record<string, ImageGridItem> = {
             '/images/repsol_com_mobile.png',
         ],
         grids: [
-            { src: '/images/repsol_com_old_card.png', label: 'Old Card' },
-            { src: '/images/repsol_com_new_card.png', label: 'New Card' },
-            { src: '/images/repsol_com_old_mobile.png', label: 'Old Mobile No Results Page' },
-            { src: '/images/repsol_com_new_mobile.png', label: 'New Mobile No Results Page' },
+            { src: '/images/repsol_com_old_card.png' },
+            { src: '/images/repsol_com_new_card.png' },
+            { src: '/images/repsol_com_old_mobile.png' },
+            { src: '/images/repsol_com_new_mobile.png' },
         ],
         visit: 'https://www.repsol.com/es/buscador/index.cshtml#q=butano&sort=relevancy',
-        title: 'Repsol Search COM — Implementation of a New Search Experience for Repsol’s Global Website'
+        title: {
+            EN: 'Repsol Search COM — Implementation of a New Search Experience for Repsol’s Global Website',
+            ES: 'Búsqueda Repsol COM — Implementación de una nueva experiencia de búsqueda para el sitio web global de Repsol'
+        }
     },
     lubricantes: {
         main: [
@@ -59,13 +66,16 @@ const images: Record<string, ImageGridItem> = {
             '/images/repsol_lubricantes_mobile.png',
         ],
         grids: [
-            { src: '/images/repsol_lubricantes_old_screen.png', label: 'Old Screen' },
-            { src: '/images/repsol_lubricantes_new_screen.png', label: 'New Screen' },
-            { src: '/images/repsol_lubricantes_old_card.png', label: 'Old Card' },
-            { src: '/images/repsol_lubricantes_new_card.png', label: 'New Card' },
+            { src: '/images/repsol_lubricantes_old_screen.png' },
+            { src: '/images/repsol_lubricantes_new_screen.png' },
+            { src: '/images/repsol_lubricantes_old_card.png' },
+            { src: '/images/repsol_lubricantes_new_card.png' },
         ],
         visit: 'https://lubricants.repsol.com/es/search-engine/#q=repsol&sort=relevancy',
-        title: 'Repsol Search Lubricantes — Implementation of a New Search Experience for Lubricantes Repsol Website'
+        title: {
+            EN: 'Repsol Search Lubricantes — Implementation of a New Search Experience for Lubricantes Repsol Website',
+            ES: 'Búsqueda Repsol Lubricantes — Implementación de una nueva experiencia de búsqueda para el sitio web de Lubricantes Repsol'
+        }
     },
     pt: {
         main: [
@@ -74,20 +84,23 @@ const images: Record<string, ImageGridItem> = {
             '/images/repsol_pt_mobile.png',
         ],
         grids: [
-            { src: '/images/repsol_pt_old_screen.png', label: 'Old Screen' },
-            { src: '/images/repsol_pt_new_screen.png', label: 'New Screen' },
-            { src: '/images/repsol_pt_old_404.png', label: 'Old No Results Page' },
-            { src: '/images/repsol_pt_new_404.png', label: 'New No Results Page' },
+            { src: '/images/repsol_pt_old_screen.png' },
+            { src: '/images/repsol_pt_new_screen.png' },
+            { src: '/images/repsol_pt_old_404.png' },
+            { src: '/images/repsol_pt_new_404.png' },
         ],
         visit: 'https://www.repsol.pt/particulares/buscador/#q=repsol&t=particulares',
-        title: 'Repsol Search PT — Implementation of a New Search Experience for Repsol’s Portuguese Website'
+        title: {
+            EN: 'Repsol Search PT — Implementation of a New Search Experience for Repsol’s Portuguese Website',
+            ES: 'Búsqueda Repsol PT — Implementación de una nueva experiencia de búsqueda para el sitio web portugués de Repsol'
+        }
     },
 }
 
 export default function page() {
     const { routeTo } = useViewTransition()
     const searchParams = useSearchParams()
-    const [langKey, setLangKey] = useState('EN');
+    const [langKey, setLangKey] = useState<Language>('EN');
     const isDesktop = useMediaQuery("(min-width: 768px)");
 
     return (
@@ -105,7 +118,7 @@ export default function page() {
                         >
                             <button className="back-button" onClick={() => routeTo('/new')}>
                                 <span className="icon-box"><RiArrowGoBackFill /></span>
-                                <span>Back</span>
+                                <span>{content[langKey].project.back}</span>
                             </button>
                         </MotionView>
                         <MotionView
@@ -114,18 +127,18 @@ export default function page() {
                             htmlProps={{ className: "project-title-wrapper" }}
                             delay={0.25}
                         >
-                            <h1 className="project-title">{images[searchParams.get('id') ?? ''].title}</h1>
+                            <h1 className="project-title">{images[searchParams.get('id') ?? ''].title[langKey]}</h1>
                         </MotionView>
                     </div>
                     
                     <div className="header-right">
                         <MotionView 
                             htmlTag="p" 
-                            isDesktop={isDesktop}
+                            isDesktop={isDesktop} 
                             htmlProps={{ className: "project-description" }}
                             delay={0.25}
                         >
-                            I led the frontend development for the new style update on Repsol's search pages, rolling out the changes across four of their international websites which are visited by thousands of people every month.
+                            {content[langKey].project.description}
                         </MotionView>
                         
                         <div className="project-meta">
@@ -135,7 +148,7 @@ export default function page() {
                                 htmlProps={{ className: "meta-item" }}
                                 delay={0.3}
                             > 
-                                <span className="meta-label">Year</span>
+                                <span className="meta-label">{content[langKey].project.year}</span>
                                 <span className="meta-value">2025</span>
                             </MotionView>
                             <MotionView 
@@ -144,7 +157,7 @@ export default function page() {
                                 htmlProps={{ className: "meta-item" }}
                                 delay={0.35}
                             >
-                                <span className="meta-label">Client</span>
+                                <span className="meta-label">{content[langKey].project.client}</span>
                                 <span className="meta-value">Repsol</span>
                             </MotionView>
                             <MotionView 
@@ -153,9 +166,9 @@ export default function page() {
                                 htmlProps={{ className: "meta-item" }}
                                 delay={0.4}
                             >
-                                <span className="meta-label">Website</span>
+                                <span className="meta-label">{content[langKey].project.website}</span>
                                 <a className="meta-value link" href={images[searchParams.get('id') ?? ''].visit} target="_blank" rel="noopener noreferrer">
-                                    <span>Visit live site </span>
+                                    <span>{content[langKey].project.visit}</span>
                                     <BsBoxArrowUpRight style={{ transform: 'translateY(-2px)'}} />
                                 </a>
                             </MotionView>
@@ -196,9 +209,9 @@ export default function page() {
                 </div>
 
                 <div className="text-section">
-                    <h2 className="text-title">Problem</h2>
+                    <h2 className="text-title">{content[langKey].project.problem.title}</h2>
                     <p className="text-paragraph">
-                        Repsol's existing digital platforms weren't meeting the needs of thousands of daily users. As one of Europe's leading energy companies, they needed a modern UI solution that could deliver a seamless experience across their web presence.
+                        {content[langKey].project.problem.description}
                     </p>
                 </div>
 
@@ -206,11 +219,10 @@ export default function page() {
                     <div className="image-grid">
                         {images[searchParams.get('id') ?? ''].grids.map((item, index) => (
                             <div className="grid-image-item" key={index}>
-                                <div className="image-label">{item.label}</div>
                                 <div className="image-wrapper">
                                     <Image 
                                         src={item.src} 
-                                        alt={item.label}
+                                        alt=""
                                         fill
                                         className="grid-img"
                                     />
@@ -221,14 +233,14 @@ export default function page() {
                 </div>
 
                 <div className="text-section">
-                    <h2 className="text-title">Outcome</h2>
+                    <h2 className="text-title">{content[langKey].project.outcome.title}</h2>
                     <p className="text-paragraph">
-                        Collaborating with design team, I worked on the search pages across Repsol's international website, implementing a pixel-perfect, responsive interface with smooth animations and polished interactions.
+                        {content[langKey].project.outcome.description}
                     </p>
                 </div>
             </MotionView>
 
-            <FooterSection />
+            <FooterSection langKey={langKey} />
         </main>
     )
 }

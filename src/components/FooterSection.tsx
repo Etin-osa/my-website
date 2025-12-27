@@ -7,8 +7,9 @@ import MagneticDotsBackground from "./MagneticDotsBackground";
 import "@/styles/footer.scss";
 import MotionView from "./MotionView";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { content, Language } from "@/data/content";
 
-export default function FooterSection() {
+export default function FooterSection({ langKey }: { langKey: Language }) {
     const isDesktop = useMediaQuery("(min-width: 768px)");
 
     return (
@@ -41,11 +42,11 @@ export default function FooterSection() {
                             </div>
                             
                             <h2 className="footer-title">
-                                Let&apos;s discuss how we can bring your product to life!
+                                {content[langKey].footer.title}
                             </h2>
                             
                             <div className="footer-btn-wrapper">
-                                <IosButton text="Get in touch" className="footer-btn" />
+                                <IosButton text={content[langKey].footer.cta} className="footer-btn" />
                             </div>
                         </div>
                     </div>
@@ -53,11 +54,11 @@ export default function FooterSection() {
                     <div className="footer-bottom-container">
                         <div className="footer-bottom">
                             <div className="footer-social">
-                                Follow us on <span className="icon-box"><FaTwitter /></span> or get in touch on <span className="icon-box"><FaLinkedinIn /></span>
+                                {content[langKey].footer.follow} <span className="icon-box"><FaTwitter /></span> {content[langKey].footer.touch} <span className="icon-box"><FaLinkedinIn /></span>
                             </div>
                             <div className="footer-credits">
-                                <span>©2025 Small Studio</span>
-                                <span>Designed by <a href="https://www.framer.com/@akim-perminov/" target="_blank" rel="noopener noreferrer">Akim</a></span>
+                                <span>{content[langKey].footer.credits} <a style={{ paddingLeft: '2px'}} href="https://www.framer.com/@akim-perminov/" target="_blank" rel="noopener noreferrer">Akim</a></span>
+                                <span>{content[langKey].footer.developed}</span>
                             </div>
                         </div>
 

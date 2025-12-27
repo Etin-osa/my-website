@@ -9,16 +9,18 @@ import { useLenis } from 'lenis/react';
 import '@/styles/nav.scss'
 import useViewTransition from "@/hooks/useViewTransition";
 import { usePathname } from "next/navigation";
+import { content, Language } from "@/data/content";
 
 interface NavAvailabilityProps {
     count: number;
     className?: string;
     delay?: number;
+    langKey: Language;
 }
 
 interface NavSectionProps {
-    setLangKey: (lang: string) => void;
-    langKey: string;
+    setLangKey: (lang: Language) => void;
+    langKey: Language;
 }
 
 export default function NavSection({ setLangKey, langKey }: NavSectionProps) {
@@ -28,7 +30,7 @@ export default function NavSection({ setLangKey, langKey }: NavSectionProps) {
     const [isLangOpen, setIsLangOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false); 
 
-    const handleLangChange = (lang: string) => {
+    const handleLangChange = (lang: Language) => {
         setLangKey(lang);
         sessionStorage.setItem('lang', lang);
     };
@@ -36,11 +38,11 @@ export default function NavSection({ setLangKey, langKey }: NavSectionProps) {
     useEffect(() => {
         const savedLang = sessionStorage.getItem('lang');
         if (savedLang) {
-            setLangKey(savedLang);
+            setLangKey(savedLang as Language);
         } else {
             const browserLang = navigator.language.split('-')[0].toUpperCase();
             const defaultLang = ['EN', 'ES'].includes(browserLang) ? browserLang : 'EN';
-            setLangKey(defaultLang);
+            setLangKey(defaultLang as Language);
             sessionStorage.setItem('lang', defaultLang);
         }
     }, []);
@@ -61,7 +63,7 @@ export default function NavSection({ setLangKey, langKey }: NavSectionProps) {
                     >
                         <button onMouseEnter={() => prefetch("/new")} onClick={() => { routeTo("/new") }}>ETIN</button>
                     </motion.div>
-                    <NavAvailability count={2} delay={0.2} />
+                    <NavAvailability count={2} delay={0.2} langKey={langKey} />
                     <motion.div 
                         className="nav-language" 
                         onClick={() => setIsLangOpen(!isLangOpen)}
@@ -104,7 +106,7 @@ export default function NavSection({ setLangKey, langKey }: NavSectionProps) {
                                     lenis?.scrollTo('#about', { offset: -50 })
                                     setIsMenuOpen(false)
                                 }
-                            }}>About</button>
+                            }}>{content[langKey].nav.about}</button>
                         </li>
                         <li className="nav-item">
                             <button onClick={() => {
@@ -114,7 +116,7 @@ export default function NavSection({ setLangKey, langKey }: NavSectionProps) {
                                     lenis?.scrollTo('#services', { offset: -50 })
                                     setIsMenuOpen(false)
                                 }
-                            }}>Services</button>
+                            }}>{content[langKey].nav.services}</button>
                         </li>
                         <li className="nav-item">
                             <button onClick={() => {
@@ -124,14 +126,14 @@ export default function NavSection({ setLangKey, langKey }: NavSectionProps) {
                                     lenis?.scrollTo('#skills', { offset: -50 })
                                     setIsMenuOpen(false)
                                 }
-                            }}>Skills</button>
+                            }}>{content[langKey].nav.skills}</button>
                         </li>
                         <li className="nav-item">
                             <button 
                                 className="contact" 
                                 onMouseEnter={() => prefetch("/contact")} 
                                 onClick={() => { routeTo("/contact") }}
-                            >Contact</button>
+                            >{content[langKey].nav.contact}</button>
                         </li>
                     </ul>
 
@@ -159,7 +161,7 @@ export default function NavSection({ setLangKey, langKey }: NavSectionProps) {
                                     setIsMenuOpen(false)
                                 }
 
-                            }}>About</button></li>
+                            }}>{content[langKey].nav.about}</button></li>
                         <li className="nav-item">
                             <button onClick={() => {
                                 if (!isPathnameCurrent("/new")) {
@@ -168,7 +170,7 @@ export default function NavSection({ setLangKey, langKey }: NavSectionProps) {
                                     lenis?.scrollTo('#services', { offset: -50 })
                                     setIsMenuOpen(false)
                                 }
-                            }}>Services</button></li>
+                            }}>{content[langKey].nav.services}</button></li>
                         <li className="nav-item">
                             <button onClick={() => {
                                 if (!isPathnameCurrent("/new")) {
@@ -177,23 +179,23 @@ export default function NavSection({ setLangKey, langKey }: NavSectionProps) {
                                     lenis?.scrollTo('#skills', { offset: -50 })
                                     setIsMenuOpen(false)
                                 }
-                            }}>Skills</button></li>
+                            }}>{content[langKey].nav.skills}</button></li>
                         <li className="nav-item">
                             <button
                                 className="contact" 
                                 onMouseEnter={() => prefetch("/contact")} 
                                 onClick={() => { routeTo("/contact") }}
-                            >Contact</button></li>
+                            >{content[langKey].nav.contact}</button></li>
                     </ul>
-                    <NavAvailability count={7} className="mobile-availability" />
+                    <NavAvailability count={7} className="mobile-availability" langKey={langKey} />
                 </div>
             </motion.div>
         </main>
     )
 }
 
-const NavAvailability = ({ count, className = "", delay = 0 }: NavAvailabilityProps) => {
-    const currentMonth = new Date().toLocaleString('en-US', { month: 'long' });
+const NavAvailability = ({ count, className = "", delay = 0, langKey }: NavAvailabilityProps) => {
+    const currentMonth = new Date().toLocaleString(langKey === 'ES' ? 'es-ES' : 'en-US', { month: 'long' });
 
     return (
         <motion.div 
@@ -205,8 +207,8 @@ const NavAvailability = ({ count, className = "", delay = 0 }: NavAvailabilityPr
             <div className="nav-availability__inner">
                 {Array.from({ length: count }).map((_, index) => (
                     <div key={index}>
-                        <span>Open to work / </span>
-                        <span>Booking for {currentMonth} / </span>
+                        <span>{content[langKey].nav.openToWork} / </span>
+                        <span>{content[langKey].nav.bookingFor} {currentMonth} / </span>
                     </div>
                 ))}
             </div>

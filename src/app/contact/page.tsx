@@ -11,11 +11,12 @@ import Image from "next/image";
 import MotionView from "@/components/MotionView";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useState } from "react";
+import { content, Language } from "@/data/content";
 
 export default function Project() {
     const isDesktop = useMediaQuery("(min-width: 768px)");
     const [copied, setCopied] = useState(false);
-    const [langKey, setLangKey] = useState('EN');
+    const [langKey, setLangKey] = useState<Language>('EN');
 
     const handleCopy = () => {
         navigator.clipboard.writeText("enogiomwanetinosafavour@gmail.com");
@@ -33,7 +34,7 @@ export default function Project() {
                     htmlProps={{ className: "contact-title" }}
                     delay={0.2}
                 >
-                    If you would like to chat you can reach me at:
+                    {content[langKey].contact.title}
                 </MotionView>
 
                 <MotionView htmlTag="div" htmlProps={{ className: "contact-info" }} delay={0.3} isDesktop={isDesktop}>
@@ -46,7 +47,7 @@ export default function Project() {
                         </button>
                     </div>
                     <div className="contact-linkedin">
-                        or message via <a href="https://www.linkedin.com/in/etin-osa02/" target="_blank"><FaLinkedinIn /></a>
+                        {content[langKey].contact.orMessage} <a href="https://www.linkedin.com/in/etin-osa02/" target="_blank"><FaLinkedinIn /></a>
                     </div>
                 </MotionView>
 
@@ -55,19 +56,19 @@ export default function Project() {
                         <Image src="/images/noise.jpg" alt="Noise" fill />
                     </div>
                     <div className="quote-text">
-                        "My goal is simple, to resolve your company's technical bottlenecks and bring your products to market as quickly as possible. Let's work together to make it happen."
+                        {content[langKey].contact.quote}
                     </div>
                     <div className="quote-author">
                         <Image src="/images/speaker_blue.jpg" alt="Author" width={56} height={56} className="author-img" />
                         <div className="author-info">
                             <div className="author-name">Etinosa</div>
-                            <span className="author-title">Software developer</span>
+                            <span className="author-title">{content[langKey].contact.authorRole}</span>
                         </div>
                     </div>
                 </MotionView>
             </section>
 
-            <FooterSection />
+            <FooterSection langKey={langKey} />
         </main>
     )
 }
