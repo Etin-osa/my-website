@@ -25,14 +25,14 @@ import { TbBrandReactNative } from "react-icons/tb";
 import { CgSmartphoneChip } from "react-icons/cg";
 import { IoPhonePortraitOutline } from "react-icons/io5";
 import { LuCodeXml } from "react-icons/lu";
+import { motion } from "framer-motion";
 
 import '@/styles/new.scss';
 import FooterSection from "@/components/FooterSection";
 import useViewTransition from "@/hooks/useViewTransition";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import MotionView from "@/components/MotionView";
-import { motion } from "framer-motion";
-import ScrollToTopOnNavigate from "@/components/ScrollToTopOnNavigate";
+import { useLenis } from "lenis/react";
 
 const skills1 = [
     { name: "React", icon: <FaReact /> },
@@ -87,12 +87,29 @@ const projects = [
     }
 ];
 
-
 export default function Homepage() {
     const { routeTo } = useViewTransition()
+    const isDesktop = useMediaQuery("(min-width: 768px)")
+    const lenis = useLenis();
+
+    useEffect(() => {
+        const scrollToId = sessionStorage.getItem('scrollTo');
+        let timer : NodeJS.Timeout;
+
+        if (scrollToId && lenis) {
+            timer = setTimeout(() => {
+                lenis.scrollTo(`#${scrollToId}`, { offset: -50 });
+                sessionStorage.removeItem('scrollTo');
+            }, 500);
+        }
+
+        return () => {
+            clearTimeout(timer)
+        }
+    }, []);
+
     const [showTopLabel, setShowTopLabel] = useState(-1)
     const [showBottomLabel, setShowBottomLabel] = useState(-1)
-    const isDesktop = useMediaQuery("(min-width: 768px)");
 
     return (
         <main>
@@ -104,7 +121,8 @@ export default function Homepage() {
                         <MotionView 
                             isDesktop={isDesktop} 
                             htmlTag="div" 
-                            htmlProps={{className: "hero-title"}} 
+                            htmlProps={{ className: "hero-title" }} 
+                            delay={0.2}
                         >
                             <span className="gray-text">Hey. </span>
                             We
@@ -113,7 +131,7 @@ export default function Homepage() {
                                     className="hero-img-wrapper"
                                     initial={{ scale: 1.1, x: -20, opacity: 0, rotate: 4 }} 
                                     animate={{ scale: 1, x: 0, opacity: 1, rotate: 4 }} 
-                                    transition={{ type: "spring", stiffness: 100, damping: 20, mass: 1, delay: 0.05 }}
+                                    transition={{ type: "spring", stiffness: 100, damping: 20, mass: 1, delay: 0.205 }}
                                     whileHover={{ rotate: 0, scale: 1.06, transition: { duration: 0.2, ease: "easeInOut" } }} 
                                 >
                                     <Image src="/images/speaker_blue.jpg" alt="profile 1" width={45} height={45} className="hero-img" />
@@ -136,7 +154,7 @@ export default function Homepage() {
                         <MotionView 
                             htmlTag="div" 
                             isDesktop={isDesktop}
-                            delay={0.1}
+                            delay={0.3}
                         >
                             <IosButton text="Get in touch" />
                         </MotionView>
@@ -147,7 +165,7 @@ export default function Homepage() {
                             htmlTag="p" 
                             isDesktop={isDesktop} 
                             htmlProps={{className: "hero-description"}}
-                            delay={0.2}
+                            delay={0.3}
                         >
                             We work closely with clients to design and develop digital experiences that not only look stunning but also deliver measurable results.
                         </MotionView>
@@ -158,7 +176,7 @@ export default function Homepage() {
             <MotionView 
                 htmlTag="hr" 
                 isDesktop={isDesktop} 
-                delay={0.2}
+                delay={0.4}
                 viewport={{ once: true, amount: 0.3 }}
             />
 
@@ -167,7 +185,7 @@ export default function Homepage() {
                     htmlTag="div" 
                     isDesktop={isDesktop} 
                     htmlProps={{ className: "projects-header" }} 
-                    delay={0.4}
+                    delay={0.6}
                     viewport={{ once: true, amount: 0.1 }}
                 >
                     <span>Selected projects</span>
@@ -182,14 +200,9 @@ export default function Homepage() {
                             key={item.id} 
                             htmlProps={{ 
                                 className: "project-text-item", 
-                                onClick: () => routeTo('/project', { id: item.key })
+                                onClick: () => routeTo('/project', { query: { id: item.key } })
                             }} 
-                            motionProps={{
-                                initial: { opacity: 0, y: 80 }, 
-                                whileInView: { opacity: 1, y: 0 }, 
-                                transition: { type: "spring", stiffness: 80, damping: 30, mass: 1 }, 
-                                viewport: { once: true, amount: 0.4 }
-                            }}
+                            viewport={{ once: true, amount: 0.4 }}
                         >
                             <span className="project-year">{item.year}</span>
                             <h2 className="project-title">{item.name}</h2>
@@ -213,12 +226,7 @@ export default function Homepage() {
                         htmlTag="div" 
                         isDesktop={isDesktop} 
                         htmlProps={{className: "about-description"}} 
-                        motionProps={{
-                            initial: { opacity: 0, y: 80 }, 
-                            whileInView: { opacity: 1, y: 0 }, 
-                            transition: { type: "spring", stiffness: 80, damping: 30, mass: 1 }, 
-                            viewport: { once: true, amount: 0.1 }
-                        }}
+                        viewport={{ once: true, amount: 0.1 }}
                     >
                         <span className="gray-text">We’re a small team of designers passionate about creating user-focused digital solutions. </span>
                         Whether it’s a bold website or a detailed app interface, we’re here to make your ideas shine.
@@ -227,14 +235,12 @@ export default function Homepage() {
                     <MotionView 
                         htmlTag="div" 
                         isDesktop={isDesktop} 
-                        htmlProps={{className: "quote-container"}} 
-                        motionProps={{
-                            initial: { opacity: 0, y: 80 }, 
-                            whileInView: { opacity: 1, y: 0 }, 
-                            transition: { type: "spring", stiffness: 80, damping: 30, mass: 1 }, 
-                            viewport: { once: true, amount: 0.1 }
-                        }}
+                        htmlProps={{className: "quote-container"}}
+                        viewport={{ once: true, amount: 0.1 }}
                     >
+                        <div className="quote-image">
+                            <Image src="/images/noise.jpg" alt="Noise" fill />
+                        </div>
                         <div className="quote-text">
                             "Design is about solving problems with creativity. At our studio, we craft user-focused digital experiences. Leading this talented team is a privilege — and we’re passionate about meaningful design. "
                         </div>
@@ -251,7 +257,7 @@ export default function Homepage() {
 
             <MotionView htmlTag="hr" isDesktop={isDesktop} normal />
 
-            <section className="services-section">
+            <section className="services-section" id="services">
                 <MotionView htmlTag="div" isDesktop={isDesktop} normal htmlProps={{ className: "services-header" }}>
                     <span className="gray-text">[02]</span> Services
                 </MotionView>
@@ -261,12 +267,7 @@ export default function Homepage() {
                         htmlTag="div" 
                         isDesktop={isDesktop} 
                         htmlProps={{className: "services-description"}} 
-                        motionProps={{
-                            initial: { opacity: 0, y: 80 }, 
-                            whileInView: { opacity: 1, y: 0 }, 
-                            transition: { type: "spring", stiffness: 80, damping: 30, mass: 1 }, 
-                            viewport: { once: true, amount: 0.1 }
-                        }}
+                        viewport={{ once: true, amount: 0.1 }}
                     >
                         <span className="gray-text">Every service we offer is tailored to meet your unique goals,</span> ensuring a seamless blend of creativity and functionality.
                     </MotionView>
@@ -276,12 +277,7 @@ export default function Homepage() {
                             htmlTag="div" 
                             isDesktop={isDesktop} 
                             htmlProps={{ className: "service-item" }} 
-                            motionProps={{
-                                initial: { opacity: 0, y: 80 },
-                                whileInView: { opacity: 1, y: 0 },
-                                transition: { type: "spring", stiffness: 80, damping: 30, mass: 1 },
-                                viewport: { once: true, amount: 0.1 }
-                            }}
+                            viewport={{ once: true, amount: 0.1 }}
                         >
                             <div className="service-left">
                                 <div className="service-icon">
@@ -302,12 +298,7 @@ export default function Homepage() {
                             htmlTag="div" 
                             isDesktop={isDesktop} 
                             htmlProps={{className: "service-item"}} 
-                            motionProps={{
-                                initial: { opacity: 0, y: 80 }, 
-                                whileInView: { opacity: 1, y: 0 }, 
-                                transition: { type: "spring", stiffness: 80, damping: 30, mass: 1 }, 
-                                viewport: { once: true, amount: 0.1 }
-                            }}
+                            viewport={{ once: true, amount: 0.1 }}
                         >
                             <div className="service-left">
                                 <div className="service-icon">
@@ -327,12 +318,7 @@ export default function Homepage() {
                             htmlTag="div" 
                             isDesktop={isDesktop} 
                             htmlProps={{className: "service-item"}} 
-                            motionProps={{
-                                initial: { opacity: 0, y: 80 }, 
-                                whileInView: { opacity: 1, y: 0 }, 
-                                transition: { type: "spring", stiffness: 80, damping: 30, mass: 1 }, 
-                                viewport: { once: true, amount: 0.1 }
-                            }}
+                            viewport={{ once: true, amount: 0.1 }}
                         >
                             <div className="service-left">
                                 <div className="service-icon">
@@ -351,12 +337,7 @@ export default function Homepage() {
                         <MotionView 
                             htmlTag="div" isDesktop={isDesktop} 
                             htmlProps={{className: "service-item"}} 
-                            motionProps={{
-                                initial: { opacity: 0, y: 80 }, 
-                                whileInView: { opacity: 1, y: 0 }, 
-                                transition: { type: "spring", stiffness: 80, damping: 30, mass: 1 }, 
-                                viewport: { once: true, amount: 0.1 }
-                            }}
+                            viewport={{ once: true, amount: 0.1 }}
                         >
                             <div className="service-left">
                                 <div className="service-icon">
@@ -375,7 +356,7 @@ export default function Homepage() {
                 </div>
             </section>
 
-            <section className="skills-section">
+            <section className="skills-section" id="skills">
                 <MotionView normal htmlTag="div" isDesktop={isDesktop} htmlProps={{ className: "skills-header" }}>
                     <span className="gray-text">[03]</span> Skills
                 </MotionView>
@@ -384,18 +365,18 @@ export default function Homepage() {
                     <MotionView 
                         htmlTag="div" 
                         isDesktop={isDesktop} 
-                        htmlProps={{className: "skills-description"}} 
-                        motionProps={{
-                            initial: { opacity: 0, y: 80 }, 
-                            whileInView: { opacity: 1, y: 0 }, 
-                            transition: { type: "spring", stiffness: 80, damping: 30, mass: 1 }, 
-                            viewport: { once: true, amount: 0.1 }
-                        }}
+                        htmlProps={{ className: "skills-description" }} 
+                        viewport={{ once: true, amount: 0.1 }}
                     >
                         <span className="gray-text">Every service we offer is tailored to meet your unique goals,</span> ensuring a seamless blend of creativity and functionality.
                     </MotionView>
 
-                    <MotionView isDesktop={isDesktop} normal htmlTag="div" htmlProps={{ className: "skills-scroller", 'data-direction': 'left' }}>
+                    <MotionView 
+                        isDesktop={isDesktop} 
+                        normal 
+                        htmlTag="div" 
+                        htmlProps={{ className: "skills-scroller", 'data-direction': 'left' }}
+                    >
                         <div 
                             className="scroller-inner"
                             style={{
@@ -404,7 +385,7 @@ export default function Homepage() {
                         >
                             {[...skills1, ...skills1].map((skill, index) => (
                                 <div className="skill-item" key={`row1-${index}`}>
-                                    <div className="skill-tooltip">
+                                    <div className={`skill-tooltip${showTopLabel === index ? ' visible' : ''}`}>
                                         <span className="skill-name">{skill.name}</span>
                                     </div>
                                     <div 
@@ -432,7 +413,7 @@ export default function Homepage() {
                         >
                             {[...skills2, ...skills2].map((skill, index) => (
                                 <div className="skill-item" key={`row2-${index}`}>
-                                    <div className="skill-tooltip">
+                                    <div className={`skill-tooltip${showBottomLabel === index ? ' visible' : ''}`}>
                                         <span className="skill-name">{skill.name}</span>
                                     </div>
                                     <div 

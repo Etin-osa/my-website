@@ -44,19 +44,54 @@ section.contact {
             flex-direction: row;
         }
 
-        .contact-email {
-            padding: 8px 12px;
+        .email-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             background-color: var(--gray-bg);
-            color: var(--gray-text);
-            display: inline-block;
-            border-radius: 5px;
-            text-decoration: none;
-            font-family: var(--font-inter);
-            font-weight: 500;
-            font-size: 1.125rem;
+            overflow: hidden;
+            border-radius: 8px;
 
-            @include mixin.lg-screen {
-                font-size: 1.25rem;
+            .contact-email {
+                padding: 8px 12px;
+                background-color: transparent;
+                color: var(--gray-text);
+                display: inline-block;
+                text-decoration: none;
+                font-family: var(--font-inter);
+                font-weight: 500;
+                font-size: 1.125rem;
+    
+                @include mixin.lg-screen {
+                    font-size: 1.25rem;
+                    padding: 8px 2px 8px 12px;
+                }
+            }
+
+            .copy-button {
+                display: none;
+                align-items: center;
+                justify-content: center;
+                border: none;
+                cursor: pointer;
+                padding: 8px 10px;
+                color: var(--gray-text);
+                transition: all 0.2s ease;
+                font-size: 1.1rem;
+                border-left: 1px solid rgba(0, 0, 0, 0.1);
+
+                &:hover {
+                    background-color: #f0f0f0;
+                    color: var(--black-bg);
+                }
+
+                @include mixin.lg-screen {
+                    display: flex;
+                }
+
+                .copy-icon {
+                    font-size: 1.4rem;
+                }
             }
         }
         
@@ -77,57 +112,9 @@ section.contact {
         }
     }
 
-    .quote-container {
-        background-color: var(--black-bg);
-        color: #fff;
-        padding: 1.5rem;
-        border-radius: 18px;
-        display: flex;
-        flex-direction: column;
-        gap: 3rem;
-        max-width: 540px;
-
+    .quote-contact {
         @include mixin.lg-screen {
             margin-top: 2.5rem;
-        }
-
-        .quote-text {
-            font-size: 1.14rem;
-            font-family: var(--font-inter-display);
-            line-height: 1.45;
-            font-weight: 400;
-        }
-
-        .quote-author {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-
-            .author-img {
-                border-radius: 12px;
-                object-fit: cover;
-            }
-
-            .author-info {
-                display: flex;
-                flex-direction: column;
-                gap: 7px;
-                font-family: var(--font-inter);
-                font-size: 1rem;
-                
-                .author-name {
-                    font-weight: 500;
-                    background-color: var(--gray-bg-dark);
-                    padding: 7px 8px;
-                    border-radius: 4px;
-                    width: fit-content;
-                }
-
-                .author-title {
-                    color: var(--gray-text-light);
-                    margin-top: 2px;
-                }
-            }
         }
     }
 }

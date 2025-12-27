@@ -12,6 +12,7 @@ import useViewTransition from "@/hooks/useViewTransition";
 import Image from "next/image";
 import MotionView from "@/components/MotionView";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { ReactLenis } from 'lenis/react';
 
 const images: Record<string, { main: string[]; grids: { src: string; label: string }[]; visit: string }> = {
     es: {
@@ -88,6 +89,7 @@ export default function page() {
                             htmlTag="div" 
                             isDesktop={isDesktop} 
                             htmlProps={{ className: "back-button-wrapper" }}
+                            delay={0.2}
                         >
                             <button className="back-button" onClick={() => routeTo('/new')}>
                                 <span className="icon-box"><RiArrowGoBackFill /></span>
@@ -98,7 +100,7 @@ export default function page() {
                             isDesktop={isDesktop}
                             htmlTag="div"
                             htmlProps={{ className: "project-title-wrapper" }}
-                            delay={0.1}
+                            delay={0.25}
                         >
                             <h1 className="project-title">VaultPay Mobile Wallet — UX/UI Design for a Beginner-Friendly and Secure Bitcoin Wallet</h1>
                         </MotionView>
@@ -109,7 +111,7 @@ export default function page() {
                             htmlTag="p" 
                             isDesktop={isDesktop}
                             htmlProps={{ className: "project-description" }}
-                            delay={0.2}
+                            delay={0.25}
                         >
                             With the rise of cryptocurrency, VaultPay set out to create a secure, user-friendly bitcoin wallet for everyday users. The project aimed to bridge the gap between tech-savvy crypto enthusiasts and first-time users.
                         </MotionView>
@@ -119,7 +121,7 @@ export default function page() {
                                 htmlTag="div" 
                                 isDesktop={isDesktop}
                                 htmlProps={{ className: "meta-item" }}
-                                delay={0.23}
+                                delay={0.3}
                             > 
                                 <span className="meta-label">Year</span>
                                 <span className="meta-value">2024</span>
@@ -128,7 +130,7 @@ export default function page() {
                                 htmlTag="div" 
                                 isDesktop={isDesktop}
                                 htmlProps={{ className: "meta-item" }}
-                                delay={0.26}
+                                delay={0.35}
                             >
                                 <span className="meta-label">Client</span>
                                 <span className="meta-value">Repsol</span>
@@ -137,7 +139,7 @@ export default function page() {
                                 htmlTag="div" 
                                 isDesktop={isDesktop}
                                 htmlProps={{ className: "meta-item" }}
-                                delay={0.29}
+                                delay={0.4}
                             >
                                 <span className="meta-label">Website</span>
                                 <a className="meta-value link" href={images[searchParams.get('id') ?? ''].visit} target="_blank" rel="noopener noreferrer">
@@ -152,7 +154,7 @@ export default function page() {
 
             <MotionView htmlTag="section" normal isDesktop={isDesktop} htmlProps={{ className: "project-content-section" }}>
                 <div className="full-width-image">
-                    <div className="image-wrapper small">
+                    <ReactLenis className="image-wrapper small">
                         <Image 
                             src={images[searchParams.get('id') ?? ''].main[2]} 
                             alt="Project screenshot small" 
@@ -160,8 +162,8 @@ export default function page() {
                             height={800}
                             className="project-img"
                         />
-                    </div>
-                    <div className="image-wrapper medium">
+                    </ReactLenis>
+                    <ReactLenis className="image-wrapper medium">
                         <Image 
                             src={images[searchParams.get('id') ?? ''].main[1]} 
                             alt="Project screenshot medium" 
@@ -169,8 +171,8 @@ export default function page() {
                             height={1200}
                             className="project-img"
                         />
-                    </div>
-                    <div className="image-wrapper large">
+                    </ReactLenis>
+                    <ReactLenis className="image-wrapper large">
                         <Image 
                             src={images[searchParams.get('id') ?? ''].main[0]} 
                             alt="Project screenshot large" 
@@ -178,7 +180,7 @@ export default function page() {
                             height={1200}
                             className="project-img"
                         />
-                    </div>
+                    </ReactLenis>
                 </div>
 
                 <div className="text-section">

@@ -33,19 +33,25 @@ export default function useViewTransition() {
     }
 
     return { 
-        routeTo: (url: string, query?: Record<string, string | number>) => {
+        routeTo: (url: string, options?: { query?: Record<string, string | number>, scrollTo?: string }) => {
 
             if (url === pathname) {
                 return;
             }
 
-            if (query) {
+            if (options?.scrollTo) {
+                sessionStorage.setItem('scrollTo', options.scrollTo);
+            }
+
+            if (options?.query) {
                 const params = new URLSearchParams();
-                Object.entries(query).forEach(([key, value]) => params.append(key, String(value)));
+                Object.entries(options.query).forEach(([key, value]) => params.append(key, String(value)));
                 url = `${url}?${params.toString()}`;
             }
             transitionRouter.push(url, { onTransitionReady: slideInOut });
         },
-        prefetch: (url: string) => router.prefetch(url)
+        prefetch: (url: string) => router.prefetch(url),
+        router,
+        isPathnameCurrent: (url: string) => pathname === url,
     };
 }

@@ -21,7 +21,7 @@
 }
 
 @mixin no-padding-fullscreen {
-    @include custom-screen(1610) {
+    @include custom-screen(1570) {
         padding-left: 0;
         padding-right: 0;
     }

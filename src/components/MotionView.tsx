@@ -25,13 +25,15 @@ export default function MotionView({ isDesktop, children, htmlTag, motionProps, 
         if (!motionProps) {
             defaultMotionProps = {
                 initial: { opacity: 0, y: 80 }, 
-                animate: { opacity: 1, y: 0 }, 
                 transition: { type: "spring", stiffness: 80, damping: 30, mass: 1, delay }
             }
         }
 
         if (viewport) {
+            defaultMotionProps.whileInView = { opacity: 1, y: 0 }
             defaultMotionProps.viewport = viewport
+        } else {
+            defaultMotionProps.animate = { opacity: 1, y: 0 }
         }
 
         return React.createElement(motion[htmlTag], { ...htmlProps,  ...defaultMotionProps, ...motionProps }, children);

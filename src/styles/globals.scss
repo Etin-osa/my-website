@@ -80,7 +80,7 @@ hr {
         margin: 0 1.5rem;
     }
 
-    @include mixin.custom-screen(1610) {
+    @include mixin.custom-screen(1570) {
         max-width: 1560px;
         margin: 0 auto;
     }
@@ -119,8 +119,75 @@ hr {
     }
 }
 
-// Transition animation
+.quote-container {
+    color: #fff;
+    padding: 1.5rem;
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 540px;
+    position: relative;
 
+    .quote-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(15, 15, 15, 0.4);
+
+        img {
+            z-index: -1;
+        }
+    }
+
+    .quote-text {
+        position: relative;
+        z-index: 1;
+        font-size: 1.14rem;
+        font-family: var(--font-inter-display);
+        line-height: 1.45;
+        font-weight: 400;
+    }
+
+    .quote-author {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        .author-img {
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .author-info {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            font-family: var(--font-inter);
+            font-size: 1rem;
+            
+            .author-name {
+                font-weight: 500;
+                background-color: var(--gray-bg-dark);
+                padding: 7px 8px;
+                border-radius: 4px;
+                width: fit-content;
+            }
+
+            .author-title {
+                color: var(--gray-text-light);
+                margin-top: 2px;
+            }
+        }
+    }
+}
+
+// Transition animation
 ::view-transition-old(root),
 ::view-transition-new(root) {
     animation: none !important;

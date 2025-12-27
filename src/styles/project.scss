@@ -2,14 +2,15 @@
 
 .project-details-section {
     padding: 7.5rem 1rem 4rem 1rem;
+    margin: 0 auto;
+    max-width: 1560px;
     
     @include mixin.lg-screen {
         padding: 8.5rem 1.5rem 4rem 1.5rem;
     }
 
-    @include mixin.custom-screen(1200) {
-        max-width: 1560px;
-        margin: 0 auto;
+    @include mixin.custom-screen(1570) {
+        padding: 8.5rem 0 4rem 0;
     }
 
     .project-header-content {

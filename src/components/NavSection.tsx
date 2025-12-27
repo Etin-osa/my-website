@@ -1,14 +1,15 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdOutlineAccessTime } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { TfiClose } from "react-icons/tfi";
 import { motion } from "motion/react";
+import { useLenis } from 'lenis/react';
 
 import '@/styles/nav.scss'
 import useViewTransition from "@/hooks/useViewTransition";
-import ScrollToTopOnNavigate from "./ScrollToTopOnNavigate";
+import { usePathname } from "next/navigation";
 
 interface NavAvailabilityProps {
     count: number;
@@ -17,7 +18,9 @@ interface NavAvailabilityProps {
 }
 
 export default function NavSection() {
-    const { routeTo, prefetch } = useViewTransition()
+    const lenis = useLenis();
+    const pathname = usePathname()
+    const { routeTo, prefetch, isPathnameCurrent } = useViewTransition()
     const [is24Hour, setIs24Hour] = useState(true);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -29,9 +32,12 @@ export default function NavSection() {
         });
     }; 
 
+    useEffect(() => {
+        lenis?.scrollTo(0, { immediate: true });
+    }, [pathname]);
+
     return (
         <main className="nav">
-            <ScrollToTopOnNavigate />
             <nav>
                 <section className="nav-left">
                     <motion.div 
@@ -63,13 +69,34 @@ export default function NavSection() {
                 >
                     <ul className="nav-list">
                         <li className="nav-item">
-                            <button>About</button>
+                            <button onClick={() => {
+                                if (!isPathnameCurrent("/new")) {
+                                    routeTo("/new", { scrollTo: 'about' })
+                                } else {
+                                    lenis?.scrollTo('#about', { offset: -50 })
+                                    setIsMenuOpen(false)
+                                }
+                            }}>About</button>
                         </li>
                         <li className="nav-item">
-                            <button>Services</button>
+                            <button onClick={() => {
+                                if (!isPathnameCurrent("/new")) {
+                                    routeTo("/new", { scrollTo: 'services' })
+                                } else {
+                                    lenis?.scrollTo('#services', { offset: -50 })
+                                    setIsMenuOpen(false)
+                                }
+                            }}>Services</button>
                         </li>
                         <li className="nav-item">
-                            <button>Skills</button>
+                            <button onClick={() => {
+                                if (!isPathnameCurrent("/new")) {
+                                    routeTo("/new", { scrollTo: 'skills' })
+                                } else {
+                                    lenis?.scrollTo('#skills', { offset: -50 })
+                                    setIsMenuOpen(false)
+                                }
+                            }}>Skills</button>
                         </li>
                         <li className="nav-item">
                             <button 
@@ -96,13 +123,39 @@ export default function NavSection() {
                 <div className="mobile-menu">
                     <ul className="nav-list">
                         <li className="nav-item">
-                            <button>About</button></li>
+                            <button onClick={() => {
+                                if (!isPathnameCurrent("/new")) {
+                                    routeTo("/new", { scrollTo: 'about' })
+                                } else {
+                                    lenis?.scrollTo('#about', { offset: -50 })
+                                    setIsMenuOpen(false)
+                                }
+
+                            }}>About</button></li>
                         <li className="nav-item">
-                            <button>Services</button></li>
+                            <button onClick={() => {
+                                if (!isPathnameCurrent("/new")) {
+                                    routeTo("/new", { scrollTo: 'services' })
+                                } else {
+                                    lenis?.scrollTo('#services', { offset: -50 })
+                                    setIsMenuOpen(false)
+                                }
+                            }}>Services</button></li>
                         <li className="nav-item">
-                            <button>Skills</button></li>
+                            <button onClick={() => {
+                                if (!isPathnameCurrent("/new")) {
+                                    routeTo("/new", { scrollTo: 'skills' })
+                                } else {
+                                    lenis?.scrollTo('#skills', { offset: -50 })
+                                    setIsMenuOpen(false)
+                                }
+                            }}>Skills</button></li>
                         <li className="nav-item">
-                            <button>Contact</button></li>
+                            <button
+                                className="contact" 
+                                onMouseEnter={() => prefetch("/contact")} 
+                                onClick={() => { routeTo("/contact") }}
+                            >Contact</button></li>
                     </ul>
                     <NavAvailability count={7} className="mobile-availability" />
                 </div>
