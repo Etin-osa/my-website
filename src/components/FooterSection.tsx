@@ -41,7 +41,7 @@ export default function FooterSection() {
                             </div>
                             
                             <h2 className="footer-title">
-                                Let&apos;s discuss how we can make your product better!
+                                Let&apos;s discuss how we can bring your product to life!
                             </h2>
                             
                             <div className="footer-btn-wrapper">

@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
     return (
         <>
-            <ReactLenis root options={{ lerp: 0.04, duration: 2, smoothWheel: true }} />
+            <ReactLenis root options={{ lerp: 0.03, duration: 1.3, smoothWheel: true }} />
 
             <ViewTransitions>
                 <html lang="en" className={roboto.variable}>

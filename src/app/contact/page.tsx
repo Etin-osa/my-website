@@ -15,6 +15,7 @@ import { useState } from "react";
 export default function Project() {
     const isDesktop = useMediaQuery("(min-width: 768px)");
     const [copied, setCopied] = useState(false);
+    const [langKey, setLangKey] = useState('EN');
 
     const handleCopy = () => {
         navigator.clipboard.writeText("enogiomwanetinosafavour@gmail.com");
@@ -22,8 +23,8 @@ export default function Project() {
     };
 
     return (
-        <main>
-            <NavSection />
+        <main key={langKey}>
+            <NavSection setLangKey={setLangKey} langKey={langKey} />
 
             <section className="contact">
                 <MotionView 
@@ -32,7 +33,7 @@ export default function Project() {
                     htmlProps={{ className: "contact-title" }}
                     delay={0.2}
                 >
-                    If you would like to chat you can reach us at:
+                    If you would like to chat you can reach me at:
                 </MotionView>
 
                 <MotionView htmlTag="div" htmlProps={{ className: "contact-info" }} delay={0.3} isDesktop={isDesktop}>
@@ -54,13 +55,13 @@ export default function Project() {
                         <Image src="/images/noise.jpg" alt="Noise" fill />
                     </div>
                     <div className="quote-text">
-                        "Let’s collaborate! Whether it’s a new project, a partnership, or just a question, we’d love to hear from you. Reach out, and let’s create something amazing together. "
+                        "My goal is simple, to resolve your company's technical bottlenecks and bring your products to market as quickly as possible. Let's work together to make it happen."
                     </div>
                     <div className="quote-author">
                         <Image src="/images/speaker_blue.jpg" alt="Author" width={56} height={56} className="author-img" />
                         <div className="author-info">
-                            <div className="author-name">Steve Jobs</div>
-                            <span className="author-title">Co-founder, Apple</span>
+                            <div className="author-name">Etinosa</div>
+                            <span className="author-title">Software developer</span>
                         </div>
                     </div>
                 </MotionView>

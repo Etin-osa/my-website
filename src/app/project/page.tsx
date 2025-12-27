@@ -3,7 +3,7 @@
 import FooterSection from "@/components/FooterSection";
 import NavSection from "@/components/NavSection";
 import { RiArrowGoBackFill } from "react-icons/ri";
-import React from "react";
+import React, { useState } from "react";
 import { BsBoxArrowUpRight } from "react-icons/bs";
 import { useSearchParams } from "next/navigation";
 
@@ -14,7 +14,14 @@ import MotionView from "@/components/MotionView";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { ReactLenis } from 'lenis/react';
 
-const images: Record<string, { main: string[]; grids: { src: string; label: string }[]; visit: string }> = {
+interface ImageGridItem {
+    main: string[]
+    grids: { src: string; label: string }[]
+    visit: string
+    title: string
+}
+
+const images: Record<string, ImageGridItem> = {
     es: {
         main: [
             '/images/repsol_es_laptop.png',
@@ -25,9 +32,10 @@ const images: Record<string, { main: string[]; grids: { src: string; label: stri
             { src: '/images/repsol_es_old_tienda.png', label: 'Old Store' },
             { src: '/images/repsol_es_new_tienda.png', label: 'New Store' },
             { src: '/images/repsol_es_search.png', label: 'Screen with Suggestion' },
-            { src: '/images/repsol_es_404.png', label: '404 Page' },
+            { src: '/images/repsol_es_404.png', label: 'No Results Page' },
         ],
-        visit: 'https://www.repsol.es/particulares/buscador/#q=repsol&t=particulares&numberOfResults=12'
+        visit: 'https://www.repsol.es/particulares/buscador/#q=repsol&t=particulares&numberOfResults=12',
+        title: 'Repsol Search ES — Implementation of a New Search Experience for Repsol’s Spanish Website'
     },
     com: {
         main: [
@@ -38,10 +46,11 @@ const images: Record<string, { main: string[]; grids: { src: string; label: stri
         grids: [
             { src: '/images/repsol_com_old_card.png', label: 'Old Card' },
             { src: '/images/repsol_com_new_card.png', label: 'New Card' },
-            { src: '/images/repsol_com_old_mobile.png', label: 'Old Mobile 404' },
-            { src: '/images/repsol_com_new_mobile.png', label: 'New Mobile 404' },
+            { src: '/images/repsol_com_old_mobile.png', label: 'Old Mobile No Results Page' },
+            { src: '/images/repsol_com_new_mobile.png', label: 'New Mobile No Results Page' },
         ],
-        visit: 'https://www.repsol.com/es/buscador/index.cshtml#q=butano&sort=relevancy'
+        visit: 'https://www.repsol.com/es/buscador/index.cshtml#q=butano&sort=relevancy',
+        title: 'Repsol Search COM — Implementation of a New Search Experience for Repsol’s Global Website'
     },
     lubricantes: {
         main: [
@@ -55,7 +64,8 @@ const images: Record<string, { main: string[]; grids: { src: string; label: stri
             { src: '/images/repsol_lubricantes_old_card.png', label: 'Old Card' },
             { src: '/images/repsol_lubricantes_new_card.png', label: 'New Card' },
         ],
-        visit: 'https://lubricants.repsol.com/es/search-engine/#q=repsol&sort=relevancy'
+        visit: 'https://lubricants.repsol.com/es/search-engine/#q=repsol&sort=relevancy',
+        title: 'Repsol Search Lubricantes — Implementation of a New Search Experience for Lubricantes Repsol Website'
     },
     pt: {
         main: [
@@ -66,21 +76,23 @@ const images: Record<string, { main: string[]; grids: { src: string; label: stri
         grids: [
             { src: '/images/repsol_pt_old_screen.png', label: 'Old Screen' },
             { src: '/images/repsol_pt_new_screen.png', label: 'New Screen' },
-            { src: '/images/repsol_pt_old_404.png', label: 'Old 404 Page' },
-            { src: '/images/repsol_pt_new_404.png', label: 'New 404 Page' },
+            { src: '/images/repsol_pt_old_404.png', label: 'Old No Results Page' },
+            { src: '/images/repsol_pt_new_404.png', label: 'New No Results Page' },
         ],
-        visit: 'https://www.repsol.pt/particulares/buscador/#q=repsol&t=particulares'
+        visit: 'https://www.repsol.pt/particulares/buscador/#q=repsol&t=particulares',
+        title: 'Repsol Search PT — Implementation of a New Search Experience for Repsol’s Portuguese Website'
     },
 }
 
 export default function page() {
     const { routeTo } = useViewTransition()
     const searchParams = useSearchParams()
+    const [langKey, setLangKey] = useState('EN');
     const isDesktop = useMediaQuery("(min-width: 768px)");
 
     return (
-        <main>
-            <NavSection />
+        <main key={langKey}>
+            <NavSection setLangKey={setLangKey} langKey={langKey} />
 
             <section className="project-details-section">
                 <div className="project-header-content">
@@ -102,7 +114,7 @@ export default function page() {
                             htmlProps={{ className: "project-title-wrapper" }}
                             delay={0.25}
                         >
-                            <h1 className="project-title">VaultPay Mobile Wallet — UX/UI Design for a Beginner-Friendly and Secure Bitcoin Wallet</h1>
+                            <h1 className="project-title">{images[searchParams.get('id') ?? ''].title}</h1>
                         </MotionView>
                     </div>
                     
@@ -113,7 +125,7 @@ export default function page() {
                             htmlProps={{ className: "project-description" }}
                             delay={0.25}
                         >
-                            With the rise of cryptocurrency, VaultPay set out to create a secure, user-friendly bitcoin wallet for everyday users. The project aimed to bridge the gap between tech-savvy crypto enthusiasts and first-time users.
+                            I led the frontend development for the new style update on Repsol's search pages, rolling out the changes across four of their international websites which are visited by thousands of people every month.
                         </MotionView>
                         
                         <div className="project-meta">
@@ -124,7 +136,7 @@ export default function page() {
                                 delay={0.3}
                             > 
                                 <span className="meta-label">Year</span>
-                                <span className="meta-value">2024</span>
+                                <span className="meta-value">2025</span>
                             </MotionView>
                             <MotionView 
                                 htmlTag="div" 
@@ -144,7 +156,7 @@ export default function page() {
                                 <span className="meta-label">Website</span>
                                 <a className="meta-value link" href={images[searchParams.get('id') ?? ''].visit} target="_blank" rel="noopener noreferrer">
                                     <span>Visit live site </span>
-                                    <BsBoxArrowUpRight />
+                                    <BsBoxArrowUpRight style={{ transform: 'translateY(-2px)'}} />
                                 </a>
                             </MotionView>
                         </div>
@@ -186,7 +198,7 @@ export default function page() {
                 <div className="text-section">
                     <h2 className="text-title">Problem</h2>
                     <p className="text-paragraph">
-                        Cryptocurrency wallets are often complex and intimidating for new users. The challenge was to design a wallet that simplifies the experience without compromising security, making it accessible to everyone.
+                        Repsol's existing digital platforms weren't meeting the needs of thousands of daily users. As one of Europe's leading energy companies, they needed a modern UI solution that could deliver a seamless experience across their web presence.
                     </p>
                 </div>
 
@@ -211,7 +223,7 @@ export default function page() {
                 <div className="text-section">
                     <h2 className="text-title">Outcome</h2>
                     <p className="text-paragraph">
-                        The result is a clean, intuitive wallet that guides users through every step. By removing technical jargon and focusing on clear actions, we increased user confidence and adoption rates significantly.
+                        Collaborating with design team, I worked on the search pages across Repsol's international website, implementing a pixel-perfect, responsive interface with smooth animations and polished interactions.
                     </p>
                 </div>
             </MotionView>

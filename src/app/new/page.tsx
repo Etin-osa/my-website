@@ -65,7 +65,7 @@ const projects = [
         id: 1,
         name: "Repsol.ES",
         key: 'es',
-        year: "2024",
+        year: "2025",
     },
     {
         id: 2,
@@ -90,6 +90,7 @@ const projects = [
 export default function Homepage() {
     const { routeTo } = useViewTransition()
     const isDesktop = useMediaQuery("(min-width: 768px)")
+    const [langKey, setLangKey] = useState('EN');
     const lenis = useLenis();
 
     useEffect(() => {
@@ -112,8 +113,8 @@ export default function Homepage() {
     const [showBottomLabel, setShowBottomLabel] = useState(-1)
 
     return (
-        <main>
-            <NavSection />
+        <main key={langKey}>
+            <NavSection setLangKey={setLangKey} langKey={langKey} />
 
             <section className="hero-section">
                 <div className="hero-content">
@@ -125,7 +126,7 @@ export default function Homepage() {
                             delay={0.2}
                         >
                             <span className="gray-text">Hey. </span>
-                            We
+                            I
                             <span className="hero-images">
                                 <motion.span 
                                     className="hero-img-wrapper"
@@ -135,7 +136,7 @@ export default function Homepage() {
                                     whileHover={{ rotate: 0, scale: 1.06, transition: { duration: 0.2, ease: "easeInOut" } }} 
                                 >
                                     <Image src="/images/speaker_blue.jpg" alt="profile 1" width={45} height={45} className="hero-img" />
-                                    <span className="tooltip">Etin <span className="line"></span><span className="gray">Software Developer </span></span>
+                                    <span className="tooltip">Software <span className="line"></span><span className="gray"> Developer</span></span>
                                 </motion.span>
                                 <motion.span
                                     className="hero-img-wrapper"
@@ -145,10 +146,10 @@ export default function Homepage() {
                                     whileHover={{ rotate: 0, scale: 1.06, transition: { duration: 0.2, ease: "easeInOut" } }}
                                 >
                                     <Image src="/images/speaker_orange.jpg" alt="profile 2" width={45} height={45} className="hero-img" />
-                                    <span className="tooltip">Etin <span className="line"></span><span className="gray">AI Automation</span></span>
+                                    <span className="tooltip">Passion <span className="line"></span><span className="gray"> Curiosity</span></span>
                                 </motion.span>
                             </span>
-                            design meaningful experiences that connect people and ideas worldwide.
+                            partner with founders and teams to build software products that bring ambitious ideas to life.
                         </MotionView>
                         
                         <MotionView 
@@ -167,7 +168,7 @@ export default function Homepage() {
                             htmlProps={{className: "hero-description"}}
                             delay={0.3}
                         >
-                            We work closely with clients to design and develop digital experiences that not only look stunning but also deliver measurable results.
+                            Working closely with you to develop products that are both exceptionally built and designed to drive real business results.
                         </MotionView>
                     </div>
                 </div>
@@ -202,7 +203,7 @@ export default function Homepage() {
                                 className: "project-text-item", 
                                 onClick: () => routeTo('/project', { query: { id: item.key } })
                             }} 
-                            viewport={{ once: true, amount: 0.4 }}
+                            viewport={{ once: true, amount: 0.5 }}
                         >
                             <span className="project-year">{item.year}</span>
                             <h2 className="project-title">{item.name}</h2>
@@ -228,8 +229,8 @@ export default function Homepage() {
                         htmlProps={{className: "about-description"}} 
                         viewport={{ once: true, amount: 0.1 }}
                     >
-                        <span className="gray-text">We’re a small team of designers passionate about creating user-focused digital solutions. </span>
-                        Whether it’s a bold website or a detailed app interface, we’re here to make your ideas shine.
+                        <span className="gray-text">A freelance developer who has built digital experiences for some of Europe's biggest companies. </span>
+                        For the past 3+ years, I worked as a software developer at Atrace, a Barcelona-based startup.
                     </MotionView>
 
                     <MotionView 
@@ -242,13 +243,13 @@ export default function Homepage() {
                             <Image src="/images/noise.jpg" alt="Noise" fill />
                         </div>
                         <div className="quote-text">
-                            "Design is about solving problems with creativity. At our studio, we craft user-focused digital experiences. Leading this talented team is a privilege — and we’re passionate about meaningful design. "
+                            "Throughout our collaboration, Etinosa has demonstrated a high level of technical expertise in React and React Native, providing robust and efficient solutions in both web environments and mobile applications. He has actively participated in the design and implementation of modern, intuitive, and well-structured interfaces, always meeting deadlines and with a clear focus on code quality and user experience."
                         </div>
                         <div className="quote-author">
                             <Image src="/images/speaker_blue.jpg" alt="Author" width={56} height={56} className="author-img" />
                             <div className="author-info">
-                                <div className="author-name">Steve Jobs</div>
-                                <span className="author-title">Co-founder, Apple</span>
+                                <div className="author-name">Sergio García Martínez</div>
+                                <span className="author-title">Co-founder and CTO, Atrace</span>
                             </div>
                         </div>
                     </MotionView>
@@ -269,7 +270,7 @@ export default function Homepage() {
                         htmlProps={{className: "services-description"}} 
                         viewport={{ once: true, amount: 0.1 }}
                     >
-                        <span className="gray-text">Every service we offer is tailored to meet your unique goals,</span> ensuring a seamless blend of creativity and functionality.
+                        <span className="gray-text">The services I offer are tailored to meet your unique goals,</span> ensuring clean code and robust functionality.
                     </MotionView>
 
                     <div className="services-list">
@@ -286,11 +287,11 @@ export default function Homepage() {
                                 <div className="service-title">Web Development</div>
                             </div>
                             <div className="service-right">
-                                <span>Websites</span>
-                                <span>Landing Pages</span>
-                                <span>Front End</span>
-                                <span>Framer Development</span>
-                                <span>Animation</span>
+                                <span>Web Applications</span>
+                                <span>Responsive Design</span>
+                                <span>Single Page Applications</span>
+                                <span>API Integration</span>
+                                <span>Smooth Animation</span>
                             </div>
                         </MotionView>
 
@@ -309,11 +310,30 @@ export default function Homepage() {
                             <div className="service-right">
                                 <span>iOS & Android</span>
                                 <span>React Native</span>
-                                <span>Hybrid Apps</span>
-                                <span>PWA</span>
+                                <span>Mobile UI Components</span>
+                                <span>Push Notifications</span>
                             </div>
                         </MotionView>
 
+                        <MotionView 
+                            htmlTag="div" isDesktop={isDesktop} 
+                            htmlProps={{className: "service-item"}} 
+                            viewport={{ once: true, amount: 0.1 }}
+                        >
+                            <div className="service-left">
+                                <div className="service-icon">
+                                    <CgSmartphoneChip className="icon-box" />
+                                </div>
+                                <div className="service-title">Backend Development</div>
+                            </div>
+                            <div className="service-right">
+                                <span>Supabase</span>
+                                <span>Firebase</span>
+                                <span>PostgresSQL</span>
+                                <span>Node.js</span>
+                            </div>
+                        </MotionView>
+                        
                         <MotionView 
                             htmlTag="div" 
                             isDesktop={isDesktop} 
@@ -333,25 +353,6 @@ export default function Homepage() {
                                 <span>Scalability</span>
                             </div>
                         </MotionView>
-
-                        <MotionView 
-                            htmlTag="div" isDesktop={isDesktop} 
-                            htmlProps={{className: "service-item"}} 
-                            viewport={{ once: true, amount: 0.1 }}
-                        >
-                            <div className="service-left">
-                                <div className="service-icon">
-                                    <CgSmartphoneChip className="icon-box" />
-                                </div>
-                                <div className="service-title">AI Automations</div>
-                            </div>
-                            <div className="service-right">
-                                <span>Chatbots</span>
-                                <span>Workflow Automation</span>
-                                <span>Data Processing</span>
-                                <span>Custom AI Solutions</span>
-                            </div>
-                        </MotionView>
                     </div>
                 </div>
             </section>
@@ -368,7 +369,7 @@ export default function Homepage() {
                         htmlProps={{ className: "skills-description" }} 
                         viewport={{ once: true, amount: 0.1 }}
                     >
-                        <span className="gray-text">Every service we offer is tailored to meet your unique goals,</span> ensuring a seamless blend of creativity and functionality.
+                        <span className="gray-text">Years of expertise across the tools and technologies that bring great products to life</span> and a commitment to constantly evolving.
                     </MotionView>
 
                     <MotionView 

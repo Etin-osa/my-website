@@ -113,6 +113,8 @@ section.contact {
     }
 
     .quote-contact {
+        max-width: 540px;
+
         @include mixin.lg-screen {
             margin-top: 2.5rem;
         }

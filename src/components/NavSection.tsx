@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useEffect, useState } from "react";
-import { MdOutlineAccessTime } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { TfiClose } from "react-icons/tfi";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useLenis } from 'lenis/react';
 
 import '@/styles/nav.scss'
@@ -17,20 +16,34 @@ interface NavAvailabilityProps {
     delay?: number;
 }
 
-export default function NavSection() {
+interface NavSectionProps {
+    setLangKey: (lang: string) => void;
+    langKey: string;
+}
+
+export default function NavSection({ setLangKey, langKey }: NavSectionProps) {
     const lenis = useLenis();
     const pathname = usePathname()
     const { routeTo, prefetch, isPathnameCurrent } = useViewTransition()
-    const [is24Hour, setIs24Hour] = useState(true);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isLangOpen, setIsLangOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false); 
 
-    const formatTime = () => {
-        return new Date().toLocaleTimeString('en-US', {
-            hour12: !is24Hour,
-            hour: is24Hour ? '2-digit' : 'numeric',
-            minute: '2-digit'
-        });
-    }; 
+    const handleLangChange = (lang: string) => {
+        setLangKey(lang);
+        sessionStorage.setItem('lang', lang);
+    };
+
+    useEffect(() => {
+        const savedLang = sessionStorage.getItem('lang');
+        if (savedLang) {
+            setLangKey(savedLang);
+        } else {
+            const browserLang = navigator.language.split('-')[0].toUpperCase();
+            const defaultLang = ['EN', 'ES'].includes(browserLang) ? browserLang : 'EN';
+            setLangKey(defaultLang);
+            sessionStorage.setItem('lang', defaultLang);
+        }
+    }, []);
 
     useEffect(() => {
         lenis?.scrollTo(0, { immediate: true });
@@ -46,19 +59,34 @@ export default function NavSection() {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.5 }}
                     >
-                        <div onClick={(e) => {routeTo("/new")}}>ETIN</div>
+                        <button onMouseEnter={() => prefetch("/new")} onClick={() => { routeTo("/new") }}>ETIN</button>
                     </motion.div>
                     <NavAvailability count={2} delay={0.2} />
                     <motion.div 
-                        className="nav-time" 
-                        onClick={() => setIs24Hour(!is24Hour)}
-                        style={{ cursor: 'pointer' }}
+                        className="nav-language" 
+                        onClick={() => setIsLangOpen(!isLangOpen)}
+                        onMouseEnter={() => setIsLangOpen(true)}
+                        onMouseLeave={() => setIsLangOpen(false)}
+                        style={{ cursor: 'pointer', position: 'relative' }}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.5, delay: 0.4 }}
                     >
-                        <span>{formatTime()}</span>
-                        <MdOutlineAccessTime color="rgb(105, 105, 105)" />
+                        <span>{langKey}</span>
+                        <AnimatePresence>
+                            {isLangOpen && (
+                                <motion.div 
+                                    className="lang-dropdown"
+                                    initial={{ opacity: 0, y: -5 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -5 }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    <div onClick={(e) => { e.stopPropagation(); handleLangChange('EN'); setIsLangOpen(false); }}>EN</div>
+                                    <div onClick={(e) => { e.stopPropagation(); handleLangChange('ES'); setIsLangOpen(false); }}>ES</div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </motion.div>
                 </section>
                 <motion.section 

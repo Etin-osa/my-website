@@ -2,6 +2,7 @@
 
 main.nav {
     position: fixed;
+    top: 0;
     width: 100%;
     @include mixin.border-light;
     z-index: 5;
@@ -27,7 +28,7 @@ nav {
     @include mixin.no-padding-fullscreen;
 
 
-    .nav-title div {
+    .nav-title button {
         font-family: var(--font-cactus);
         font-size: 2rem;
         line-height: .7;
@@ -35,6 +36,9 @@ nav {
         color: var(--black-bg);
         cursor: pointer;
         user-select: none;
+        background: transparent;
+        border: none;
+        outline: none;
         
         @include mixin.lg-screen {
             font-size: 2.3rem;
@@ -47,16 +51,47 @@ nav {
         align-items: center;
         gap: .7rem;
 
-        .nav-time {
+        .nav-language {
             padding: .3rem .8rem;
             background-color: var(--gray-bg);
             border-radius: 4px;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: .3rem;
+            min-width: 46px;
             
             span {
-                color: var(--gray-text);
+                font-weight: 500;
+                font-size: 15px;
+            }
+
+            .lang-dropdown {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--gray-bg);
+                border-radius: 4px;
+                margin-top: 4px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                overflow: hidden;
+                z-index: 10;
+                
+                div {
+                    width: 100%;
+                    text-align: center;
+                    padding: 4px 0;
+                    font-size: 15px;
+                    cursor: pointer;
+                    transition: color 0.2s;
+
+                    &:hover {
+                        background-color: rgba(0,0,0,0.05);
+                    }
+                }
             }
         }
     }

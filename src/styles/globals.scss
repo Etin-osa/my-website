@@ -65,6 +65,16 @@
     font-family: var(--font-inter), sans-serif;
 }
 
+html {
+    scroll-behavior: auto !important;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
 ul, li {
     list-style: none;
 }
@@ -84,6 +94,12 @@ hr {
         max-width: 1560px;
         margin: 0 auto;
     }
+}
+
+button {
+    background: transparent;
+    border: none;
+    outline: none;
 }
 
 .ios-button {
@@ -127,7 +143,7 @@ hr {
     display: flex;
     flex-direction: column;
     gap: 3rem;
-    max-width: 540px;
+    max-width: 600px;
     position: relative;
 
     .quote-image {
@@ -136,7 +152,7 @@ hr {
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(15, 15, 15, 0.4);
+        background-color: rgba(15, 15, 15, 0.5);
 
         img {
             z-index: -1;
@@ -167,21 +183,18 @@ hr {
         .author-info {
             display: flex;
             flex-direction: column;
-            gap: 7px;
+            gap: 5px;
             font-family: var(--font-inter);
             font-size: 1rem;
             
             .author-name {
                 font-weight: 500;
-                background-color: var(--gray-bg-dark);
-                padding: 7px 8px;
-                border-radius: 4px;
-                width: fit-content;
             }
 
             .author-title {
                 color: var(--gray-text-light);
                 margin-top: 2px;
+                font-style: italic;
             }
         }
     }
