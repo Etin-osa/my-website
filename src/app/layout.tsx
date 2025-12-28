@@ -5,7 +5,7 @@ import { ViewTransitions } from "next-view-transitions";
 import { ReactLenis } from 'lenis/react';
 
 export const metadata: Metadata = {
-    title: "Call me ETIN",
+    title: "A Freelance Software Developer Based in Spain.",
     description: "My personal website which showcases my skills as a frontend developer",
 };
 
