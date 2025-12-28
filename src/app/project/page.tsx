@@ -3,7 +3,7 @@
 import FooterSection from "@/components/FooterSection";
 import NavSection from "@/components/NavSection";
 import { RiArrowGoBackFill } from "react-icons/ri";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { BsBoxArrowUpRight } from "react-icons/bs";
 import { useSearchParams } from "next/navigation";
 
@@ -98,13 +98,28 @@ const images: Record<string, ImageGridItem> = {
 }
 
 export default function Project() {
-    const { routeTo, router } = useViewTransition()
-    const searchParams = useSearchParams()
-    const [paramsValue, setParamsValue] = useState<ImageGridItem | null>(null)
     const [langKey, setLangKey] = useState<Language>('EN')
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
-    useEffect(() => {
+    return (
+        <main key={langKey}>
+            <NavSection setLangKey={setLangKey} langKey={langKey} />
+
+            <Suspense fallback={<></>}>
+                <ProjectView langKey={langKey} isDesktop={isDesktop} />
+            </Suspense>
+
+            <FooterSection langKey={langKey} />
+        </main>
+    )
+}
+
+const ProjectView = ({ langKey, isDesktop }: { langKey: Language, isDesktop: boolean | null }) => {
+    const { routeTo, router } = useViewTransition()
+    const searchParams = useSearchParams()
+    const [paramsValue, setParamsValue] = useState<ImageGridItem | null>(null)
+
+     useEffect(() => {
         const paramsValue = searchParams.get("id")
 
         if (paramsValue !== 'es' && paramsValue !== 'pt' && paramsValue !== 'com' && paramsValue !== 'lubricantes') {
@@ -119,9 +134,7 @@ export default function Project() {
     }
 
     return (
-        <main key={langKey}>
-            <NavSection setLangKey={setLangKey} langKey={langKey} />
-
+        <>
             <section className="project-details-section">
                 <div className="project-header-content">
                     <div className="header-left">
@@ -254,8 +267,6 @@ export default function Project() {
                     </p>
                 </div>
             </MotionView>
-
-            <FooterSection langKey={langKey} />
-        </main>
+        </>
     )
 }
