@@ -127,8 +127,8 @@ export default function Homepage() {
                             delay={0.2}
                         >
                             <span className="gray-text">{content[langKey].home.hero.greeting}</span>
-                            {content[langKey].home.hero.intro1}
-                            <span className="hero-images">
+                            {content[langKey].home.hero.intro1 + ' '}
+                            {/* <span className="hero-images">
                                 <motion.span 
                                     className="hero-img-wrapper"
                                     initial={{ scale: 1.1, x: -20, opacity: 0, rotate: 4 }} 
@@ -136,20 +136,10 @@ export default function Homepage() {
                                     transition={{ type: "spring", stiffness: 100, damping: 20, mass: 1, delay: 0.205 }}
                                     whileHover={{ rotate: 0, scale: 1.06, transition: { duration: 0.2, ease: "easeInOut" } }} 
                                 >
-                                    <Image src="/images/speaker_blue.jpg" alt="profile 1" width={45} height={45} className="hero-img" />
+                                    <Image src="/images/profile_(2).jpg" alt="profile 1" width={50} height={50} className="hero-img" />
                                     <span className="tooltip">{content[langKey].home.hero.tooltip1}<span className="line"></span><span className="gray">{content[langKey].home.hero.tooltip1Span}</span></span>
                                 </motion.span>
-                                <motion.span
-                                    className="hero-img-wrapper"
-                                    initial={{ scale: 1.1, x: -20, opacity: 0, rotate: -4 }} 
-                                    animate={{ scale: 1, x: 0, opacity: 1, rotate: -4 }} 
-                                    transition={{ type: "spring", stiffness: 100, damping: 20, mass: 1, delay: 0 }}
-                                    whileHover={{ rotate: 0, scale: 1.06, transition: { duration: 0.2, ease: "easeInOut" } }}
-                                >
-                                    <Image src="/images/speaker_orange.jpg" alt="profile 2" width={45} height={45} className="hero-img" />
-                                    <span className="tooltip">{content[langKey].home.hero.tooltip2}<span className="line"></span><span className="gray">{content[langKey].home.hero.tooltip2Span}</span></span>
-                                </motion.span>
-                            </span>
+                            </span> */}
                             {content[langKey].home.hero.intro2}
                         </MotionView>
                         
@@ -247,9 +237,11 @@ export default function Homepage() {
                             {content[langKey].home.about.quote}
                         </div>
                         <div className="quote-author">
-                            <Image src="/images/speaker_blue.jpg" alt="Author" width={56} height={56} className="author-img" />
+                            {/* <Image src="/images/speaker_blue.jpg" alt="Author" width={56} height={56} className="author-img" /> */}
                             <div className="author-info">
-                                <div className="author-name">Sergio García Martínez</div>
+                                <div className="author-name">
+                                    <a href="https://www.linkedin.com/in/addapta/" target="_blank">Sergio García Martínez</a>
+                                </div>
                                 <span className="author-title">{content[langKey].home.about.authorRole}</span>
                             </div>
                         </div>

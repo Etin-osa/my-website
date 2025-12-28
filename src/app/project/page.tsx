@@ -3,7 +3,7 @@
 import FooterSection from "@/components/FooterSection";
 import NavSection from "@/components/NavSection";
 import { RiArrowGoBackFill } from "react-icons/ri";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsBoxArrowUpRight } from "react-icons/bs";
 import { useSearchParams } from "next/navigation";
 
@@ -98,10 +98,25 @@ const images: Record<string, ImageGridItem> = {
 }
 
 export default function page() {
-    const { routeTo } = useViewTransition()
+    const { routeTo, router } = useViewTransition()
     const searchParams = useSearchParams()
-    const [langKey, setLangKey] = useState<Language>('EN');
-    const isDesktop = useMediaQuery("(min-width: 768px)");
+    const [paramsValue, setParamsValue] = useState<ImageGridItem | null>(null)
+    const [langKey, setLangKey] = useState<Language>('EN')
+    const isDesktop = useMediaQuery("(min-width: 768px)")
+
+    useEffect(() => {
+        const paramsValue = searchParams.get("id")
+
+        if (paramsValue !== 'es' && paramsValue !== 'pt' && paramsValue !== 'com' && paramsValue !== 'lubricantes') {
+            router.replace('/new')
+        } else {
+            setParamsValue(images[paramsValue])
+        }
+    }, [])
+
+    if (!paramsValue) {
+        return <></>
+    }
 
     return (
         <main key={langKey}>
@@ -127,7 +142,7 @@ export default function page() {
                             htmlProps={{ className: "project-title-wrapper" }}
                             delay={0.25}
                         >
-                            <h1 className="project-title">{images[searchParams.get('id') ?? ''].title[langKey]}</h1>
+                            <h1 className="project-title">{paramsValue?.title[langKey]}</h1>
                         </MotionView>
                     </div>
                     
@@ -167,7 +182,7 @@ export default function page() {
                                 delay={0.4}
                             >
                                 <span className="meta-label">{content[langKey].project.website}</span>
-                                <a className="meta-value link" href={images[searchParams.get('id') ?? ''].visit} target="_blank" rel="noopener noreferrer">
+                                <a className="meta-value link" href={paramsValue?.visit} target="_blank" rel="noopener noreferrer">
                                     <span>{content[langKey].project.visit}</span>
                                     <BsBoxArrowUpRight style={{ transform: 'translateY(-2px)'}} />
                                 </a>
@@ -181,7 +196,7 @@ export default function page() {
                 <div className="full-width-image">
                     <ReactLenis className="image-wrapper small">
                         <Image 
-                            src={images[searchParams.get('id') ?? ''].main[2]} 
+                            src={paramsValue?.main[2] ?? ''} 
                             alt="Project screenshot small" 
                             width={400} 
                             height={800}
@@ -190,7 +205,7 @@ export default function page() {
                     </ReactLenis>
                     <ReactLenis className="image-wrapper medium">
                         <Image 
-                            src={images[searchParams.get('id') ?? ''].main[1]} 
+                            src={paramsValue?.main[1] ?? ''} 
                             alt="Project screenshot medium" 
                             width={800} 
                             height={1200}
@@ -199,7 +214,7 @@ export default function page() {
                     </ReactLenis>
                     <ReactLenis className="image-wrapper large">
                         <Image 
-                            src={images[searchParams.get('id') ?? ''].main[0]} 
+                            src={paramsValue?.main[0] ?? ''} 
                             alt="Project screenshot large" 
                             width={1600} 
                             height={1200}
@@ -217,7 +232,7 @@ export default function page() {
 
                 <div className="image-grid-section">
                     <div className="image-grid">
-                        {images[searchParams.get('id') ?? ''].grids.map((item, index) => (
+                        {paramsValue?.grids.map((item, index) => (
                             <div className="grid-image-item" key={index}>
                                 <div className="image-wrapper">
                                     <Image 

@@ -61,7 +61,7 @@ export default function NavSection({ setLangKey, langKey }: NavSectionProps) {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.5 }}
                     >
-                        <button onMouseEnter={() => prefetch("/new")} onClick={() => { routeTo("/new") }}>ETIN</button>
+                        <button onMouseEnter={() => prefetch("/new")} onClick={() => routeTo("/new")}>ETIN</button>
                     </motion.div>
                     <NavAvailability count={2} delay={0.2} langKey={langKey} />
                     <motion.div 

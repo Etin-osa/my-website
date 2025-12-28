@@ -59,7 +59,7 @@ export default function Project() {
                         {content[langKey].contact.quote}
                     </div>
                     <div className="quote-author">
-                        <Image src="/images/speaker_blue.jpg" alt="Author" width={56} height={56} className="author-img" />
+                        {/* <Image src="/images/speaker_blue.jpg" alt="Author" width={56} height={56} className="author-img" /> */}
                         <div className="author-info">
                             <div className="author-name">Etinosa</div>
                             <span className="author-title">{content[langKey].contact.authorRole}</span>

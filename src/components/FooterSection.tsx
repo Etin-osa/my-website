@@ -20,7 +20,7 @@ export default function FooterSection({ langKey }: { langKey: Language }) {
                         <MagneticDotsBackground />
 
                         <div className="footer-cta-cover">
-                            <div className="footer-images">
+                            {/* <div className="footer-images">
                                 <div className="footer-img-wrapper">
                                     <Image 
                                         src="/images/speaker_blue.jpg" 
@@ -39,7 +39,7 @@ export default function FooterSection({ langKey }: { langKey: Language }) {
                                         className="footer-img" 
                                     />
                                 </div>
-                            </div>
+                            </div> */}
                             
                             <h2 className="footer-title">
                                 {content[langKey].footer.title}
@@ -54,11 +54,11 @@ export default function FooterSection({ langKey }: { langKey: Language }) {
                     <div className="footer-bottom-container">
                         <div className="footer-bottom">
                             <div className="footer-social">
-                                {content[langKey].footer.follow} <span className="icon-box"><FaTwitter /></span> {content[langKey].footer.touch} <span className="icon-box"><FaLinkedinIn /></span>
+                                {content[langKey].footer.follow} <a className="icon-box" href="https://x.com/Etin_osa02" target="_blank"><FaTwitter /></a> {content[langKey].footer.touch} <a className="icon-box" href="https://www.linkedin.com/in/etin-osa02/" target="_blank" ><FaLinkedinIn /></a>
                             </div>
                             <div className="footer-credits">
-                                <span>{content[langKey].footer.credits} <a style={{ paddingLeft: '2px'}} href="https://www.framer.com/@akim-perminov/" target="_blank" rel="noopener noreferrer">Akim</a></span>
-                                <span>{content[langKey].footer.developed}</span>
+                                <span>{content[langKey].footer.credits} </span>
+                                <span>{content[langKey].footer.design} <a style={{ paddingLeft: '2px'}} href="https://www.framer.com/@akim-perminov/" target="_blank" rel="noopener noreferrer">Akim</a></span>
                             </div>
                         </div>
 

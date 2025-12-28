@@ -15,8 +15,6 @@ export const content = {
                 intro2: "partner with founders and teams to build software products that bring ambitious ideas to life.",
                 tooltip1: "Software ",
                 tooltip1Span: " Developer",
-                tooltip2: "Passion ",
-                tooltip2Span: " Curiosity",
                 cta: "Get in touch",
                 description: "Working closely with you to develop products that are both exceptionally built and designed to drive real business results."
             },
@@ -54,8 +52,8 @@ export const content = {
             },
             skills: {
                 header: "Skills",
-                description1: "Years of expertise across the tools and technologies that bring great products to life",
-                description2: " and a commitment to constantly evolving."
+                description1: "Years of expertise across the tools and technologies",
+                description2: " that bring great products to life and a commitment to constantly evolving."
             }
         },
         project: {
@@ -79,8 +77,8 @@ export const content = {
             cta: "Get in touch",
             follow: "Follow me on ",
             touch: " or get in touch on ",
-            credits: "© CopyRight 2025. Design by ",
-            developed: "Developed by me",
+            credits: "© CopyRight 2025. ",
+            design: "Designed by ",
         },
         contact: {
             title: "If you would like to chat you can reach me at:",
@@ -104,9 +102,7 @@ export const content = {
                 intro1: "Me",
                 intro2: "asocio con fundadores y equipos para construir productos de software que dan vida a ideas ambiciosas.",
                 tooltip1: "Desarrollador ",
-                tooltip1Span: " de Software",
-                tooltip2: "Pasión ",
-                tooltip2Span: " Curiosidad",
+                tooltip1Span: " Software",
                 cta: "Ponte en contacto",
                 description: "Trabajando estrechamente contigo para desarrollar productos excepcionalmente construidos y diseñados para impulsar resultados comerciales reales."
             },
@@ -144,8 +140,8 @@ export const content = {
             },
             skills: {
                 header: "Habilidades",
-                description1: "Años de experiencia en las herramientas y tecnologías que dan vida a grandes productos",
-                description2: " y un compromiso con la evolución constante."
+                description1: "Años de experiencia en las herramientas y tecnologías",
+                description2: " que dan vida a grandes productosy un compromiso con la evolución constante."
             }
         },
         project: {
@@ -169,8 +165,8 @@ export const content = {
             cta: "Ponte en contacto",
             follow: "Sígueme en ",
             touch: " o contáctame en ",
-            credits: "© CopyRight 2025. Diseñado por ",
-            developed: "Desarrollado por mí",
+            credits: "© CopyRight 2025",
+            design: "Diseñado por ",
         },
         contact: {
             title: "Si deseas charlar, puedes contactarme en:",

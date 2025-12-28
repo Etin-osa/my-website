@@ -66,95 +66,96 @@
             }
         }
 
-        .hero-images {
-            display: inline-flex;
-            align-items: center;
-            margin: 0 0.5rem;
-            vertical-align: middle;
-            height: 45px;
+        // .hero-images {
+        //     display: inline-flex;
+        //     align-items: center;
+        //     margin: 0 0.5rem 0 1.1rem;
+        //     vertical-align: middle;
+        //     height: 45px;
 
-            @include mixin.md-screen {
-                margin: 0 0.75rem;
-            }
+        //     @include mixin.md-screen {
+        //         margin: 0 0.75rem 0 1.5rem;
+        //     }
             
-            .hero-img-wrapper {
-                position: relative;
-                display: inline-block;
-                font-family: var(--font-inter);
-                letter-spacing: 0;
+        //     .hero-img-wrapper {
+        //         position: relative;
+        //         display: block;
+        //         font-family: var(--font-inter);
+        //         letter-spacing: 0;
                 
-                &:first-child {
-                    transform: rotate(4deg);
-                }
+        //         &:first-child {
+        //             transform: rotate(4deg);
+        //         }
                 
-                &:last-child {
-                    transform: rotate(-4deg);
-                    margin-left: -10px;
-                    z-index: 3;
-                }
+        //         &:last-child {
+        //             transform: rotate(-4deg);
+        //             margin-left: -10px;
+        //             z-index: 3;
+        //         }
                 
-                &:hover { 
-                    .tooltip {
-                        opacity: 1;
-                        transform: translate(-50%, -10px) scale(1);
-                    }
-                }
+        //         &:hover { 
+        //             .tooltip {
+        //                 opacity: 1;
+        //                 transform: translate(-50%, -10px) scale(1);
+        //             }
+        //         }
 
-                .hero-img {
-                    border-radius: 12px;
-                    object-fit: cover;
-                    border: 2px solid white;
-                    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-                    filter: grayscale(100%);
-                    display: block;
-                    cursor: pointer;
-
-                    @include mixin.md-screen {
-                        width: 50px;
-                        height: 50px;
-                    }
-
-                    @include mixin.custom-screen(1200) {
-                        width: 60px;
-                        height: 60px;
-                    }
-                }
-
-                .tooltip {
-                    position: absolute;
-                    bottom: 100%;
-                    left: 50%;
-                    transform: translate(-50%, -10px) scale(.6);
-                    background: black;
-                    color: white;
-                    padding: 6px 10px;
-                    border-radius: 6px;
-                    font-size: 1.2rem;
-                    white-space: nowrap;
-                    opacity: 0;
-                    pointer-events: none;
-                    transition: all 0.1s ease;
-                    font-family: var(--font-roboto), sans-serif;
-                    font-weight: normal;
-                    line-height: 1;
-                    display: flex;
-                    align-items: center;
+                
+        //         .hero-img {
+        //             position: relative;
+        //             border-radius: 12px;
+        //             border: 2px solid white;
+        //             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        //             filter: grayscale(100%);
+        //             cursor: pointer;
+        //             object-fit: cover;
                     
-                    .gray {
-                        color: var(--gray-light);
-                        margin-left: 4px;
-                    }
+        //             @include mixin.md-screen {
+        //                 width: 60px;
+        //                 height: 60px;
+        //             }
+    
+        //             @include mixin.custom-screen(1200) {
+        //                 width: 75px;
+        //                 height: 75px;
+        //             }
+        //         }
 
-                    .line {
-                        display: block;
-                        width: 20px;
-                        height: 2px;
-                        background: var(--gray-light);
-                        margin: 0 6px;
-                    }
-                }
-            }
-        }
+        //         .tooltip {
+        //             position: absolute;
+        //             bottom: 100%;
+        //             left: 50%;
+        //             transform: translate(-50%, -10px) scale(.6);
+        //             background: black;
+        //             color: white;
+        //             padding: 6px 10px;
+        //             border-radius: 6px;
+        //             font-size: 1.2rem;
+        //             white-space: nowrap;
+        //             opacity: 0;
+        //             pointer-events: none;
+        //             transition: all 0.1s ease;
+        //             font-family: var(--font-roboto), sans-serif;
+        //             font-weight: normal;
+        //             line-height: 1;
+        //             display: flex;
+        //             align-items: center;
+                    
+        //             .gray {
+        //                 color: var(--gray-light);
+        //                 margin-left: 4px;
+        //             }
+
+        //             .line {
+        //                 display: block;
+        //                 width: 20px;
+        //                 height: 2px;
+        //                 background: var(--gray-light);
+        //                 margin: 0 6px;
+        //             }
+        //         }
+        //     }
+        // }
     }
 
     .hero-footer {
@@ -253,6 +254,7 @@
                 white-space: nowrap;
                 text-align: center;
                 transform: translateX(-3px);
+                user-select: none;
 
                 @include mixin.md-screen {
                     transform: translateX(0);    

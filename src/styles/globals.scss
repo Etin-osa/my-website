@@ -102,6 +102,11 @@ button {
     outline: none;
 }
 
+button, a, div, span {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 .ios-button {
     display: inline-flex;
     align-items: center;
@@ -118,7 +123,7 @@ button {
     width: fit-content;
     gap: .5rem;
 
-    &:hover {
+    &:hover, &:focus, &:active {
         opacity: 0.8;
         transform: scale(1.04);
     }
@@ -189,6 +194,17 @@ button {
             
             .author-name {
                 font-weight: 500;
+
+                a {
+                    color: #fff;
+                    text-decoration: none;
+                    opacity: 1;
+                    transition: all 0.3s ease;
+
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                }
             }
 
             .author-title {
@@ -197,6 +213,46 @@ button {
                 font-style: italic;
             }
         }
+    }
+}
+
+.not-found-container {
+    padding: 260px 16px 220px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+
+    @include mixin.lg-screen {
+        padding: 320px 16px 270px 16px;
+    }
+
+    h2 {
+        font-size: 2.25rem;
+        font-family: var(--font-inter-display);
+        font-weight: 500;
+        text-align: center;
+        letter-spacing: -0.075rem;
+        line-height: 1.1;
+
+        @include mixin.lg-screen {
+            font-size: 2.75rem;
+        }
+    }
+
+    button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--black-bg);
+        color: #fff;
+        border: none;
+        padding: 12px 18px;
+        border-radius: 50px;
+        font-size: 1rem;
+        cursor: pointer;
+        gap: .5rem;
     }
 }
 
@@ -220,7 +276,6 @@ button {
     z-index: 1000;
     animation: none !important;
 }
-
 ::view-transition-old(root) {
     z-index: 1000;
     animation: none !important;
