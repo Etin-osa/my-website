@@ -97,7 +97,7 @@ const images: Record<string, ImageGridItem> = {
     },
 }
 
-export default function page() {
+export default function Project() {
     const { routeTo, router } = useViewTransition()
     const searchParams = useSearchParams()
     const [paramsValue, setParamsValue] = useState<ImageGridItem | null>(null)

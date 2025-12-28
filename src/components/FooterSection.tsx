@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import IosButton from "./IosButton";
 import { FaTwitter, FaLinkedinIn } from "react-icons/fa";
 import MagneticDotsBackground from "./MagneticDotsBackground";
@@ -63,7 +62,7 @@ export default function FooterSection({ langKey }: { langKey: Language }) {
                         </div>
 
                         <div className="footer-big-text">
-                            <div><h1>Let's</h1></div>
+                            <div><h1>Let&rsquo;s</h1></div>
                             <div><h1>Work</h1></div>
                         </div>
                     </div>

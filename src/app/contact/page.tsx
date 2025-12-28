@@ -13,7 +13,7 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useState } from "react";
 import { content, Language } from "@/data/content";
 
-export default function Project() {
+export default function Contact() {
     const isDesktop = useMediaQuery("(min-width: 768px)");
     const [copied, setCopied] = useState(false);
     const [langKey, setLangKey] = useState<Language>('EN');

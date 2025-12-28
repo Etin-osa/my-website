@@ -26,7 +26,7 @@ export default function MagneticDotsBackground() {
 
         let animationFrameId: number;
         let dots: Dot[] = [];
-        let mouse = { x: -1000, y: -1000 }; // Start off-screen
+        const mouse = { x: -1000, y: -1000 }; // Start off-screen
         
         // Configuration
         const spacing = 15; // Space between dots

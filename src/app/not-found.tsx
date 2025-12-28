@@ -18,7 +18,7 @@ export default function NotFound() {
             <NavSection setLangKey={setLangKey} langKey={langKey} />
 
             <section className="not-found-container">
-                <h2>404 - This page doesn't exist</h2>
+                <h2>404 - This page doesn&rsquo;t exist</h2>
                 <motion.button 
                     initial={{ opacity: 0, y: 80 }}
                     animate={{ opacity: 1, y: 0 }}
