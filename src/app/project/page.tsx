@@ -108,7 +108,7 @@ export default function page() {
         const paramsValue = searchParams.get("id")
 
         if (paramsValue !== 'es' && paramsValue !== 'pt' && paramsValue !== 'com' && paramsValue !== 'lubricantes') {
-            router.replace('/new')
+            router.replace('/')
         } else {
             setParamsValue(images[paramsValue])
         }
@@ -131,7 +131,7 @@ export default function page() {
                             htmlProps={{ className: "back-button-wrapper" }}
                             delay={0.2}
                         >
-                            <button className="back-button" onClick={() => routeTo('/new')}>
+                            <button className="back-button" onClick={() => routeTo('/')}>
                                 <span className="icon-box"><RiArrowGoBackFill /></span>
                                 <span>{content[langKey].project.back}</span>
                             </button>

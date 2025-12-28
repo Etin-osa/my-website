@@ -61,7 +61,7 @@ export default function NavSection({ setLangKey, langKey }: NavSectionProps) {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.5 }}
                     >
-                        <button onMouseEnter={() => prefetch("/new")} onClick={() => routeTo("/new")}>ETIN</button>
+                        <button onMouseEnter={() => prefetch("/")} onClick={() => routeTo("/")}>ETIN</button>
                     </motion.div>
                     <NavAvailability count={2} delay={0.2} langKey={langKey} />
                     <motion.div 
@@ -100,8 +100,8 @@ export default function NavSection({ setLangKey, langKey }: NavSectionProps) {
                     <ul className="nav-list">
                         <li className="nav-item">
                             <button onClick={() => {
-                                if (!isPathnameCurrent("/new")) {
-                                    routeTo("/new", { scrollTo: 'about' })
+                                if (!isPathnameCurrent("/")) {
+                                    routeTo("/", { scrollTo: 'about' })
                                 } else {
                                     lenis?.scrollTo('#about', { offset: -50 })
                                     setIsMenuOpen(false)
@@ -110,8 +110,8 @@ export default function NavSection({ setLangKey, langKey }: NavSectionProps) {
                         </li>
                         <li className="nav-item">
                             <button onClick={() => {
-                                if (!isPathnameCurrent("/new")) {
-                                    routeTo("/new", { scrollTo: 'services' })
+                                if (!isPathnameCurrent("/")) {
+                                    routeTo("/", { scrollTo: 'services' })
                                 } else {
                                     lenis?.scrollTo('#services', { offset: -50 })
                                     setIsMenuOpen(false)
@@ -120,8 +120,8 @@ export default function NavSection({ setLangKey, langKey }: NavSectionProps) {
                         </li>
                         <li className="nav-item">
                             <button onClick={() => {
-                                if (!isPathnameCurrent("/new")) {
-                                    routeTo("/new", { scrollTo: 'skills' })
+                                if (!isPathnameCurrent("/")) {
+                                    routeTo("/", { scrollTo: 'skills' })
                                 } else {
                                     lenis?.scrollTo('#skills', { offset: -50 })
                                     setIsMenuOpen(false)
@@ -154,8 +154,8 @@ export default function NavSection({ setLangKey, langKey }: NavSectionProps) {
                     <ul className="nav-list">
                         <li className="nav-item">
                             <button onClick={() => {
-                                if (!isPathnameCurrent("/new")) {
-                                    routeTo("/new", { scrollTo: 'about' })
+                                if (!isPathnameCurrent("/")) {
+                                    routeTo("/", { scrollTo: 'about' })
                                 } else {
                                     lenis?.scrollTo('#about', { offset: -50 })
                                     setIsMenuOpen(false)
@@ -164,8 +164,8 @@ export default function NavSection({ setLangKey, langKey }: NavSectionProps) {
                             }}>{content[langKey].nav.about}</button></li>
                         <li className="nav-item">
                             <button onClick={() => {
-                                if (!isPathnameCurrent("/new")) {
-                                    routeTo("/new", { scrollTo: 'services' })
+                                if (!isPathnameCurrent("/")) {
+                                    routeTo("/", { scrollTo: 'services' })
                                 } else {
                                     lenis?.scrollTo('#services', { offset: -50 })
                                     setIsMenuOpen(false)
@@ -173,8 +173,8 @@ export default function NavSection({ setLangKey, langKey }: NavSectionProps) {
                             }}>{content[langKey].nav.services}</button></li>
                         <li className="nav-item">
                             <button onClick={() => {
-                                if (!isPathnameCurrent("/new")) {
-                                    routeTo("/new", { scrollTo: 'skills' })
+                                if (!isPathnameCurrent("/")) {
+                                    routeTo("/", { scrollTo: 'skills' })
                                 } else {
                                     lenis?.scrollTo('#skills', { offset: -50 })
                                     setIsMenuOpen(false)

@@ -24,7 +24,7 @@ export default function NotFound() {
                     animate={{ opacity: 1, y: 0 }}
                     whileHover={{ opacity: 0.8, scale: 1.06, transition: { duration: 0.3, ease: "easeInOut" } }}
                     transition={{ duration: .4, delay: 0.2, ease: [0.44, 0, 0.56, 1] }}
-                    onClick={() => routeTo('/new')}
+                    onClick={() => routeTo('/')}
                 >
                     <span>Back to homepage</span>
                     <span><RiArrowGoBackFill style={{ transform: 'translateY(2px)'}} /></span>
