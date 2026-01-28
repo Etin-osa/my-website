@@ -2,16 +2,6 @@
 
 import React, { useEffect, useRef } from 'react';
 
-/**
- * MagneticDotsBackground Component
- * 
- * This component renders a canvas with a grid of dots that react to mouse movement.
- * Features:
- * - Grid layout of dots
- * - Magnetic effect: dots are pulled towards the mouse cursor
- * - Proximity lighting: dots brighten when the cursor is near
- * - Smooth animation using linear interpolation (lerp)
- */
 export default function MagneticDotsBackground() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -26,16 +16,14 @@ export default function MagneticDotsBackground() {
 
         let animationFrameId: number;
         let dots: Dot[] = [];
-        const mouse = { x: -1000, y: -1000 }; // Start off-screen
+        const mouse = { x: -1000, y: -1000 };
         
-        // Configuration
-        const spacing = 15; // Space between dots
-        const radius = 200; // Interaction radius
-        const pullStrength = 0.12; // How strongly the mouse pulls the dots (0-1)
+        const spacing = 15;
+        const radius = 200;
+        const pullStrength = 0.12;
         const dotSize = 1.5;
         const baseColor = 'rgba(255, 255, 255, 0.06)';
 
-        // Dot Class to manage individual dot state
         class Dot {
             x: number;
             y: number;
@@ -52,7 +40,6 @@ export default function MagneticDotsBackground() {
             }
 
             update() {
-                // Calculate distance and angle to mouse
                 const dx = mouse.x - this.originX;
                 const dy = mouse.y - this.originY;
                 const distance = Math.sqrt(dx * dx + dy * dy);
@@ -60,27 +47,21 @@ export default function MagneticDotsBackground() {
                 let targetX = this.originX;
                 let targetY = this.originY;
 
-                // Interaction logic
                 if (distance < radius) {
-                    // Calculate pull factor (0 at radius, 1 at center)
                     const factor = (radius - distance) / radius;
                     
-                    // Pull dot towards mouse
-                    // The closer the mouse, the stronger the pull
                     const pull = factor * pullStrength * 100;
                     const angle = Math.atan2(dy, dx);
                     
                     targetX = this.originX + Math.cos(angle) * pull;
                     targetY = this.originY + Math.sin(angle) * pull;
 
-                    // Let's use opacity interpolation for a nice glow.
-                    const opacity = 0.06 + (0.65 * factor); // 0.1 to 0.75
+                    const opacity = 0.06 + (0.65 * factor);
                     this.color = `rgba(255, 255, 255, ${opacity})`;
                 } else {
                     this.color = baseColor;
                 }
 
-                // Smooth movement (Linear Interpolation)
                 this.x += (targetX - this.x) * 0.1;
                 this.y += (targetY - this.y) * 0.1;
             }
@@ -93,11 +74,9 @@ export default function MagneticDotsBackground() {
             }
         }
 
-        // Resize handler
         const handleResize = () => {
             const rect = container.getBoundingClientRect();
 
-            // Set canvas size to match container (accounting for pixel ratio for sharpness)
             const dpr = window.devicePixelRatio || 1;
             canvas.width = rect.width * dpr;
             canvas.height = rect.height * dpr;
@@ -106,7 +85,6 @@ export default function MagneticDotsBackground() {
             
             ctx.scale(dpr, dpr);
             
-            // Re-initialize dots on resize
             dots = [];
             for (let x = 0; x < rect.width; x += spacing) {
                 for (let y = 0; y < rect.height; y += spacing) {
@@ -115,7 +93,6 @@ export default function MagneticDotsBackground() {
             }
         };
 
-        // Mouse move handler
         const handleMouseMove = (e: MouseEvent) => {
             const rect = canvas.getBoundingClientRect();
             mouse.x = e.clientX - rect.left;
@@ -127,7 +104,6 @@ export default function MagneticDotsBackground() {
             mouse.y = -1000;
         };
 
-        // Animation loop
         const animate = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
@@ -146,7 +122,6 @@ export default function MagneticDotsBackground() {
         
         animate();
 
-        // Cleanup
         return () => {
             window.removeEventListener('resize', handleResize);
             container.removeEventListener('mousemove', handleMouseMove);
@@ -166,7 +141,7 @@ export default function MagneticDotsBackground() {
                 height: '100%', 
                 zIndex: 0,
                 overflow: 'hidden',
-                borderRadius: 'inherit' // Inherit border radius from parent
+                borderRadius: 'inherit'
             }}
         >
             <canvas 
