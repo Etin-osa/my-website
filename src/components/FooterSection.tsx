@@ -1,6 +1,6 @@
 import React from "react";
 import IosButton from "./IosButton";
-import { FaTwitter, FaLinkedinIn } from "react-icons/fa";
+import { FaLinkedinIn, FaInstagram } from "react-icons/fa";
 import MagneticDotsBackground from "./MagneticDotsBackground";
 
 import "@/styles/footer.scss";
@@ -53,7 +53,7 @@ export default function FooterSection({ langKey }: { langKey: Language }) {
                     <div className="footer-bottom-container">
                         <div className="footer-bottom">
                             <div className="footer-social">
-                                {content[langKey].footer.touch} <a className="icon-box" href="https://www.linkedin.com/in/etin-osa02/" target="_blank" ><FaLinkedinIn /></a>
+                                {content[langKey].footer.follow} <a className="icon-box" href="https://www.instagram.com/etin_osa02?igsh=MTZtY210b2NhM2Ji" target="_blank"><FaInstagram /></a> {content[langKey].footer.touch} <a className="icon-box" href="https://www.linkedin.com/in/etin-osa02/" target="_blank" ><FaLinkedinIn /></a>
                             </div>
                             <div className="footer-credits">
                                 <span>{content[langKey].footer.credits} </span>

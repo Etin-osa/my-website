@@ -110,7 +110,7 @@
         }
 
         .footer-bottom-container {
-            max-width: 1560px;
+            max-width: 1605px;
             margin: 0 auto;
         }
 
@@ -123,14 +123,19 @@
             font-size: 1rem;
             color: rgba(255, 255, 255, 0.6);
 
-            @include mixin.lg-screen {
+            @include mixin.md-screen {
                 flex-direction: row;
                 justify-content: space-between;
-                align-items: flex-end;
+                align-items: center;
+            }
+
+            @include mixin.lg-screen {
                 padding: 4rem 1.5rem 0 1.5rem;
             }
 
-            @include mixin.no-padding-fullscreen;
+            // @include mixin.custom-screen(1700){
+            //     padding: 4rem 0 0 0;
+            // }
 
             .footer-social {
                 display: flex;
@@ -139,6 +144,7 @@
                 flex-wrap: wrap;
                 font-size: 1.125rem;
                 color: #d6d6d6;
+                flex: 1.2;
 
                 .icon-box {
                     display: inline-flex;
@@ -168,14 +174,18 @@
             .footer-credits {
                 display: flex;
                 flex-direction: column;
-                gap: 1.5rem;
+                gap: 1rem;
                 color: var(--gray-text);
                 font-size: 1.125rem;
+                flex: 1;
 
-                @include mixin.lg-screen {
-                    text-align: right;
+                @include mixin.md-screen {
                     align-items: flex-end;
                     flex-direction: row;
+                    justify-content: flex-end;
+                }
+                
+                @include mixin.lg-screen {
                     gap: 4rem;
                 }
 
