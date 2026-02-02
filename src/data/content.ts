@@ -75,8 +75,7 @@ export const content = {
         footer: {
             title: "Let's discuss how we can bring your product to life!",
             cta: "Get in touch",
-            follow: "Follow me on ",
-            touch: " or get in touch on ",
+            touch: " Get in touch on ",
             credits: "© CopyRight 2025. ",
             design: "Designed by ",
         },
@@ -163,8 +162,7 @@ export const content = {
         footer: {
             title: "¡Hablemos de cómo dar vida a tu producto!",
             cta: "Ponte en contacto",
-            follow: "Sígueme en ",
-            touch: " o contáctame en ",
+            touch: "Contáctame en ",
             credits: "© CopyRight 2025",
             design: "Diseñado por ",
         },
